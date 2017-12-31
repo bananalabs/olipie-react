@@ -2,16 +2,18 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import './index.css';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import {appReducer} from './reducers';
+import { BrowserRouter } from 'react-router-dom';
+import configureStore from './store';
+import 'raf/polyfill';
 
-const store = createStore(appReducer);
+const store = configureStore({});
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );

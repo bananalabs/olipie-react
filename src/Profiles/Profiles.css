@@ -1,0 +1,14 @@
+.container {
+    margin-top: 10%;
+}
+
+.icons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.avatar {
+    float: left;
+    padding-right: 20px;
+}
