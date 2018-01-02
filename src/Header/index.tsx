@@ -1,6 +1,7 @@
 import * as React from 'react';
 import AppBar from 'material-ui/AppBar';
 import Nav from '../Nav';
+import { User } from '../Nav';
 import { Mode } from './constants';
 import Avatar from '../Avatar';
 import Search from '../Search';
@@ -33,13 +34,17 @@ export class Header extends React.Component<Props, State> {
   }
 
   render() {
+    const users: User[] = [
+      {name: 'Nayan', color: 'blue'},
+      {name: 'Pranav', color: 'red'}
+    ];
     switch (this.props.mode) {
       case Mode.Default:
         return(
           <AppBar
             title="Olipie"
             showMenuIconButton={false}
-            iconElementRight={<Nav/>}
+            iconElementRight={<Nav users={users}/>}
           />
         );
       case Mode.Watch:
@@ -49,10 +54,9 @@ export class Header extends React.Component<Props, State> {
             showMenuIconButton={false}
             iconElementRight={
               <Avatar
-                color={'white'}
-                backgroundColor={'red'}
+                name={'Nayan'}
+                color={'red'}
                 small={true}
-                letter={'A'}
               />
             }
           >

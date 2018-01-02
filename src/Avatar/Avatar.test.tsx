@@ -10,9 +10,7 @@ let icon: ShallowWrapper;
 
 beforeEach(() => {
   props = {
-    letter: 'A',
-    color: 'white',
-    backgroundColor: 'red',
+    color: 'red',
     small: true,
     name: 'ABCD'
   }
@@ -35,13 +33,14 @@ test('renders an icon with class avatar', () => {
     expect((wrapper).hasClass('avatar')).toEqual(true);
 });
 
-test('renders an icon with provided color, backgroundColor', () => {
-    expect(icon.props()).toHaveProperty('color', props.color);
-    expect(icon.props()).toHaveProperty('backgroundColor', props.backgroundColor);
+test('renders an icon with provided backgroundColor', () => {
+    expect(icon.props()).toHaveProperty(
+           'backgroundColor', props.color);
 });
 
-test('renders an icon with provided letter', () => {
-    expect(wrapper.find(MAvatar).children().text()).toEqual(props.letter);
+test('renders an icon with first letter of name', () => {
+    expect(wrapper.find(MAvatar).children().text()).toEqual(
+           props.name.charAt(0).toUpperCase());
 });
 
 test('renders name if small=false', () => {

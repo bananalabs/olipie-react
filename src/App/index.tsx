@@ -6,7 +6,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from '../Header';
 import { Mode } from './constants';
 // import Profiles from '../Profiles';
-import Videos from '../Videos';
+// import Videos from '../Videos';
+// import Settings from '../Settings';
+import Edit from '../Profiles/Edit';
 
 export interface Props {
   // app?: AppState;
@@ -33,14 +35,14 @@ class App extends React.Component<Props, {}> {
         <Route path='/editor/:projectId' component={Editor} />
         <Route path='/mapper' component={Mapper} />
       </Switch>; */
-    const videos = ['2g811Eo7K8U', '2g811Eo7K8U', '2g811Eo7K8U',
+    /* const videos = ['2g811Eo7K8U', '2g811Eo7K8U', '2g811Eo7K8U',
                     '2g811Eo7K8U', '2g811Eo7K8U', '2g811Eo7K8U',
-                    '2g811Eo7K8U', '2g811Eo7K8U'];
+                    '2g811Eo7K8U', '2g811Eo7K8U']; */
     return(
       <MuiThemeProvider>
         <div>
           <Header mode={Mode.Default}/>
-          <Videos videos={videos}/>
+          <Edit/>
         </div>
       </MuiThemeProvider>
     );

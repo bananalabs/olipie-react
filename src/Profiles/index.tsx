@@ -18,9 +18,7 @@ export class Profiles extends React.Component<Props, {}> {
     return users.map((user: User) => {
       const props: AvatarProps = {
         name: user.name,
-        letter: user.name.split('')[0],
-        backgroundColor: user.color,
-        color: 'white',
+        color: user.color,
         small: false
       };
       return <div key={user.name} className="avatar"><Avatar {...props}/></div>;
@@ -29,9 +27,8 @@ export class Profiles extends React.Component<Props, {}> {
 
   renderPlus() {
     const props: AvatarProps = {
-      letter: '+',
-      backgroundColor: 'gray',
-      color: 'white',
+      name: '+',
+      color: 'gray',
       small: false
     };
     return <div key={'plus'} className="avatar"><Avatar {...props}/></div>;

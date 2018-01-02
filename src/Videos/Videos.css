@@ -6,19 +6,25 @@
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
-.flag {
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-wrap: nowrap;
-    -ms-flex-wrap: nowrap;
-    flex-wrap: nowrap;
-    -ms-flex-pack: end;
-    justify-content: flex-end;
-    left: 32px;
-    right: 32px;
-    bottom: 0;
-    z-index: 59;
+.monitor {
+    background-color:#F5F5F5;
+    height: 40px;
+    margin-top: -5px;
+}
+
+.name {
     position: absolute;
-    text-shadow: 0 0 2px rgba(0,0,0,.5);
+    text-align: left;
+    padding-left: 5px;
+    margin-top: 10px;
+    font-family: sans-serif;
+    color: #808080;
+}
+
+.flag {
+    position: absolute;
+    margin-top: 2px;
+    padding-left: 18%;
+    font-family: sans-serif;
+    color: #808080;
 }

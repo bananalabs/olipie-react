@@ -1,25 +1,25 @@
 import * as React from 'react';
 import MAvatar  from 'material-ui/Avatar';
 import './Avatar.css';
+import { white } from 'material-ui/styles/colors';
 
 export interface Props {
-    letter: string;
-    name?: string;
+    name: string;
     color: string;
-    backgroundColor: string;
     small: boolean;
 }
 
 // eslint-disable-next-line
 const Avatar: React.SFC<Props> = (props: Props) => {
+    const letter = props.name.charAt(0).toUpperCase();
     return (
-        <div className="avatar" id={`${props.letter}-${props.color}`}>
+        <div className="avatar" id={`${letter}-${props.color}`}>
             <MAvatar
-                color={props.color}
-                backgroundColor={props.backgroundColor}
+                color={white}
+                backgroundColor={props.color}
                 size={props.small ? 40 : 120}
             >
-            {props.letter}
+            {letter}
             </MAvatar>
             <p className="name">{!props.small && props.name}</p>
         </div>
