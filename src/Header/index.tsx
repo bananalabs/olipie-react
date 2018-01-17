@@ -2,9 +2,12 @@ import * as React from 'react';
 import AppBar from 'material-ui/AppBar';
 import Nav from '../Nav';
 import { User } from '../Nav';
-import { Mode } from './constants';
+import { Mode } from '../App/constants';
 import Avatar from '../Avatar';
 import Search from '../Search';
+import { AppState, selectMode } from '../App/model';
+import { connect } from 'react-redux';
+import { createStructuredSelector }  from 'reselect';
 
 export interface Props {
   mode: Mode;
@@ -40,6 +43,7 @@ export class Header extends React.Component<Props, State> {
     ];
     switch (this.props.mode) {
       case Mode.Default:
+      case Mode.NewUser:
         return(
           <AppBar
             title="Olipie"
@@ -57,6 +61,7 @@ export class Header extends React.Component<Props, State> {
                 name={'Nayan'}
                 color={'red'}
                 small={true}
+                showName={false}
               />
             }
           >
@@ -81,4 +86,8 @@ export class Header extends React.Component<Props, State> {
   }
 }
 
-export default Header;
+const mapStateToProps = (state: AppState): Props => createStructuredSelector({
+  mode: selectMode()
+}) as any;
+
+export default connect(mapStateToProps)(Header);

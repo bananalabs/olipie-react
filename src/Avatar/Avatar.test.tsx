@@ -12,7 +12,8 @@ beforeEach(() => {
   props = {
     color: 'red',
     small: true,
-    name: 'ABCD'
+    name: 'ABCD',
+    showName: false
   }
   wrapper = shallow(<Avatar {...props} />);  
   icon = wrapper.find(MAvatar);
@@ -43,15 +44,15 @@ test('renders an icon with first letter of name', () => {
            props.name.charAt(0).toUpperCase());
 });
 
-test('renders name if small=false', () => {
-    props.small = false;
+test('renders name if showName=true', () => {
+    props.showName = true;
     wrapper = shallow(<Avatar {...props} />);  
     icon = wrapper.find(MAvatar);
     expect(wrapper.contains(<p className="name">{props.name}</p>)).toEqual(true);
 });
 
-test('does not render name if small=true', () => {
-    props.small = true;
+test('does not render name if showName=false', () => {
+    props.showName = false;
     wrapper = shallow(<Avatar {...props} />);  
     icon = wrapper.find(MAvatar);
     expect(wrapper.contains(<p>{props.name}</p>)).toEqual(false);

@@ -1,99 +1,66 @@
 import * as React from 'react';
-import TextField from 'material-ui/TextField';
-import './Settings.css';
-import RaisedButton from 'material-ui/RaisedButton';
-import Checkbox from 'material-ui/Checkbox';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import { AppState, selectMode, selectAccount } from '../App/model';
+import { Mode } from '../App/constants';
+import { setMode } from '../App/actions';
+import { connect } from 'react-redux';
+import { createStructuredSelector }  from 'reselect';
+import General from './General';
+import { setFilter, updateFilter } from './actions';
+import { selectFilter } from './model';
+import { addUser } from '../User/actions';
+import { User } from '../User/model';
 
 export interface Props {
-    title: string;
-    filter: (keywords: string) => void;
+  mode: Mode;
+  accountId: string;
+  filter: string;
+  dispatch: (action: any) => void;
 }
 
-export interface State {
-    addProfile: boolean;
+export class Settings extends React.Component<Props, {}> {
+
+  constructor(props: Props) {
+    super(props);
+    this._setFilter = this._setFilter.bind(this);
+    this._addProfile = this._addProfile.bind(this);
+    this._done = this._done.bind(this);
+  }
+
+  _setFilter(keywords: string): void {
+    this.props.mode === Mode.NewUser ?
+    this.props.dispatch(setFilter(this.props.accountId, keywords)) :
+    this.props.dispatch(updateFilter(this.props.accountId, keywords));
+  }
+
+  _addProfile(profile: {name: string; profileColor: string; kid: boolean}): void {
+    const user: User = { ...profile, ...{ admin: false, id: '' } };
+    this.props.dispatch(addUser(this.props.accountId, user));
+  }
+
+  _done() {
+    this.props.dispatch(setMode(Mode.Default));
+  }
+
+  render() {
+    const title = this.props.mode === Mode.NewUser ?
+                  'Lets get Started' :
+                  'Edit Settings';
+    return (
+        <General
+         title={title}
+         filter={this.props.filter}
+         setFilter={this._setFilter} 
+         addProfile={this._addProfile}
+         done={this._done}
+        />
+    );
+  }
 }
 
-export class Settings extends React.Component<Props, State> {
+const mapStateToProps = (state: AppState): Props => createStructuredSelector({
+  mode: selectMode(),
+  accountId: selectAccount(),
+  filter: selectFilter()
+}) as any;
 
-    constructor(props: Props) {
-        super(props);
-        this._filter = this._filter.bind(this);
-        this.state = {
-            addProfile: true
-        };
-    }
-
-    _filter(event: any) {
-        this.props.filter(event.target.value);
-    }
-
-    render() {
-        return(
-            <div className="container">
-                <h2 className="title">{this.props.title}</h2>
-                <br/>
-                <h4 className="caption">
-                    Enter words to exclude from your child's search results
-                </h4>
-                <TextField
-                 hintText="kill guns sexy poop"
-                 onChange={this._filter}
-                />
-                {
-                    this.state.addProfile ?
-                    <div className="profile">
-                        <h4 className="caption">Add Profile</h4>
-                        <TextField
-                         hintText="Name"
-                        />
-                        <br/>
-                        <SelectField
-                         style={{textAlign: 'left'}}
-                         floatingLabelText="Profile Color"
-                        >
-                         <MenuItem value={'red'} primaryText={'red'}/>
-                         <MenuItem value={'blue'} primaryText={'blue'}/>
-                         <MenuItem value={'green'} primaryText={'green'}/>
-                         <MenuItem value={'pink'} primaryText={'pink'}/>
-                         <MenuItem value={'yellow'} primaryText={'yellow'}/>
-                         <MenuItem value={'gray'} primaryText={'gray'}/>
-                         <MenuItem value={'purple'} primaryText={'purple'}/>
-                         <MenuItem value={'orange'} primaryText={'orange'}/>
-                        </SelectField>
-                        <br/>
-                        <br/>
-                        <Checkbox
-                         label="Kid?"
-                         className="check"
-                         defaultChecked={true}
-                        />
-                        <br/>
-                        <div>
-                            <RaisedButton 
-                             label="Add Another Profile"
-                             primary={true}
-                             className="button"
-                            />
-                            <RaisedButton
-                             label="Done"
-                             primary={true}
-                             className="button"
-                            />
-                        </div>
-                    </div> :
-                    <div className="profile">
-                        <h4 className="caption">
-                            Would you like to add a profile?
-                        </h4>
-                        <RaisedButton label="Add Profile" primary={true}/>
-                    </div>
-                }
-
-            </div>
-        );
-    }
-}
-
-export default Settings;
+export default connect(mapStateToProps)(Settings);

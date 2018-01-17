@@ -7,6 +7,7 @@ export interface Props {
     name: string;
     color: string;
     small: boolean;
+    showName: boolean;
 }
 
 // eslint-disable-next-line
@@ -21,7 +22,7 @@ const Avatar: React.SFC<Props> = (props: Props) => {
             >
             {letter}
             </MAvatar>
-            <p className="name">{!props.small && props.name}</p>
+            <p className="name">{props.showName && props.name}</p>
         </div>
     );
 };

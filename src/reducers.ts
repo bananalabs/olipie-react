@@ -4,13 +4,13 @@
  */
 
 import { combineReducers, ReducersMapObject } from 'redux';
-// import appReducer from './containers/App/reducer';
+import appReducer from './App/reducer';
 
 /**
  * Creates the main reducer with the asynchronously loaded ones
  */
 export default function createReducer(asyncReducers: ReducersMapObject) {
   return combineReducers(Object.assign({}, asyncReducers, {
-    // app: appReducer
+    app: appReducer
   }));
 }

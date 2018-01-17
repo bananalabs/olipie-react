@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import Profiles from '.';
+import { Profiles } from '.';
 import Avatar from '../Avatar';
-import { User } from '.';
+import { User } from '../User/model';
 // import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // import { ReactElement } from 'react';
 
@@ -15,8 +15,8 @@ export const MuiMountWithContext = (node: ReactElement<any>) => mount(node, {
 
 test('renders Avatars for user profiles', () => {
     const users = [
-        { name: 'U1', color: 'red' } ,
-        { name: 'U2', color: 'green' }
+        { id: '1', name: 'U1', profileColor: 'red', kid: true, admin: false },
+        { id: '2', name: 'U2', profileColor: 'green', kid: true, admin: false }
     ];
     const wrapper = shallow(<Profiles users={users}/>); 
     expect(wrapper.find(Avatar)).toHaveLength(3);
@@ -24,7 +24,7 @@ test('renders Avatars for user profiles', () => {
 
 test('renders Avatars with the right name, color', () => {
     const users = [
-        { name: 'U1', color: 'purple' }
+        { id: '1', name: 'U1', profileColor: 'purple', kid: true, admin:false }
     ];
     const wrapper = shallow(<Profiles users={users}/>); 
     const avatar = wrapper.find(Avatar).get(0);
