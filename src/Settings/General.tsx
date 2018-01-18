@@ -69,7 +69,7 @@ export class GeneralSettings extends React.Component<Props, State> {
                 />
                 {
                     this.state.addProfile ?
-                    <AddUser addUser={this._addProfile}/> :
+                    <AddUser addUser={this._addProfile} showTitle={true}/> :
                     <div className="profile">
                         <RaisedButton
                          label="Add Profile"

@@ -13,7 +13,8 @@ beforeEach(() => {
     color: 'red',
     small: true,
     name: 'ABCD',
-    showName: false
+    showName: false,
+    addUser: (user) => {}
   }
   wrapper = shallow(<Avatar {...props} />);  
   icon = wrapper.find(MAvatar);

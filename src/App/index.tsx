@@ -35,6 +35,7 @@ export class App extends React.Component<Props, {}> {
     this.props.dispatch(setAccount('e822b031-b60e-4f30-859f-ad5ca6cec2d6'));
     this.props.dispatch(getUsers('e822b031-b60e-4f30-859f-ad5ca6cec2d6'));
     // no - go to login page
+    // once user signs in, create account, add admin user to account
     // '08a61300-d083-49e6-9bb4-ac8438259dfc'
   }
 

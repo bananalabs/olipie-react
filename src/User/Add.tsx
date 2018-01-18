@@ -6,6 +6,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
 export interface Props {
+    showTitle: boolean;
     addUser: (user: object) => void;
 }
 
@@ -49,7 +50,7 @@ export class AddUser extends React.Component<Props, State> {
     render() {
         return(
             <div className="profile">
-                <h4 className="caption">Add Profile</h4>
+                {this.props.showTitle && <h4 className="caption">Add Profile</h4>}
                     <TextField
                      value={this.state.name}
                      onChange={this._onNameChange}

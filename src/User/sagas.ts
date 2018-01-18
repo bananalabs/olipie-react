@@ -17,6 +17,7 @@ export function* getUsers(action: {type: string, accountId: string}) {
 
 export function* addUser(action: {type: string, user: User}) {
   try {
+    delete action.user.id;
     const user = yield call(fetch.post, url, action.user);
     yield put(addUserSuccess(user));
   } catch (err) {

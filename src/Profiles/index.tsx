@@ -4,14 +4,22 @@ import { Props as AvatarProps } from '../Avatar';
 import './Profiles.css';
 import { connect } from 'react-redux';
 import { User, selectUsers } from '../User/model';
+import { addUser } from '../User/actions';
 import { createStructuredSelector }  from 'reselect';
-import { AppState } from '../App/model';
+import { AppState, selectAccount } from '../App/model';
 
 export interface Props {
+    accountId: string;
     users: User[];
+    dispatch: (action: any) => void;
 }
 
 export class Profiles extends React.Component<Props, {}> {
+
+  constructor(props: Props) {
+    super(props);
+    this._addUser = this._addUser.bind(this);
+  }
 
   renderUsers(users: User[]) {
     return users.map((user: User) => {
@@ -19,10 +27,15 @@ export class Profiles extends React.Component<Props, {}> {
         name: user.name,
         color: user.profileColor,
         small: false,
-        showName: true
+        showName: true,
+        addUser: this._addUser
       };
       return <div key={user.name} className="avatar"><Avatar {...props}/></div>;
     });
+  }
+
+  _addUser(user: User) {
+    this.props.dispatch(addUser(this.props.accountId, user));
   }
 
   renderPlus() {
@@ -30,7 +43,8 @@ export class Profiles extends React.Component<Props, {}> {
       name: '+',
       color: 'gray',
       small: false,
-      showName: false
+      showName: false,
+      addUser: this._addUser
     };
     return <div key={'plus'} className="avatar"><Avatar {...props}/></div>;
   }
@@ -48,6 +62,7 @@ export class Profiles extends React.Component<Props, {}> {
 }
 
 const mapStateToProps = (state: AppState): Props => createStructuredSelector({
+  accountId: selectAccount(),
   users: selectUsers()
 }) as any;
 
