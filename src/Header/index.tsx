@@ -6,10 +6,11 @@ import { Mode } from '../App/constants';
 import Avatar from '../Avatar';
 import Search from '../Search';
 import { AppState, selectMode, selectCurrentUser } from '../App/model';
-import { setMode } from '../App/actions';
 import { connect } from 'react-redux';
 import { createStructuredSelector }  from 'reselect';
 import { getVideos } from '../Search/actions';
+import { getVideos as getHistory } from '../Videos/actions';
+import './Header.css';
 
 export interface Props {
   mode: Mode;
@@ -36,6 +37,7 @@ export class Header extends React.Component<Props, State> {
     this._onSearch = this._onSearch.bind(this);
     this._onTitleClick = this._onTitleClick.bind(this);
     this._onMonitorClick = this._onMonitorClick.bind(this);
+    this._onAvatarClick = this._onAvatarClick.bind(this);
   }
 
   _onSearch(val: string): void {
@@ -43,11 +45,15 @@ export class Header extends React.Component<Props, State> {
   }
 
   _onTitleClick(event: object): void {
-    (this.context).router.push('/');
+    this.props.history.push('/');
   }
 
   _onMonitorClick(): void {
-    this.props.dispatch(setMode(Mode.Monitor));
+    console.log('');
+  }
+
+  _onAvatarClick(user: User): void {
+    this.props.dispatch(getHistory(user));
   }
 
   render() {
@@ -60,7 +66,7 @@ export class Header extends React.Component<Props, State> {
       case Mode.NewUser:
         return(
           <AppBar
-            title="Olipie"
+            title={<a href="/" className="title">Olipie</a>}
             onTitleTouchTap={this._onTitleClick}
             showMenuIconButton={false}
             iconElementRight={<Nav users={users} onMonitor={this._onMonitorClick}/>}
@@ -69,7 +75,7 @@ export class Header extends React.Component<Props, State> {
       case Mode.Watch:
         return (
           <AppBar
-            title="Olipie"
+            title={<a href="/" className="title">Olipie</a>}
             onTitleTouchTap={this._onTitleClick}
             showMenuIconButton={false}
             iconElementRight={
@@ -77,6 +83,7 @@ export class Header extends React.Component<Props, State> {
                 user={this.props.user}
                 small={true}
                 showName={false}
+                onClick={this._onAvatarClick}
               />
             }
           >

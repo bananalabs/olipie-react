@@ -11,7 +11,7 @@ export interface Props {
     small: boolean;
     showName: boolean;
     addUser?: (user: {}) => void;
-    watch?: (user: {}) => void;
+    onClick?: (user: {}) => void;
 }
 
 export interface State {
@@ -47,7 +47,7 @@ export class Avatar extends React.Component<Props, State> {
 
     _onClick() {
         this.props.addUser ? this._openDialog() :
-        this.props.watch ? this.props.watch(this.props.user || {}) :
+        this.props.onClick ? this.props.onClick(this.props.user || {}) :
         console.log('Missing callback for onClick');
     }
       

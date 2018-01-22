@@ -30,7 +30,9 @@ export class Nav extends React.Component<Props, {}> {
     return (
         <div>
             <IconButton tooltip="Monitor" onClick={this.props.onMonitor}>
-                <MonitorIcon color={white}/>
+                <a href="/monitor">
+                    <MonitorIcon color={white}/>
+                </a>
             </IconButton>
             <IconMenu
                 autoWidth={true}

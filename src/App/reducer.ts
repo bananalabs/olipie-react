@@ -6,7 +6,7 @@ import videosReducer from '../Videos/reducer';
 import { User } from '../User/model';
 
 export const initialState: AppState = {
-    mode: Mode.NewUser,
+    mode: Mode.Default,
     account: '',
     users: [],
     videos: [],

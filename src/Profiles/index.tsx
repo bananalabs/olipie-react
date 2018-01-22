@@ -41,7 +41,7 @@ export class Profiles extends React.Component<Props, {}> {
         user: user,
         small: false,
         showName: true,
-        watch: this._watch
+        onClick: this._watch
       };
       return <div key={user.name} className="avatar"><Avatar {...props}/></div>;
     });

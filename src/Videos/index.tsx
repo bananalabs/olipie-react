@@ -41,7 +41,7 @@ class Videos extends React.Component<any, any> {
                 opts={opts}
                 onReady={self._onReady}
                 onPlay={() => {
-                  this.props.onPlay({id: video.id, flagged: false})}
+                  this.props.onPlay({ id: video.id, flagged: false }); }
                 }
             />
             {this.props.flag &&

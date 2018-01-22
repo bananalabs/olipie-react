@@ -5,7 +5,7 @@ import { createStructuredSelector }  from 'reselect';
 import Videos from '../Videos';
 import { selectVideos, Video } from '../Videos/model';
 import { selectCurrentUser } from '../App/model';
-import { addVideoToHistory } from '../Videos/actions';
+import { addVideoToHistory, getVideos } from '../Videos/actions';
 import { User } from '../User/model';
 
 export interface Props {
@@ -19,6 +19,7 @@ export class Watch extends React.Component<Props, {}> {
   constructor(props: Props) {
     super(props);
     this._onPlay = this._onPlay.bind(this);
+    this.props.dispatch(getVideos(this.props.user));
   }
 
   _onPlay(video: Video) {
