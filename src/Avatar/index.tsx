@@ -4,21 +4,20 @@ import Dialog from 'material-ui/Dialog';
 import './Avatar.css';
 import { white } from 'material-ui/styles/colors';
 import AddUser from '../User/Add';
+import { User } from '../User/model';
 
 export interface Props {
-    name: string;
-    color: string;
+    user?: User;
     small: boolean;
     showName: boolean;
     addUser?: (user: {}) => void;
+    watch?: (user: {}) => void;
 }
 
 export interface State {
     showDialog: boolean;
 }
 
-// eslint-disable-next-line
-// const Avatar: React.SFC<Props> = (props: Props) => {
 export class Avatar extends React.Component<Props, State> {
 
     constructor(props: Props) {
@@ -29,6 +28,7 @@ export class Avatar extends React.Component<Props, State> {
         this._openDialog = this._openDialog.bind(this);
         this._closeDialog = this._closeDialog.bind(this);
         this._addUser = this._addUser.bind(this);
+        this._onClick = this._onClick.bind(this);
     }
 
     _openDialog() {
@@ -44,21 +44,34 @@ export class Avatar extends React.Component<Props, State> {
         const addUser = this.props.addUser as (user: {}) => void;
         addUser(user);
     }
+
+    _onClick() {
+        this.props.addUser ? this._openDialog() :
+        this.props.watch ? this.props.watch(this.props.user || {}) :
+        console.log('Missing callback for onClick');
+    }
       
     render() {
-        const letter = this.props.name.charAt(0).toUpperCase();
+        const letter = this.props.user ?
+                       this.props.user.name.charAt(0).toUpperCase() :
+                       '+';
+        const color = this.props.user ?
+                      this.props.user.profileColor :
+                      'gray';
         return (
             <div>
-                <div className="avatar" id={`${letter}-${this.props.color}`}>
+                <div className="avatar" id={`${letter}-${color}`}>
                     <MAvatar
                         color={white}
-                        backgroundColor={this.props.color}
+                        backgroundColor={color}
                         size={this.props.small ? 40 : 120}
-                        onClick={this._openDialog}
+                        onClick={this._onClick}
                     >
                     {letter}
                     </MAvatar>
-                    <p className="name">{this.props.showName && this.props.name}</p>
+                    <p className="name">
+                        {this.props.showName && this.props.user && this.props.user.name}
+                    </p>
                 </div>
                 <Dialog
                   title="Add User"
@@ -72,6 +85,6 @@ export class Avatar extends React.Component<Props, State> {
             </div>
         );
     }
-};
+}
 
 export default Avatar;

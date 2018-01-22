@@ -32,15 +32,15 @@ export class AddUser extends React.Component<Props, State> {
     }
 
     _onNameChange(event: any) {
-        this.setState({name: event.target.value})
+        this.setState({name: event.target.value});
     }
 
     _onProfileColorChange(event: any, index: number, value: string) {
-        this.setState({profileColor: value})
+        this.setState({profileColor: value});
     }
 
     _onKidChange(event: any) {
-        this.setState({kid: !this.state.kid})
+        this.setState({kid: !this.state.kid});
     }
 
     _addUser(event: object) {

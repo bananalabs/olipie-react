@@ -5,15 +5,12 @@ import YouTube from 'react-youtube';
 import FlatButton from 'material-ui/FlatButton';
 import FlagIcon from 'material-ui/svg-icons/av/not-interested';
 import { fullWhite } from 'material-ui/styles/colors';
-
-/* https://www.googleapis.com/youtube/v3/search?q=surfing
-                                                &maxResults=25
-                                                &part=snippet
-                                                &key='AIzaSyAuaxL8IrHIvVIdqpiLRaHCFBCIS8zWP8A'/ */
+import { Video } from './model';
 
 export interface Props {
-  videos: string[];
-  flag?: (video: string) => void;
+  videos: Video[];
+  flag?: (video: Video) => void;
+  onPlay?: (video: Video) => void;
 }
 
 class Videos extends React.Component<any, any> {
@@ -36,18 +33,20 @@ class Videos extends React.Component<any, any> {
     const self = this;
     const videos = this.props.videos;
     const opts = {width: '100%', height: '50%', playsinline: false};
-    return videos.map((video: string, index: number) => {
+    return videos.map((video: Video, index: number) => {
       return (
-          <div key={video}>
+          <div key={video.id}>
             <YouTube
-                videoId={video}
+                videoId={video.id}
                 opts={opts}
                 onReady={self._onReady}
+                onPlay={() => {
+                  this.props.onPlay({id: video.id, flagged: false})}
+                }
             />
-            <div className="monitor">
-                <span className="name">Cat Falling</span>
-                { this.props.flag && 
-                  <span className="flag" id={video}>
+            {this.props.flag &&
+              <div className="monitor">
+                  <span className="flag" id={video.id}>
                     <FlatButton
                         backgroundColor="rgb(0, 188, 212)"
                         hoverColor="red"
@@ -55,8 +54,8 @@ class Videos extends React.Component<any, any> {
                         onClick={self._flag}
                     />
                   </span>
-                }
-            </div>
+              </div>
+            }
           </div>
       );
     });

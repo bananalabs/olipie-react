@@ -1,4 +1,5 @@
-import { SET_MODE, SET_ACCOUNT, Mode } from './constants';
+import { SET_MODE, SET_ACCOUNT, SET_USER, Mode } from './constants';
+import { User } from '../User/model';
 
 /**
  * Set account id of logged in user
@@ -21,5 +22,17 @@ export function setMode(mode: Mode): {type: string, mode: Mode} {
       type: SET_MODE,
       mode
     };
+}
+
+/*
+ * Set current user
+ *
+ * @return {object}    An action object with a type of SET_USER
+ */
+export function setUser(user: User): {type: string, user: User} {
+  return {
+    type: SET_USER,
+    user
+  };
 }
   

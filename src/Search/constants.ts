@@ -1,0 +1,1 @@
+export const GET_VIDEOS = 'olipie/Search/GET_VIDEOS';

@@ -7,11 +7,14 @@ import { User, selectUsers } from '../User/model';
 import { addUser } from '../User/actions';
 import { createStructuredSelector }  from 'reselect';
 import { AppState, selectAccount } from '../App/model';
+import { setMode, setUser } from '../App/actions';
+import { Mode } from '../App/constants';
 
 export interface Props {
     accountId: string;
     users: User[];
     dispatch: (action: any) => void;
+    history: any;
 }
 
 export class Profiles extends React.Component<Props, {}> {
@@ -19,29 +22,33 @@ export class Profiles extends React.Component<Props, {}> {
   constructor(props: Props) {
     super(props);
     this._addUser = this._addUser.bind(this);
-  }
-
-  renderUsers(users: User[]) {
-    return users.map((user: User) => {
-      const props: AvatarProps = {
-        name: user.name,
-        color: user.profileColor,
-        small: false,
-        showName: true,
-        addUser: this._addUser
-      };
-      return <div key={user.name} className="avatar"><Avatar {...props}/></div>;
-    });
+    this._watch = this._watch.bind(this);
   }
 
   _addUser(user: User) {
     this.props.dispatch(addUser(this.props.accountId, user));
   }
 
+  _watch(user: User) {
+    this.props.dispatch(setMode(Mode.Watch));
+    this.props.dispatch(setUser(user));
+    this.props.history.push('/watch');
+  }
+
+  renderUsers(users: User[]) {
+    return users.map((user: User) => {
+      const props: AvatarProps = {
+        user: user,
+        small: false,
+        showName: true,
+        watch: this._watch
+      };
+      return <div key={user.name} className="avatar"><Avatar {...props}/></div>;
+    });
+  }
+
   renderPlus() {
     const props: AvatarProps = {
-      name: '+',
-      color: 'gray',
       small: false,
       showName: false,
       addUser: this._addUser

@@ -78,13 +78,13 @@ test('Reducer should handle the getUsersSuccess action correctly', () => {
   });
 
 test('addUser saga should invoke fetch.post and dispatch success action', () => {
-    const gen = addUserSaga({type: ADD_USER, user: {} as User});
-    expect(gen.next().value).toEqual(call(fetch.post, url, {}));
-    expect(gen.next({data: {}}).value).toEqual(put({type: ADD_USER_SUCCESS, user: {}}));
+    const gen = addUserSaga({type: ADD_USER, accountId: '1', user: {} as User});
+    expect(gen.next().value).toEqual(call(fetch.post, url, {accountId: '1'}));
+    expect(gen.next({}).value).toEqual(put({type: ADD_USER_SUCCESS, user: {}}));
 });
 
 test('getUsers saga should invoke fetch.get and dispatch success action', () => {
     const gen = getUsersSaga({type: GET_USERS, accountId: '1'});
     expect(gen.next().value).toEqual(call(fetch.get, `${url}?accountId=1`));
-    expect(gen.next({data: []}).value).toEqual(put({type: GET_USERS_SUCCESS, users: []}));
+    expect(gen.next([]).value).toEqual(put({type: GET_USERS_SUCCESS, users: []}));
 });

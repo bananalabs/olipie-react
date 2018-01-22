@@ -15,10 +15,12 @@ export function* getUsers(action: {type: string, accountId: string}) {
   }
 }
 
-export function* addUser(action: {type: string, user: User}) {
+export function* addUser(action: {type: string, accountId: string, user: User}) {
   try {
-    delete action.user.id;
-    const user = yield call(fetch.post, url, action.user);
+    let newUser: any = {...action.user};
+    delete newUser.id;
+    newUser.accountId = action.accountId;
+    const user = yield call(fetch.post, url, newUser);
     yield put(addUserSuccess(user));
   } catch (err) {
     console.log(err);
@@ -29,7 +31,6 @@ export function* addUser(action: {type: string, user: User}) {
 export function* watchGetUsers(): any {
   yield takeEvery(GET_USERS, getUsers);
 }
-
 
 // watcher Saga: spawn a new getUsers task on each ADD_USER
 export function* watchAddUser(): any {

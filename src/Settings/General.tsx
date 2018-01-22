@@ -79,8 +79,8 @@ export class GeneralSettings extends React.Component<Props, State> {
                         <div style={{marginTop: '20px'}}>
                             <RaisedButton
                              label="DONE WITH SETTINGS"
-                             backgroundColor='#FF7043'
-                             labelColor='white'
+                             backgroundColor="#FF7043"
+                             labelColor="white"
                              onClick={this._onDone}
                             />
                         </div>

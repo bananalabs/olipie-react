@@ -7,6 +7,9 @@ import { BrowserRouter } from 'react-router-dom';
 import configureStore from './store';
 import 'raf/polyfill';
 
+const injectTapEventPlugin = require('react-tap-event-plugin');
+injectTapEventPlugin();
+
 const store = configureStore({});
 
 ReactDOM.render(

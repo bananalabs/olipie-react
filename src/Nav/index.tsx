@@ -8,14 +8,11 @@ import Divider from 'material-ui/Divider';
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 import { white } from 'material-ui/styles/colors';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
-
-export interface User {
-    name: string;
-    color: string;
-}
+import { User } from '../User/model';
 
 export interface Props {
     users: User[];
+    onMonitor: () => void;
 }
 
 export class Nav extends React.Component<Props, {}> {
@@ -32,7 +29,7 @@ export class Nav extends React.Component<Props, {}> {
     });
     return (
         <div>
-            <IconButton tooltip="Monitor">
+            <IconButton tooltip="Monitor" onClick={this.props.onMonitor}>
                 <MonitorIcon color={white}/>
             </IconButton>
             <IconMenu

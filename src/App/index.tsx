@@ -11,6 +11,7 @@ import { getUsers } from '../User/actions';
 import Content from '../Content';
 import Profiles from '../Profiles';
 import Settings from '../Settings';
+import Watch from '../Watch';
 import { createStructuredSelector }  from 'reselect';
 
 export interface Props {
@@ -32,8 +33,8 @@ export class App extends React.Component<Props, {}> {
   componentWillMount() {
     // Check if local storage has account id
     // yes - get users by account id, set mode = default, set accountId
-    this.props.dispatch(setAccount('e822b031-b60e-4f30-859f-ad5ca6cec2d6'));
-    this.props.dispatch(getUsers('e822b031-b60e-4f30-859f-ad5ca6cec2d6'));
+    this.props.dispatch(setAccount('6174dd1d-3689-47ec-a457-6ee79b5b4848'));
+    this.props.dispatch(getUsers('6174dd1d-3689-47ec-a457-6ee79b5b4848'));
     // no - go to login page
     // once user signs in, create account, add admin user to account
     // '08a61300-d083-49e6-9bb4-ac8438259dfc'
@@ -48,6 +49,7 @@ export class App extends React.Component<Props, {}> {
          component={this.props.mode === Mode.NewUser ? Settings : Profiles}
         />
         <Route path="/profiles" component={Profiles} />
+        <Route path="/watch" component={Watch} />
       </Switch>
     );
     /* const videos = ['2g811Eo7K8U', '2g811Eo7K8U', '2g811Eo7K8U',

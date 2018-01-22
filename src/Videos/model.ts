@@ -1,19 +1,16 @@
 import { createSelector } from 'reselect';
 import { AppState } from '../App/model';
 
-export type User = {
+export type Video = {
     id: string,
-    name: string,
-    profileColor: string,
-    kid: boolean,
-    admin: boolean
+    flagged: boolean
 };
 
 const selectApp = () => (state: any) => state.app;
 
-export const selectUsers = () => createSelector(
+export const selectVideos = () => createSelector(
   selectApp(),
   function(app: AppState) {
-    return app.users;
+    return app.videos;
   }
 );

@@ -14,9 +14,6 @@ export function userReducer(state: User[], action: Action): User[] {
         case ADD_USER_SUCCESS:
             return [...state, action.user] as User[];
         default:
-            if (state === undefined) {
-                console.log('got undefined user state');
-            }
             return state;
     }
 }

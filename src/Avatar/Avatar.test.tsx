@@ -10,9 +10,8 @@ let icon: ShallowWrapper;
 
 beforeEach(() => {
   props = {
-    color: 'red',
+    user: {id: '1', name: 'User1', profileColor: 'red', admin: false, kid: false},
     small: true,
-    name: 'ABCD',
     showName: false,
     addUser: (user) => {}
   }
@@ -31,30 +30,28 @@ test('renders an icon of size 120 if small=false', () => {
     expect(icon.props()).toHaveProperty('size', 120);
 });
 
-test('renders an icon with class avatar', () => {
-    expect((wrapper).hasClass('avatar')).toEqual(true);
-});
-
 test('renders an icon with provided backgroundColor', () => {
     expect(icon.props()).toHaveProperty(
-           'backgroundColor', props.color);
+           'backgroundColor', props.user && props.user.profileColor);
 });
 
 test('renders an icon with first letter of name', () => {
     expect(wrapper.find(MAvatar).children().text()).toEqual(
-           props.name.charAt(0).toUpperCase());
+           props.user && props.user.name.charAt(0).toUpperCase());
 });
 
 test('renders name if showName=true', () => {
     props.showName = true;
     wrapper = shallow(<Avatar {...props} />);  
     icon = wrapper.find(MAvatar);
-    expect(wrapper.contains(<p className="name">{props.name}</p>)).toEqual(true);
+    expect(wrapper.contains(
+        <p className="name">{props.user && props.user.name}</p>)).toEqual(true);
 });
 
 test('does not render name if showName=false', () => {
     props.showName = false;
     wrapper = shallow(<Avatar {...props} />);  
     icon = wrapper.find(MAvatar);
-    expect(wrapper.contains(<p>{props.name}</p>)).toEqual(false);
+    expect(wrapper.contains(
+        <p>{props.user && props.user.name}</p>)).toEqual(false);
 });
