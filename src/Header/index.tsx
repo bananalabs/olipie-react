@@ -111,8 +111,7 @@ export class Header extends React.Component<Props, State> {
                     showName={false}
                   />
                 </span>
-              </div>
-            }
+              </div>}
           />
         );
       default:

@@ -2,7 +2,6 @@ import {
     GET_VIDEOS,
     SET_VIDEOS,
     ADD_VIDEO_TO_HISTORY,
-    FLAG_VIDEO,
     UPDATE_VIDEO
 } from './constants';
 import { Video } from './model';
@@ -43,19 +42,6 @@ export function addVideoToHistory(payload: {user: User, video: Video}):
                   {type: string, payload: {user: User, video: Video}} {
     return {
       type: ADD_VIDEO_TO_HISTORY,
-      payload
-    };
-}
-
-/**
- * Flag a video. Removes from user's history and future search results.
- *
- * @return {object}    An action object with a type of FLAG_VIDEO
- */
-export function flagVideo(payload: {video: Video}):
-          {type: string, payload: {video: Video}} {
-    return {
-      type: FLAG_VIDEO,
       payload
     };
 }

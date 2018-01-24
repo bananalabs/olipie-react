@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { GET_VIDEOS, ADD_VIDEO_TO_HISTORY, FLAG_VIDEO } from './constants';
-import { setVideos, updateVideo } from './actions';
+import { GET_VIDEOS, ADD_VIDEO_TO_HISTORY, UPDATE_VIDEO } from './constants';
+import { setVideos } from './actions';
 import * as fetch from '../utils/fetch';
 import { User } from '../User/model';
 import { Video } from './model';
@@ -29,11 +29,9 @@ export function* getVideos(action: {type: string,
   }
 }
 
-export function* flagVideo(action: {type: string, payload: {video: Video}}) {
+export function* updateVideo(action: {type: string, payload: {video: Video}}) {
   try {
-    const video: Video = yield call(
-      fetch.update, url, {...action.payload.video, flagged: true});
-    yield put(updateVideo({video: video}));
+    yield call(fetch.update, url, action.payload.video);
   } catch (err) {
     console.log(err);
   }
@@ -49,16 +47,16 @@ export function* watchGetVideos(): any {
   yield takeEvery(GET_VIDEOS, getVideos);
 }
 
-// watcher Saga: spawn a new getUsers task on each ADD_VIDEO_TO_HISTORY
-export function* watchFlagVideo(): any {
-  yield takeEvery(FLAG_VIDEO, flagVideo);
+// watcher Saga: spawn a new getUsers task on each UPDATE_VIDEO
+export function* watchUpdateVideo(): any {
+  yield takeEvery(UPDATE_VIDEO, updateVideo);
 }
 
 function* videosSaga() {
   yield [
     watchAddVideo(),
     watchGetVideos(),
-    watchFlagVideo()
+    watchUpdateVideo()
   ];
 }
 

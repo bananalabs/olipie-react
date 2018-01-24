@@ -5,10 +5,9 @@ import { Video } from './model';
 import { GET_VIDEOS,
          SET_VIDEOS,
          ADD_VIDEO_TO_HISTORY,
-         FLAG_VIDEO,
          UPDATE_VIDEO 
        } from './constants';
-import { getVideos, setVideos, addVideoToHistory, flagVideo, updateVideo } from './actions';
+import { getVideos, setVideos, addVideoToHistory, updateVideo } from './actions';
 import { addVideo, getVideos as getVideosSaga } from './sagas';
 import reducer from './reducer';
 import { Props } from '.';
@@ -74,15 +73,6 @@ test('Action GET_VIDEOS should return the correct type', () => {
         }
     };
     expect(getVideos({user: user, flagged: false})).toEqual(expectedResult);
-});
-
-test('Action FLAG_VIDEO should return the correct type', () => {
-    const video: Video = { id: '1', flagged: false };
-    const expectedResult = {
-        type: FLAG_VIDEO,
-        payload: {video: video}
-    };
-    expect(flagVideo({video: video})).toEqual(expectedResult);
 });
 
 test('Action UPDATE_VIDEO should return the correct type', () => {

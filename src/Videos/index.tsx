@@ -9,7 +9,7 @@ import { Video } from './model';
 
 export interface Props {
   videos: Video[];
-  onFlag?: (video: Video) => void;
+  onFlag?: (video: Video, flagged: boolean) => void;
   onPlay?: (video: Video) => void;
 }
 
@@ -33,6 +33,8 @@ class Videos extends React.Component<Props, any> {
       playerVars: {rel: 0}
     };
     return videos.map((video: Video, index: number) => {
+      let hover = video.flagged ? 'rgb(0, 188, 212)' : 'red';
+      let buttonColor = video.flagged ? 'red' : 'rgb(0, 188, 212)';
       return (
           <div key={video.id}>
             <YouTube
@@ -45,10 +47,12 @@ class Videos extends React.Component<Props, any> {
               <div className="monitor">
                   <span className="flag" id={video.id}>
                     <FlatButton
-                        backgroundColor="rgb(0, 188, 212)"
-                        hoverColor="red"
+                        backgroundColor={buttonColor}
+                        hoverColor={hover}
                         icon={<FlagIcon color={fullWhite}/>}
-                        onClick={(event) => this.props.onFlag && this.props.onFlag(video)}
+                        onClick={(event) => {
+                          this.props.onFlag(video, !video.flagged);
+                        }}
                     />
                   </span>
               </div>

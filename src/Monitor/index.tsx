@@ -12,7 +12,7 @@ import { createStructuredSelector }  from 'reselect';
 import { AppState, selectAccount } from '../App/model';
 import { setMode, setUser } from '../App/actions';
 import Videos from '../Videos';
-import { getVideos, flagVideo, setVideos } from '../Videos/actions';
+import { getVideos, updateVideo, setVideos } from '../Videos/actions';
 import { Video, selectVideos } from '../Videos/model';
 import { Mode } from '../App/constants';
 
@@ -43,8 +43,12 @@ export class Monitor extends React.Component<Props, State> {
     this.props.dispatch(setVideos({videos: []}));
   }
 
-  _flag(video: Video) {
-      this.props.dispatch(flagVideo({video: video}));
+  componentWillReceiveProps(nextProps: Props) {
+    this.setState({flagVideos: this.state.flagVideos});
+  }
+
+  _flag(video: Video, flagged: boolean) {
+      this.props.dispatch(updateVideo({video: {...video, flagged: flagged}}));
   }
 
   _monitor(user: User) {

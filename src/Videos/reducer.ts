@@ -16,8 +16,9 @@ export function videosReducer(state: Video[], action: Action): Video[] {
         case UPDATE_VIDEO:
             let index = state.findIndex(
                 (v: Video): boolean => v.id === action.payload.video.id);
-            state[index] = {...action.payload.video};
-            return state;
+            let videos: Video[] = [...state];
+            videos[index] = {...action.payload.video};
+            return videos;
         default:
             return state;
     }
