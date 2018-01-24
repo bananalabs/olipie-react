@@ -53,7 +53,7 @@ export class Header extends React.Component<Props, State> {
   }
 
   _onAvatarClick(user: User): void {
-    this.props.dispatch(getHistory(user));
+    this.props.dispatch(getHistory({user: user, flagged: false}));
   }
 
   render() {
@@ -94,13 +94,26 @@ export class Header extends React.Component<Props, State> {
           </AppBar>
         );
       case Mode.Monitor:
-        return (
-          <div/>
-          /* <AppBar
-            title="Olipie"
+        return(
+          <AppBar
+            title={<a href="/" className="title">Olipie</a>}
+            onTitleTouchTap={this._onTitleClick}
             showMenuIconButton={false}
-            iconElementRight={<div><Nav/><Avatar/></div>}
-          /> */
+            iconElementRight={
+              <div style={{display: 'inline-block'}}>
+                <span style={{float: 'left', marginRight: '10px'}}>
+                  <Nav users={users} onMonitor={this._onMonitorClick}/>
+                </span>
+                <span style={{float: 'left'}}>
+                  <Avatar
+                    user={this.props.user}
+                    small={true}
+                    showName={false}
+                  />
+                </span>
+              </div>
+            }
+          />
         );
       default:
         // console.debug('Invalid Mode passed to Header - ' + this.props.mode);

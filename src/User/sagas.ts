@@ -6,22 +6,23 @@ import { User } from './model';
 
 const url: string = 'http://localhost:3030/user';
 
-export function* getUsers(action: {type: string, accountId: string}) {
+export function* getUsers(action: {type: string, payload: {accountId: string}}) {
   try {
-    const users = yield call(fetch.get, `${url}?accountId=${action.accountId}`);
-    yield put(getUsersSuccess(users));
+    const users = yield call(fetch.get, `${url}?accountId=${action.payload.accountId}`);
+    yield put(getUsersSuccess({users: users}));
   } catch (err) {
     console.log(err);
   }
 }
 
-export function* addUser(action: {type: string, accountId: string, user: User}) {
+export function* addUser(action: {type: string, 
+  payload: {accountId: string, user: User}}) {
   try {
-    let newUser: any = {...action.user};
+    let newUser: any = {...action.payload.user};
     delete newUser.id;
-    newUser.accountId = action.accountId;
+    newUser.accountId = action.payload.accountId;
     const user = yield call(fetch.post, url, newUser);
-    yield put(addUserSuccess(user));
+    yield put(addUserSuccess({user: user}));
   } catch (err) {
     console.log(err);
   }

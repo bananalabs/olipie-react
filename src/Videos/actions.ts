@@ -1,7 +1,9 @@
 import {
     GET_VIDEOS,
     SET_VIDEOS,
-    ADD_VIDEO_TO_HISTORY
+    ADD_VIDEO_TO_HISTORY,
+    FLAG_VIDEO,
+    UPDATE_VIDEO
 } from './constants';
 import { Video } from './model';
 import { User } from '../User/model';
@@ -11,10 +13,11 @@ import { User } from '../User/model';
  *
  * @return {object}    An action object with a type of GET_VIDEOS
  */
-export function getVideos(user: User): {type: string, user: User} {
+export function getVideos(payload: {user: User, flagged?: boolean}): 
+          {type: string, payload: {user: User, flagged?: boolean}} {
     return {
       type: GET_VIDEOS,
-      user
+      payload
     };
 }
   
@@ -23,10 +26,11 @@ export function getVideos(user: User): {type: string, user: User} {
  *
  * @return {object}    An action object with a type of SET_VIDEOS
  */
-export function setVideos(videos: Video[]): {type: string, videos: Video[]} {
+export function setVideos(payload: {videos: Video[]}): 
+          {type: string, payload: {videos: Video[]}} {
     return {
       type: SET_VIDEOS,
-      videos
+      payload
     };
 }
 
@@ -35,11 +39,36 @@ export function setVideos(videos: Video[]): {type: string, videos: Video[]} {
  *
  * @return {object}    An action object with a type of ADD_VIDEO_TO_HISTORY
  */
-export function addVideoToHistory(user: User, video: Video):
-                  {type: string, user: User, video: Video} {
+export function addVideoToHistory(payload: {user: User, video: Video}):
+                  {type: string, payload: {user: User, video: Video}} {
     return {
       type: ADD_VIDEO_TO_HISTORY,
-      user,
-      video
+      payload
+    };
+}
+
+/**
+ * Flag a video. Removes from user's history and future search results.
+ *
+ * @return {object}    An action object with a type of FLAG_VIDEO
+ */
+export function flagVideo(payload: {video: Video}):
+          {type: string, payload: {video: Video}} {
+    return {
+      type: FLAG_VIDEO,
+      payload
+    };
+}
+
+/**
+ * Update a video's attributes.
+ *
+ * @return {object}    An action object with a type of UPDATE_VIDEO
+ */
+export function updateVideo(payload: {video: Video}):
+            {type: string, payload: {video: Video}} {
+    return {
+      type: UPDATE_VIDEO,
+      payload
     };
 }

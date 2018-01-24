@@ -5,27 +5,30 @@ import * as fetch from '../utils/fetch';
 
 const url: string = 'http://localhost:3030/filter';
 
-function* setFilter(action: {type: string, accountId: string, keywords: string}) {
+function* setFilter(action: {type: string, payload: {accountId: string, keywords: string}}) {
   try {
-    yield call(fetch.post, url, {accountId: action.accountId, keywords: action.keywords});
-    yield put(setFilterSuccess(action.keywords));
+    yield call(fetch.post, url, {
+      accountId: action.payload.accountId,
+      keywords: action.payload.keywords}
+    );
+    yield put(setFilterSuccess({keywords: action.payload.keywords}));
   } catch (err) {
     console.log(err);
   }
 }
 
-function* updateFilter(action: {type: string, accountId: string, keywords: string}) {
-  console.log(encodeURIComponent(action.accountId));
+function* updateFilter(action: {type: string, 
+  payload: {accountId: string, keywords: string}}) {
   try {
     const filter = yield call(
       fetch.get, 
-      url + '?accountId=' + encodeURIComponent(action.accountId), 
-      {keywords: action.keywords});
+      url + '?accountId=' + encodeURIComponent(action.payload.accountId), 
+      {keywords: action.payload.keywords});
     yield call(
-        fetch.patch, 
+        fetch.update, 
         `${url}/${filter[0].id}`, 
-        {keywords: action.keywords});
-    yield put(setFilterSuccess(action.keywords));
+        {keywords: action.payload.keywords});
+    yield put(setFilterSuccess({keywords: action.payload.keywords}));
   } catch (err) {
     console.log(err);
   }

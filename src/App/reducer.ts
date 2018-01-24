@@ -17,7 +17,7 @@ export const initialState: AppState = {
 function mode(state: Mode, action: any): Mode {
     switch (action.type) {
       case SET_MODE:
-        return action.mode;
+        return action.payload.mode;
       default:
         return state;
     }
@@ -26,7 +26,7 @@ function mode(state: Mode, action: any): Mode {
 function account(state: string, action: any): string {
     switch (action.type) {
       case SET_ACCOUNT:
-        return action.accountId;
+        return action.payload.accountId;
       default:
         return state;
     }
@@ -35,7 +35,7 @@ function account(state: string, action: any): string {
 function currentUser(state: User, action: any): User {
     switch (action.type) {
       case SET_USER:
-        return action.user;
+        return action.payload.user;
       default:
         return state;
     }

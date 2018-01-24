@@ -65,31 +65,36 @@ test('renders AddUser if state.addProfile = true', () => {
 test('Action SET_FILTER should return the correct type', () => {
     const expectedResult = {
         type: SET_FILTER,
-        accountId: '1',
-        keywords: 'violence'
+        payload: {
+            accountId: '1',
+            keywords: 'violence'
+        }
     };
-    expect(setFilter('1', 'violence')).toEqual(expectedResult);
+    expect(setFilter({accountId: '1', keywords: 'violence'})).toEqual(expectedResult);
   });
 
 test('Action UPDATE_FILTER should return the correct type', () => {
     const expectedResult = {
         type: UPDATE_FILTER,
-        accountId: '1',
-        keywords: 'violence'
+        payload: {
+            accountId: '1',
+            keywords: 'violence'
+        }
     };
-    expect(updateFilter('1', 'violence')).toEqual(expectedResult);
+    expect(updateFilter({accountId: '1', keywords: 'violence'})).toEqual(expectedResult);
   });
 
 test('Action SET_FILTER_SUCCESS should return the correct type', () => {
     const expectedResult = {
         type: SET_FILTER_SUCCESS,
-        keywords: 'violence'
+        payload: {keywords: 'violence'}
     };
-    expect(setFilterSuccess('violence')).toEqual(expectedResult);
+    expect(setFilterSuccess({keywords: 'violence'})).toEqual(expectedResult);
   });
   
   test('Reducer should handle the setFilterSuccess action correctly', () => {
     const expectedResult = {filter: 'violence'}; 
-    const actual = reducer({} as SettingsModel, setFilterSuccess('violence'));
+    const actual = reducer({} as SettingsModel,
+                           setFilterSuccess({keywords: 'violence'}));
     expect(actual).toEqual(expectedResult);
   });

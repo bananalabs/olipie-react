@@ -3,13 +3,13 @@ import { SET_FILTER_SUCCESS } from './constants';
 
 export interface Action { 
     type: string;
-    keywords: string;
+    payload: { keywords: string };
 }
           
 export function settingsReducer(state: Settings, action: Action): Settings {
     switch (action.type) {
         case SET_FILTER_SUCCESS:
-            return Object.assign({}, state, {filter: action.keywords});
+            return Object.assign({}, state, {filter: action.payload.keywords});
         default:
             return state;
     }

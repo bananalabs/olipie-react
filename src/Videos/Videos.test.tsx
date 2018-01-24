@@ -2,8 +2,13 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import Videos from '.';
 import { Video } from './model';
-import { GET_VIDEOS, SET_VIDEOS, ADD_VIDEO_TO_HISTORY } from './constants';
-import { getVideos, setVideos, addVideoToHistory } from './actions';
+import { GET_VIDEOS,
+         SET_VIDEOS,
+         ADD_VIDEO_TO_HISTORY,
+         FLAG_VIDEO,
+         UPDATE_VIDEO 
+       } from './constants';
+import { getVideos, setVideos, addVideoToHistory, flagVideo, updateVideo } from './actions';
 import { addVideo, getVideos as getVideosSaga } from './sagas';
 import reducer from './reducer';
 import { Props } from '.';
@@ -30,7 +35,7 @@ test('renders YouTube videos', () => {
 test('renders flag button if flag callback is in props', () => {
     const props: Props = {
       videos: [{id: '2g811Eo7K8U', flagged: false}],
-      flag: (video: Video) => {}
+      onFlag: (video: Video) => {}
     };
     const wrapper = shallow(<Videos {...props} />);
     expect(wrapper.find(FlatButton)).toHaveLength(1);
@@ -48,18 +53,58 @@ test('Action SET_VIDEOS should return the correct type', () => {
     const videos: Video[] = [];
     const expectedResult = {
         type: SET_VIDEOS,
-        videos: videos
+        payload: {videos: videos}
     };
-    expect(setVideos(videos)).toEqual(expectedResult);
+    expect(setVideos({videos: videos})).toEqual(expectedResult);
 });
 
 test('Action GET_VIDEOS should return the correct type', () => {
-    const user: User = {id: '1', name: 'U1', profileColor: 'red', admin: false, kid: false};
+    const user: User = {
+        id: '1',
+        name: 'U1',
+        profileColor: 'red',
+        admin: false,
+        kid: false
+    };
     const expectedResult = {
         type: GET_VIDEOS,
-        user: user
+        payload: {
+            user: user,
+            flagged: false
+        }
     };
-    expect(getVideos(user)).toEqual(expectedResult);
+    expect(getVideos({user: user, flagged: false})).toEqual(expectedResult);
+});
+
+test('Action FLAG_VIDEO should return the correct type', () => {
+    const video: Video = { id: '1', flagged: false };
+    const expectedResult = {
+        type: FLAG_VIDEO,
+        payload: {video: video}
+    };
+    expect(flagVideo({video: video})).toEqual(expectedResult);
+});
+
+test('Action UPDATE_VIDEO should return the correct type', () => {
+    const video: Video = { id: '1', flagged: true };
+    const expectedResult = {
+        type: UPDATE_VIDEO,
+        payload: {video: video}
+    };
+    expect(updateVideo({video: video})).toEqual(expectedResult);
+});
+
+test('Action ADD_VIDEO_TO_HISTORY should return the correct type', () => {
+    const video: Video = {id: '1', flagged: false};
+    const user: User = {id: '1', name: 'U1', profileColor: 'blue', admin: false, kid: true};
+    const expectedResult = {
+        type: ADD_VIDEO_TO_HISTORY,
+        payload: {
+            user: user,
+            video: video
+        }
+    };
+    expect(addVideoToHistory({user: user, video: video})).toEqual(expectedResult);
 });
 
 test('Reducer should handle the setVideos action correctly', () => {
@@ -68,30 +113,44 @@ test('Reducer should handle the setVideos action correctly', () => {
         flagged: true
     }];
     const expectedResult = videos; 
-    const actual = reducer([] as Video[], setVideos(videos));
+    const actual = reducer([] as Video[], setVideos({videos: videos}));
     expect(actual).toEqual(expectedResult);
   });
 
-test('Action ADD_VIDEO_TO_HISTORY should return the correct type', () => {
-    const video: Video = {id: '1', flagged: false};
-    const user: User = {id: '1', name: 'U1', profileColor: 'blue', admin: false, kid: true};
-    const expectedResult = {
-        type: ADD_VIDEO_TO_HISTORY,
-        user: user,
-        video: video
-    };
-    expect(addVideoToHistory(user, video)).toEqual(expectedResult);
-});
+test('Reducer should handle the updateVideo action correctly', () => {
+    const videos: Video[] = [
+        {
+            id: '1',
+            flagged: false
+        },
+        {
+            id: '2',
+            flagged: false
+        }
+    ];
+    const expectedResult: Video[] = [
+        {
+            id: '1',
+            flagged: false
+        },
+        {
+            id: '2',
+            flagged: true
+        }
+    ];; 
+    const actual = reducer(videos, updateVideo({video: { id: '2', flagged: true }}));
+    expect(actual).toEqual(expectedResult);
+  });
 
 test('addVideo saga should invoke fetch.post', () => {
     const video: Video = {id: '1', flagged: false};
     const user: User = {id: '1', name: 'U1', profileColor: 'blue', admin: false, kid: true};
-    const gen = addVideo({type: ADD_VIDEO_TO_HISTORY, user: user, video: video});
+    const gen = addVideo({type: ADD_VIDEO_TO_HISTORY, payload: {user: user, video: video}});
     expect(gen.next().value).toEqual(call(fetch.post, url, {userId: user.id, ...video}));
 });
 
 test('getVideos saga should invoke fetch.get', () => {
     const user: User = {id: '1', name: 'U1', profileColor: 'blue', admin: false, kid: true};
-    const gen = getVideosSaga({type: GET_VIDEOS, user: user});
+    const gen = getVideosSaga({type: GET_VIDEOS, payload: {user: user}});
     expect(gen.next().value).toEqual(call(fetch.get, `${url}?user=${user.id}`));
 });

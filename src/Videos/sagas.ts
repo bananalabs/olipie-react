@@ -1,24 +1,39 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { GET_VIDEOS, ADD_VIDEO_TO_HISTORY } from './constants';
-import { setVideos } from './actions';
+import { GET_VIDEOS, ADD_VIDEO_TO_HISTORY, FLAG_VIDEO } from './constants';
+import { setVideos, updateVideo } from './actions';
 import * as fetch from '../utils/fetch';
 import { User } from '../User/model';
 import { Video } from './model';
 
 const url: string = 'http://localhost:3030/video';
 
-export function* addVideo(action: {type: string, user: User, video: Video}) {
+export function* addVideo(action: {type: string, payload: {user: User, video: Video}}) {
   try {
-    yield call(fetch.post, url, {userId: action.user.id, ...action.video});
+    yield call(fetch.post, url, {userId: action.payload.user.id, ...action.payload.video});
   } catch (err) {
     console.log(err);
   }
 }
 
-export function* getVideos(action: {type: string, user: User}) {
+export function* getVideos(action: {type: string,
+     payload: {user: User, flagged?: boolean}}) {
   try {
-    const videos = yield call(fetch.get, `${url}?user=${action.user.id}`);
-    yield put(setVideos(videos));
+    const flaggedVal = action.payload.flagged ? 1 : 0;
+    const getUrl = action.payload.flagged !== undefined ? 
+                   `${url}?user=${action.payload.user.id}&flagged=${flaggedVal}` :
+                   `${url}?user=${action.payload.user.id}`;
+    const videos = yield call(fetch.get, getUrl);
+    yield put(setVideos({videos: videos}));
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function* flagVideo(action: {type: string, payload: {video: Video}}) {
+  try {
+    const video: Video = yield call(
+      fetch.update, url, {...action.payload.video, flagged: true});
+    yield put(updateVideo({video: video}));
   } catch (err) {
     console.log(err);
   }
@@ -34,10 +49,16 @@ export function* watchGetVideos(): any {
   yield takeEvery(GET_VIDEOS, getVideos);
 }
 
+// watcher Saga: spawn a new getUsers task on each ADD_VIDEO_TO_HISTORY
+export function* watchFlagVideo(): any {
+  yield takeEvery(FLAG_VIDEO, flagVideo);
+}
+
 function* videosSaga() {
   yield [
     watchAddVideo(),
-    watchGetVideos()
+    watchGetVideos(),
+    watchFlagVideo()
   ];
 }
 

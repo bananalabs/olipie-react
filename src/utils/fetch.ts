@@ -23,10 +23,10 @@ export async function post(url: string, body: {}): Promise<any> {
     }
 }
 
-export async function patch(url: string, body: {}): Promise<any> {
+export async function update(url: string, body: {}): Promise<any> {
     try {
         const response = await fetch(url, {
-            method: 'PATCH',
+            method: 'PUT',
             body: JSON.stringify(body),
             headers: new Headers({
                 'Content-Type': 'application/json'

@@ -26,7 +26,7 @@ export function* getVideos(action: {type: string, keywords: string}) {
             flagged: false,
             title: video.snippet.title }; }
     );
-    yield put(setVideos(videos));
+    yield put(setVideos({videos: videos}));
   } catch (err) {
     console.log(err);
   }

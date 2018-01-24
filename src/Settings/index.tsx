@@ -28,17 +28,17 @@ export class Settings extends React.Component<Props, {}> {
 
   _setFilter(keywords: string): void {
     this.props.mode === Mode.NewUser ?
-    this.props.dispatch(setFilter(this.props.accountId, keywords)) :
-    this.props.dispatch(updateFilter(this.props.accountId, keywords));
+    this.props.dispatch(setFilter({accountId: this.props.accountId, keywords: keywords})) :
+    this.props.dispatch(updateFilter({accountId: this.props.accountId, keywords: keywords}));
   }
 
   _addProfile(profile: {name: string; profileColor: string; kid: boolean}): void {
     const user: User = { ...profile, ...{ admin: false, id: '' } };
-    this.props.dispatch(addUser(this.props.accountId, user));
+    this.props.dispatch(addUser({accountId: this.props.accountId, user: user}));
   }
 
   _done() {
-    this.props.dispatch(setMode(Mode.Default));
+    this.props.dispatch(setMode({mode: Mode.Default}));
   }
 
   render() {

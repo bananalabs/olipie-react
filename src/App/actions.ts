@@ -5,10 +5,11 @@ import { User } from '../User/model';
  * Set account id of logged in user
  * @return {object}    An action object with a type of SET_ACCOUNT
  */
-export function setAccount(accountId: string): {type: string, accountId: string} {
+export function setAccount(payload: {accountId: string}): 
+                {type: string, payload: {accountId: string}} {
     return {
       type: SET_ACCOUNT,
-      accountId
+      payload
     };
 }
 
@@ -17,10 +18,11 @@ export function setAccount(accountId: string): {type: string, accountId: string}
  *
  * @return {object}    An action object with a type of SET_MODE
  */
-export function setMode(mode: Mode): {type: string, mode: Mode} {
+export function setMode(payload: {mode: Mode}): 
+                {type: string, payload: {mode: Mode}} {
     return {
       type: SET_MODE,
-      mode
+      payload
     };
 }
 
@@ -29,10 +31,11 @@ export function setMode(mode: Mode): {type: string, mode: Mode} {
  *
  * @return {object}    An action object with a type of SET_USER
  */
-export function setUser(user: User): {type: string, user: User} {
+export function setUser(payload: {user: User}): 
+                {type: string, payload: {user: User}} {
   return {
     type: SET_USER,
-    user
+    payload
   };
 }
   

@@ -17,17 +17,17 @@ test('<App />', () => {
 test('Action SET_MODE should return the correct type', () => {
   const expectedResult = {
       type: SET_MODE,
-      mode: Mode.Watch
+      payload: {mode: Mode.Watch}
   };
-  expect(setMode(Mode.Watch)).toEqual(expectedResult);
+  expect(setMode({mode: Mode.Watch})).toEqual(expectedResult);
 });
 
 test('Action SET_ACCOUNT should return the correct type', () => {
   const expectedResult = {
       type: SET_ACCOUNT,
-      accountId: '100'
+      payload: {accountId: '100'}
   };
-  expect(setAccount('100')).toEqual(expectedResult);
+  expect(setAccount({accountId: '100'})).toEqual(expectedResult);
 });
 
 test('Action SET_USER should return the correct type', () => {
@@ -40,20 +40,20 @@ test('Action SET_USER should return the correct type', () => {
   };
   const expectedResult = {
       type: SET_USER,
-      user: user
+      payload: {user: user}
   };
-  expect(setUser(user)).toEqual(expectedResult);
+  expect(setUser({user: user})).toEqual(expectedResult);
 });
 
 test('Reducer should handle the setMode action correctly', () => {
   const expectedResult = {...initialState, mode: Mode.Monitor}; 
-  const actual = appReducer(initialState, setMode(Mode.Monitor));
+  const actual = appReducer(initialState, setMode({mode: Mode.Monitor}));
   expect(actual).toEqual(expectedResult);
 });
 
 test('Reducer should handle the setAccount action correctly', () => {
   const expectedResult = {...initialState, account: '1'}; 
-  const actual = appReducer(initialState, setAccount('1'));
+  const actual = appReducer(initialState, setAccount({accountId: '1'}));
   expect(actual).toEqual(expectedResult);
 });
 
@@ -66,6 +66,6 @@ test('Reducer should handle the setUser action correctly', () => {
     kid: false
   };
   const expectedResult = {...initialState, currentUser: user}; 
-  const actual = appReducer(initialState, setUser(user));
+  const actual = appReducer(initialState, setUser({user: user}));
   expect(actual).toEqual(expectedResult);
 });

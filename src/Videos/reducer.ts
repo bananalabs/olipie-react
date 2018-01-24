@@ -1,15 +1,23 @@
 import { Video } from './model';
-import { SET_VIDEOS } from './constants';
+import { SET_VIDEOS, UPDATE_VIDEO } from './constants';
 
 export interface Action { 
     type: string;
-    videos: Video[];
+    payload: {
+        videos?: Video[];
+        video?: Video;
+    };
 }
           
 export function videosReducer(state: Video[], action: Action): Video[] {
     switch (action.type) {
         case SET_VIDEOS:
-            return action.videos as Video[];
+            return action.payload.videos as Video[];
+        case UPDATE_VIDEO:
+            let index = state.findIndex(
+                (v: Video): boolean => v.id === action.payload.video.id);
+            state[index] = {...action.payload.video};
+            return state;
         default:
             return state;
     }

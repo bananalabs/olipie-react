@@ -19,11 +19,11 @@ export class Watch extends React.Component<Props, {}> {
   constructor(props: Props) {
     super(props);
     this._onPlay = this._onPlay.bind(this);
-    this.props.dispatch(getVideos(this.props.user));
+    this.props.dispatch(getVideos({user: this.props.user, flagged: false}));
   }
 
   _onPlay(video: Video) {
-      this.props.dispatch(addVideoToHistory(this.props.user, video));
+      this.props.dispatch(addVideoToHistory({user: this.props.user, video: video}));
   }
 
   render() {

@@ -26,12 +26,12 @@ export class Profiles extends React.Component<Props, {}> {
   }
 
   _addUser(user: User) {
-    this.props.dispatch(addUser(this.props.accountId, user));
+    this.props.dispatch(addUser({accountId: this.props.accountId, user: user}));
   }
 
   _watch(user: User) {
-    this.props.dispatch(setMode(Mode.Watch));
-    this.props.dispatch(setUser(user));
+    this.props.dispatch(setMode({mode: Mode.Watch}));
+    this.props.dispatch(setUser({user: user}));
     this.props.history.push('/watch');
   }
 
@@ -60,7 +60,7 @@ export class Profiles extends React.Component<Props, {}> {
     return (
       <div className="p-container">
         <div className="icons">
-            {this.renderUsers(this.props.users)}
+            {this.props.users && this.renderUsers(this.props.users)}
             {this.renderPlus()}
         </div>
       </div>
