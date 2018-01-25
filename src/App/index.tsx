@@ -11,7 +11,7 @@ import { getUsers } from '../User/actions';
 import Content from '../Content';
 import Profiles from '../Profiles';
 import EditProfile from '../User/EditUser';
-import Settings from '../Settings/General';
+import Settings from '../Settings/EditSettings';
 import Watch from '../Watch';
 import { createStructuredSelector }  from 'reselect';
 import Monitor from '../Monitor/index';

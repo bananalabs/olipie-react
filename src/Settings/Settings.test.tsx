@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import Settings, { Props } from './General';
+import AddEditForm, { Props } from './AddEditForm';
 import TextField from 'material-ui/TextField';
 import { SET_FILTER, SET_FILTER_SUCCESS, UPDATE_FILTER } from './constants';
 import { setFilter, updateFilter, setFilterSuccess } from './actions';
@@ -9,12 +9,11 @@ import { Settings as SettingsModel } from './model';
 
 test('renders a text field to enter filter keywords', () => {
     const props: Props = {
-        filter: '',
-        setFilter: (val) => {},
-        done: () => {}
+        settings: {filter: ''},
+        done: ({}) => {}
 
     };
-    const wrapper = shallow(<Settings {...props} />);
+    const wrapper = shallow(<AddEditForm {...props} />);
     expect(wrapper.find(TextField)).toHaveLength(1);
 })
 

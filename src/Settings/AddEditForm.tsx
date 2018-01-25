@@ -2,25 +2,32 @@ import * as React from 'react';
 import TextField from 'material-ui/TextField';
 import './Settings.css';
 import { RaisedButton, Paper } from 'material-ui';
+import { Settings } from './model';
 
 export interface Props {
-    filter: string;
-    setFilter: (keywords: string) => void;
-    done: () => void;
+    settings?: Settings;
+    done: (settings: Settings) => void;
 }
 
 export interface State {
     keywords: string;
 }
 
-export class GeneralSettings extends React.Component<Props, State> {
+export class AddEditForm extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            keywords: this.props.filter
+            keywords: this.props.settings ? this.props.settings.filter : ''
         };
         this._setKeywords = this._setKeywords.bind(this);
         this._onDone = this._onDone.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps: Props) {
+        if (nextProps.settings && nextProps.settings.filter !==
+            this.state.keywords) {
+            this.setState({keywords: nextProps.settings.filter});
+        }
     }
 
     _setKeywords(event: any) {
@@ -28,8 +35,7 @@ export class GeneralSettings extends React.Component<Props, State> {
     }
 
     _onDone() {
-        this.props.setFilter(this.state.keywords);
-        this.props.done();
+        this.props.done({filter: this.state.keywords});
     }
 
     render() {
@@ -58,4 +64,4 @@ export class GeneralSettings extends React.Component<Props, State> {
     }
 }
 
-export default GeneralSettings;
+export default AddEditForm;

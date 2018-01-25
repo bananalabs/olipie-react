@@ -78,7 +78,7 @@ export class Monitor extends React.Component<Props, State> {
       <Videos videos={this.props.videos} onFlag={this._flag} /> :
       (
         <div>
-          <h2 className="caption">Who would you like to monitor?</h2>
+          <h2 className="m-caption">Who would you like to monitor?</h2>
           <div className="p-container">
               <div className="icons">
                   {this.props.users && this.renderUsers(this.props.users)}

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import AppBar from 'material-ui/AppBar';
 import Nav from '../Nav';
-import { User } from '../User/model';
+import { User, selectUsers } from '../User/model';
 import { Mode } from '../App/constants';
 import Avatar from '../Avatar';
 import Search from '../Search';
@@ -15,6 +15,7 @@ import './Header.css';
 export interface Props {
   mode: Mode;
   user: User;
+  users: User[];
   dispatch: (action: any) => void;
   history: any;
 }
@@ -57,10 +58,6 @@ export class Header extends React.Component<Props, State> {
   }
 
   render() {
-    const users: any = [
-      {name: 'Nayan', profileColor: 'blue'},
-      {name: 'Pranav', profileColor: 'red'}
-    ];
     switch (this.props.mode) {
       case Mode.Default:
       case Mode.NewUser:
@@ -69,7 +66,7 @@ export class Header extends React.Component<Props, State> {
             title={<a href="/" className="title">Olipie</a>}
             onTitleTouchTap={this._onTitleClick}
             showMenuIconButton={false}
-            iconElementRight={<Nav users={users} onMonitor={this._onMonitorClick}/>}
+            iconElementRight={<Nav users={this.props.users} onMonitor={this._onMonitorClick}/>}
           />
         );
       case Mode.Watch:
@@ -102,7 +99,7 @@ export class Header extends React.Component<Props, State> {
             iconElementRight={
               <div style={{display: 'inline-block'}}>
                 <span style={{float: 'left', marginRight: '10px'}}>
-                  <Nav users={users} onMonitor={this._onMonitorClick}/>
+                  <Nav users={this.props.users} onMonitor={this._onMonitorClick}/>
                 </span>
                 <span style={{float: 'left'}}>
                   <Avatar
@@ -125,6 +122,7 @@ export class Header extends React.Component<Props, State> {
 
 const mapStateToProps = (state: AppState): Props => createStructuredSelector({
   mode: selectMode(),
+  users: selectUsers(),
   user: selectCurrentUser()
 }) as any;
 

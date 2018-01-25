@@ -8,7 +8,7 @@ import Search from '../Search';
 import { User } from '../User/model';
 
 test('renders the logo and nav items for mode = Default', () => {
-    const props = {mode: Mode.Default, dispatch: () => {}, history: {}, user: {} as User};
+    const props = {mode: Mode.Default, dispatch: () => {}, history: {}, user: {} as User, users: [] as User[]};
     const wrapper: ShallowWrapper = shallow(<Header {...props} />);
     const appBar: ShallowWrapper = wrapper.find(AppBar);
     expect(appBar).toHaveLength(1);
@@ -17,7 +17,7 @@ test('renders the logo and nav items for mode = Default', () => {
 });
 
 test('renders the logo, search bar and profile icon for mode = Watch', () => {
-    const props = {mode: Mode.Watch, dispatch: () => {}, history: {}, user: {} as User};
+    const props = {mode: Mode.Watch, dispatch: () => {}, history: {}, user: {} as User, users: [] as User[]};
     const wrapper: ShallowWrapper = shallow(<Header {...props} />);
     const appBar = wrapper.find(AppBar);
     const children = appBar.children();

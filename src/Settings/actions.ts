@@ -1,4 +1,17 @@
-import { SET_FILTER, UPDATE_FILTER, SET_FILTER_SUCCESS } from './constants';
+import { GET_FILTER, SET_FILTER, UPDATE_FILTER, SET_FILTER_SUCCESS } from './constants';
+
+/**
+ * Set filter keywords for search
+ *
+ * @return {object}    An action object with a type of GET_FILTER
+ */
+export function getFilter(payload: {accountId: string}): 
+          {type: string, payload: {accountId: string}} {
+    return {
+      type: GET_FILTER,
+      payload
+    };
+}
 
 /**
  * Set filter keywords for search
