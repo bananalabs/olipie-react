@@ -3,7 +3,7 @@ import MAvatar  from 'material-ui/Avatar';
 import Dialog from 'material-ui/Dialog';
 import './Avatar.css';
 import { white } from 'material-ui/styles/colors';
-import AddUser from '../User/Add';
+import AddUser from '../User/AddUser';
 import { User } from '../User/model';
 
 export interface Props {
@@ -27,7 +27,6 @@ export class Avatar extends React.Component<Props, State> {
         };
         this._openDialog = this._openDialog.bind(this);
         this._closeDialog = this._closeDialog.bind(this);
-        this._addUser = this._addUser.bind(this);
         this._onClick = this._onClick.bind(this);
     }
 
@@ -37,12 +36,6 @@ export class Avatar extends React.Component<Props, State> {
 
     _closeDialog() {
         this.setState({ showDialog: false });
-    }
-
-    _addUser(user: {}) {
-        this._closeDialog();
-        const addUser = this.props.addUser as (user: {}) => void;
-        addUser(user);
     }
 
     _onClick() {
@@ -80,7 +73,7 @@ export class Avatar extends React.Component<Props, State> {
                   onRequestClose={this._closeDialog}
                   style={{width: '30%', textAlign: 'center', marginLeft: '35%'}}
                 >
-                    <AddUser addUser={this._addUser} showTitle={false}/>
+                    <AddUser/>
                 </Dialog>
             </div>
         );

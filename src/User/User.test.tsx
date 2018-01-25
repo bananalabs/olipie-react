@@ -2,14 +2,22 @@ import {
     GET_USERS,
     GET_USERS_SUCCESS,
     ADD_USER,
-    ADD_USER_SUCCESS
+    ADD_USER_SUCCESS,
+    UPDATE_USER,
+    UPDATE_USER_SUCCESS
 } from './constants';
-import { getUsers, getUsersSuccess, addUser, addUserSuccess } from './actions';
+import { getUsers,
+         getUsersSuccess,
+         addUser,
+         addUserSuccess,
+         updateUser,
+         updateUserSuccess} from './actions';
 import { userReducer } from './reducer';
 import { User } from './model';
 import {
     addUser as addUserSaga,
-    getUsers as getUsersSaga
+    getUsers as getUsersSaga,
+    updateUser as updateUserSaga
 } from './sagas';
 import * as fetch from '../utils/fetch';
 import { put, call } from 'redux-saga/effects';
@@ -50,6 +58,23 @@ test('Action ADD_USER should return the correct type', () => {
     expect(addUser({accountId: '1', user: {} as User})).toEqual(expectedResult);
 });
 
+test('Action UPDATE_USER should return the correct type', () => {
+    const user = {
+        id: '1',
+        name: 'User1',
+        profileColor: 'red',
+        kid: false,
+        admin: true
+    }
+    const expectedResult = {
+        type: UPDATE_USER,
+        payload: {
+            user: user
+        }
+    };
+    expect(updateUser({user: user})).toEqual(expectedResult);
+});
+
 test('Action ADD_USER_SUCCESS should return the correct type', () => {
     const user = {
         id: '1',
@@ -65,7 +90,6 @@ test('Action ADD_USER_SUCCESS should return the correct type', () => {
     expect(addUserSuccess({user: user})).toEqual(expectedResult);
 });
 
-
 test('Reducer should handle the getUsersSuccess action correctly', () => {
     const users = [{
         id: '1',
@@ -79,14 +103,52 @@ test('Reducer should handle the getUsersSuccess action correctly', () => {
     expect(actual).toEqual(expectedResult);
   });
 
+test('Reducer should handle the updateUserSuccess action correctly', () => {
+    const users = [{
+        id: '1',
+        name: 'User1',
+        profileColor: 'red',
+        kid: false,
+        admin: true
+    }, {
+        id: '2',
+        name: 'User2',
+        profileColor: 'blue',
+        kid: true,
+        admin: false
+    }];
+    const expectedResult = [{
+        id: '1',
+        name: 'User1',
+        profileColor: 'red',
+        kid: false,
+        admin: true
+    }, {
+        id: '2',
+        name: 'User2',
+        profileColor: 'green',
+        kid: true,
+        admin: false
+    }];
+    const updatedUser = {...users[1], profileColor: 'green'};
+    const actual = userReducer(users, updateUserSuccess({user: updatedUser}));
+    expect(actual).toEqual(expectedResult);
+  });
+
 test('addUser saga should invoke fetch.post and dispatch success action', () => {
     const gen = addUserSaga({type: ADD_USER, payload: {accountId: '1', user: {} as User}});
     expect(gen.next().value).toEqual(call(fetch.post, url, {accountId: '1'}));
-    expect(gen.next({}).value).toEqual(put({type: ADD_USER_SUCCESS, payload: {}}));
+    expect(gen.next({}).value).toEqual(put({type: ADD_USER_SUCCESS, payload: {user: {}}}));
+});
+
+test('updateUser saga should invoke fetch.update and dispatch success action', () => {
+    const gen = updateUserSaga({type: UPDATE_USER, payload: {user: {} as User}});
+    expect(gen.next().value).toEqual(call(fetch.update, url, {}));
+    expect(gen.next({}).value).toEqual(put({type: UPDATE_USER_SUCCESS, payload: {user: {}}}));
 });
 
 test('getUsers saga should invoke fetch.get and dispatch success action', () => {
     const gen = getUsersSaga({type: GET_USERS, payload: {accountId: '1'}});
     expect(gen.next().value).toEqual(call(fetch.get, `${url}?accountId=1`));
-    expect(gen.next([]).value).toEqual(put({type: GET_USERS_SUCCESS, payload: []}));
+    expect(gen.next([]).value).toEqual(put({type: GET_USERS_SUCCESS, payload: {users: []}}));
 });

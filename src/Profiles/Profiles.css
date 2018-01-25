@@ -13,22 +13,7 @@
     padding-right: 20px;
 }
 
-.edit {
-    margin-top: 50px;
-    text-align: center;
-}
-
 .title {
     font-family: sans-serif;
-    color: #FF7043;
-}
-
-.button{
-    margin: 12px;
-}
-
-.check {
-    max-width: 60px;
-    text-align: center;
-    margin: auto;
+    color: rgb(32, 26, 24);
 }

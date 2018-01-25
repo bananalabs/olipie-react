@@ -17,14 +17,28 @@ export interface Props {
 
 export class Nav extends React.Component<Props, {}> {
 
+  constructor(props: Props) {
+      super(props);
+      this._onMenuSelect = this._onMenuSelect.bind(this);
+  }
+
+  _onMenuSelect(event: any, value: string) {
+      switch (value) {
+        default:
+            return;          
+      }
+  }
+
   render() {
     const profiles = this.props.users.map((user) => {
         return(
-          <MenuItem
-            key={user.name}
-            primaryText={user.name}
-            leftIcon={<EditIcon/>}
-          />
+          <a key={user.name} href={`/user/${user.name}`}>
+            <MenuItem
+                key={user.name}
+                primaryText={user.name}
+                leftIcon={<EditIcon/>}
+            />
+          </a>
         );
     });
     return (
@@ -43,8 +57,11 @@ export class Nav extends React.Component<Props, {}> {
                 }
                 anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                 targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                onChange={this._onMenuSelect}
             >
-              <MenuItem value="General" primaryText="General" />
+              <a href="/settings" style={{textDecoration: 'none'}}>
+                <MenuItem value="General" primaryText="General"/>
+              </a>
               <Divider/>
               <MenuItem
                 primaryText="Profiles"

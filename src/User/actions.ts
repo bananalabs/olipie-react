@@ -2,7 +2,9 @@ import {
   GET_USERS,
   GET_USERS_SUCCESS,
   ADD_USER,
-  ADD_USER_SUCCESS
+  UPDATE_USER,
+  ADD_USER_SUCCESS,
+  UPDATE_USER_SUCCESS
 } from './constants';
 import { User } from './model';
 
@@ -45,6 +47,19 @@ export function addUser(payload: {accountId: string, user: User}):
   };
 }
 
+/**
+ * Update a user
+ *
+ * @return {object}    An action object with a type of UPDATE_USER
+ */
+export function updateUser(payload: {user: User}):
+        {type: string, payload: {user: User}} {
+  return {
+    type: UPDATE_USER,
+    payload
+  };
+}
+
 /*
 * Process user add success 
 *
@@ -54,6 +69,19 @@ export function addUserSuccess(payload: {user: User}):
                {type: string, payload: {user: User}} {
   return {
     type: ADD_USER_SUCCESS,
+    payload
+  };
+}
+
+/*
+* Process user add success 
+*
+* @return {object}    An action object with a type of UPDATE_USER_SUCCESS
+*/
+export function updateUserSuccess(payload: {user: User}):
+                  {type: string, payload: {user: User}} {
+  return {
+    type: UPDATE_USER_SUCCESS,
     payload
   };
 }

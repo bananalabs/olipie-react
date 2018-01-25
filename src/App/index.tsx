@@ -10,7 +10,8 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import { getUsers } from '../User/actions';
 import Content from '../Content';
 import Profiles from '../Profiles';
-import Settings from '../Settings';
+import EditProfile from '../User/EditUser';
+import Settings from '../Settings/General';
 import Watch from '../Watch';
 import { createStructuredSelector }  from 'reselect';
 import Monitor from '../Monitor/index';
@@ -47,6 +48,8 @@ export class App extends React.Component<Props, {}> {
         <Route path="/profiles" component={Profiles} />
         <Route path="/watch" component={Watch} />
         <Route path="/monitor" component={Monitor} />
+        <Route path="/settings" component={Settings} />
+        <Route path="/user/:username" component={EditProfile} />
       </Switch>
     );
     /* const videos = ['2g811Eo7K8U', '2g811Eo7K8U', '2g811Eo7K8U',

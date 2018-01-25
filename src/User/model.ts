@@ -9,6 +9,12 @@ export type User = {
     admin: boolean
 };
 
+export const findUser = function(users: User[], name: string): User {
+  return users.find((user: User) => {
+    return user.name === name;
+  });
+};
+
 const selectApp = () => (state: any) => state.app;
 
 export const selectUsers = () => createSelector(

@@ -42,15 +42,10 @@ export class Settings extends React.Component<Props, {}> {
   }
 
   render() {
-    const title = this.props.mode === Mode.NewUser ?
-                  'Lets get Started' :
-                  'Edit Settings';
     return (
         <General
-         title={title}
          filter={this.props.filter}
          setFilter={this._setFilter} 
-         addProfile={this._addProfile}
          done={this._done}
         />
     );
