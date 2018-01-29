@@ -1,7 +1,13 @@
 [Olipie](www.olipie.com) is a YouTube Player with parental controls.
 Olipie was originally written using AngularJS and Django.
 
-olipie-react is a rewrite of Olipie using Typescript, React, Redux, Node.
+olipie-react is a rewrite of Olipie using Typescript, React, Redux, Node (FeathersJS+SQLite).
+
+## Usage
+npm install
+npm run start
+
+Starts FeathersJS server on localhost:3030. Starts React App on localhost:3000.
 
 ## Features
 
