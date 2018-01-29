@@ -2,16 +2,19 @@ import { put, call, takeEvery } from 'redux-saga/effects';
 import { GET_FILTER, SET_FILTER, UPDATE_FILTER } from './constants';
 import { setFilterSuccess } from './actions';
 import * as fetch from '../utils/fetch';
+import { logout } from '../Auth/actions';
 
 const url: string = 'http://localhost:3030/filter';
 
 function* getFilter(action: {type: string, payload: {accountId: string}}) {
   try {
-    const filter = yield call(fetch.get, 
-      url + '?accountId=' + encodeURIComponent(action.payload.accountId));
+    const filter = yield call(
+      fetch.get, 
+      `${url}?accountId=${encodeURIComponent(action.payload.accountId)}`);
     yield put(setFilterSuccess({keywords: filter[0].keywords}));
   } catch (err) {
     console.log(err);
+    yield put(logout());
   }
 }
 
@@ -24,6 +27,7 @@ function* setFilter(action: {type: string, payload: {accountId: string, keywords
     yield put(setFilterSuccess({keywords: action.payload.keywords}));
   } catch (err) {
     console.log(err);
+    yield put(logout());
   }
 }
 
@@ -40,6 +44,7 @@ function* updateFilter(action: {type: string,
     yield put(setFilterSuccess({keywords: action.payload.keywords}));
   } catch (err) {
     console.log(err);
+    yield put(logout());
   }
 }
 

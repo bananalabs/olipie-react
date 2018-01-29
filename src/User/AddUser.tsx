@@ -36,7 +36,7 @@ export class AddUser extends React.Component<Props, State> {
     return (
         <div>
           {this.state.showForm && 
-           <AddEditForm title="Add User" onDone={this._addUser}/>
+           <AddEditForm title="Add User" onDone={this._addUser} doneLink="#"/>
           }
           {!this.state.showForm && 
             <div style={{textAlign: 'center'}}>

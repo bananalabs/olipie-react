@@ -35,8 +35,8 @@ export class App extends React.Component<Props, {}> {
     // Check if local storage has account id
     const accountId = localStorage.getItem('olipie-account');
     if (!accountId ||
-         accountId === "null" ||
-         accountId === "undefined"
+         accountId === 'null' ||
+         accountId === 'undefined'
        ) {
       // Redirect user to login page
       this.props.history.push('/login');
@@ -57,7 +57,7 @@ export class App extends React.Component<Props, {}> {
         <Route
          exact={true}
          path="/"
-         component={Profiles}
+         component={this.props.mode === Mode.LoggedOut ? Auth : Profiles}
         />
         <Route path="/login" component={Auth} />
         <Route path="/setup" component={Setup} />

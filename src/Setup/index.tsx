@@ -4,7 +4,7 @@ import {
   Stepper,
   StepLabel,
 } from 'material-ui';
-import "./Setup.css";
+import './Setup.css';
 import AddUser from '../User/AddUser';
 import AddSettings from '../Settings/AddSettings';
 
@@ -29,14 +29,14 @@ export class Setup extends React.Component<Props, State> {
     this.setState({
       stepIndex: stepIndex + 1
     });
-  };
+  }
 
   handlePrev = () => {
     const {stepIndex} = this.state;
     if (stepIndex > 0) {
       this.setState({stepIndex: stepIndex - 1});
     }
-  };
+  }
 
   getStepContent(stepIndex: number) {
     switch (stepIndex) {
@@ -55,10 +55,12 @@ export class Setup extends React.Component<Props, State> {
 
     return (
       <div>
-        <h4 className='setup-title'>Welcome. You are just 2 steps away from fun and safe video watching.</h4>
+        <h4 className="setup-title">Welcome. You are just 2 steps away from fun and safe video watching.</h4>
         <div>
-            <Stepper activeStep={stepIndex}
-                     style={{maxWidth: '400px', marginLeft: '37%'}}>
+            <Stepper 
+              activeStep={stepIndex}
+              style={{maxWidth: '400px', marginLeft: '37%'}}
+            >
                 <Step>
                     <StepLabel>Add User(s)</StepLabel>
                 </Step>

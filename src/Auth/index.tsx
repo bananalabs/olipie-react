@@ -1,5 +1,5 @@
 import * as React from 'react';
-import "./Auth.css";
+import './Auth.css';
 import { connect } from 'react-redux';
 import { addAccount } from './actions';
 
@@ -33,9 +33,10 @@ export class Auth extends React.Component<Props, {}> {
         return (
             <div className="auth-container">
                 <h2 className="auth-title">Sign in with Google</h2>
-                <div id="g-signin2"
-                     style={{marginLeft: '46%'}}
-                     data-onsuccess={this.onSignIn}
+                <div 
+                    id="g-signin2"
+                    style={{marginLeft: '46%'}}
+                    data-onsuccess={this.onSignIn}
                 />
             </div>
         );

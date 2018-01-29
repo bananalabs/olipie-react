@@ -12,6 +12,7 @@ export interface Props {
     title: string;
     user?: User;
     onDone: (user: object) => void;
+    doneLink: string;
 }
 
 export interface State {
@@ -87,12 +88,14 @@ export class AddEditForm extends React.Component<Props, State> {
                         onCheck={this._onKidChange}
                     />
                     <br/>
-                    <RaisedButton
-                        label="Done"
-                        primary={true}
-                        className="button"
-                        onClick={this._onDone}
-                    />
+                    <a href={this.props.doneLink}>
+                        <RaisedButton
+                            label="Done"
+                            primary={true}
+                            className="button"
+                            onClick={this._onDone}
+                        />
+                    </a>
                 </Paper>
             </div>
         );

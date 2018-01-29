@@ -4,6 +4,7 @@ import { setVideos } from './actions';
 import * as fetch from '../utils/fetch';
 import { User } from '../User/model';
 import { Video } from './model';
+import { logout } from '../Auth/actions';
 
 const url: string = 'http://localhost:3030/video';
 
@@ -12,6 +13,7 @@ export function* addVideo(action: {type: string, payload: {user: User, video: Vi
     yield call(fetch.post, url, {userId: action.payload.user.id, ...action.payload.video});
   } catch (err) {
     console.log(err);
+    yield put(logout());
   }
 }
 
@@ -26,6 +28,7 @@ export function* getVideos(action: {type: string,
     yield put(setVideos({videos: videos}));
   } catch (err) {
     console.log(err);
+    yield put(logout());
   }
 }
 
@@ -34,6 +37,7 @@ export function* updateVideo(action: {type: string, payload: {video: Video}}) {
     yield call(fetch.update, url, action.payload.video);
   } catch (err) {
     console.log(err);
+    yield put(logout());
   }
 }
 

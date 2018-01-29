@@ -6,6 +6,7 @@ import { Mode } from '../App/constants';
 import Avatar from '../Avatar';
 import Search from '../Search';
 import { AppState, selectMode, selectCurrentUser } from '../App/model';
+import { logout } from '../Auth/actions';
 import { connect } from 'react-redux';
 import { createStructuredSelector }  from 'reselect';
 import { getVideos } from '../Search/actions';
@@ -39,6 +40,7 @@ export class Header extends React.Component<Props, State> {
     this._onTitleClick = this._onTitleClick.bind(this);
     this._onMonitorClick = this._onMonitorClick.bind(this);
     this._onAvatarClick = this._onAvatarClick.bind(this);
+    this._onSignOut = this._onSignOut.bind(this);
   }
 
   _onSearch(val: string): void {
@@ -57,19 +59,23 @@ export class Header extends React.Component<Props, State> {
     this.props.dispatch(getHistory({user: user, flagged: false}));
   }
 
+  _onSignOut(): void {
+    this.props.dispatch(logout());
+  }
+
   render() {
     switch (this.props.mode) {
       case Mode.Default:
-      case Mode.NewUser:
         return(
           <AppBar
             title={<a href="/" className="title">Olipie</a>}
             onTitleTouchTap={this._onTitleClick}
             showMenuIconButton={false}
             iconElementRight={
-              <Nav users={this.props.users}
-                   onMonitor={this._onMonitorClick}
-                   history={this.props.history}
+              <Nav 
+                users={this.props.users}
+                onMonitor={this._onMonitorClick}
+                onSignOut={this._onSignOut}
               />
             }
           />
@@ -104,9 +110,10 @@ export class Header extends React.Component<Props, State> {
             iconElementRight={
               <div style={{display: 'inline-block'}}>
                 <span style={{float: 'left', marginRight: '10px'}}>
-                <Nav users={this.props.users}
-                     onMonitor={this._onMonitorClick}
-                     history={this.props.history}
+                <Nav 
+                  users={this.props.users}
+                  onMonitor={this._onMonitorClick}
+                  onSignOut={this._onSignOut}
                 />
                 </span>
                 <span style={{float: 'left'}}>

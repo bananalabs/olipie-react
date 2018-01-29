@@ -29,7 +29,7 @@ export class EditUser extends React.Component<Props, {}> {
     const userName: string = this.props.match.params.username;
     const user: User = findUser(this.props.users, userName);
     return (
-        <AddEditForm title="Edit User" onDone={this._editUser} user={user}/>
+        <AddEditForm title="Edit User" onDone={this._editUser} user={user} doneLink="/"/>
     );
   }
 }

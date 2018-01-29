@@ -136,9 +136,16 @@ test('Reducer should handle the updateUserSuccess action correctly', () => {
   });
 
 test('addUser saga should invoke fetch.post and dispatch success action', () => {
-    const gen = addUserSaga({type: ADD_USER, payload: {accountId: '1', user: {} as User}});
-    expect(gen.next().value).toEqual(call(fetch.post, url, {accountId: '1'}));
-    expect(gen.next({}).value).toEqual(put({type: ADD_USER_SUCCESS, payload: {user: {}}}));
+    const user: any = {
+        name: 'Test User',
+        profileColor: 'green',
+        kid: true,
+        admin: false
+    };
+    const gen = addUserSaga({type: ADD_USER, payload: {accountId: '1', user: user}});
+    expect(gen.next().value).toEqual(call(fetch.post, url, {accountId: '1', ...user}));
+    expect(gen.next({...user, new: true}).value).toEqual
+        (put({type: ADD_USER_SUCCESS, payload: {user: user}}));
 });
 
 test('updateUser saga should invoke fetch.update and dispatch success action', () => {

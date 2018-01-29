@@ -48,17 +48,17 @@ export class AddEditForm extends React.Component<Props, State> {
                         Enter words to exclude from your child's search results
                     </p>
                     <TextField
-                     hintText="kill guns sexy poop"
-                     value={this.state.keywords}
-                     onChange={this._setKeywords}
+                      hintText="kill guns sexy poop"
+                      value={this.state.keywords}
+                      onChange={this._setKeywords}
                     />
                     <br/>
                     <br/>
                     <a href={this.props.doneLink}>
                         <RaisedButton
-                        label="Done"
-                        primary={true}
-                        onClick={this._onDone}
+                          label="Done"
+                          primary={true}
+                          onClick={this._onDone}
                         />
                     </a>
                 </Paper>

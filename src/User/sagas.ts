@@ -3,6 +3,7 @@ import { GET_USERS, ADD_USER, UPDATE_USER } from './constants';
 import { getUsersSuccess, addUserSuccess, updateUserSuccess } from './actions';
 import * as fetch from '../utils/fetch';
 import { User } from './model';
+import { logout } from '../Auth/actions';
 
 const url: string = 'http://localhost:3030/user';
 
@@ -12,6 +13,7 @@ export function* getUsers(action: {type: string, payload: {accountId: string}}) 
     yield put(getUsersSuccess({users: users}));
   } catch (err) {
     console.log(err);
+    yield put(logout());
   }
 }
 
@@ -28,6 +30,7 @@ export function* addUser(action: {type: string,
     }
   } catch (err) {
     console.log(err);
+    yield put(logout());
   }
 }
 
@@ -38,6 +41,7 @@ export function* updateUser(action: {type: string,
     yield put(updateUserSuccess({user: user}));
   } catch (err) {
     console.log(err);
+    yield put(logout());
   }
 }
 

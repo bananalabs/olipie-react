@@ -61,6 +61,7 @@ export class Avatar extends React.Component<Props, State> {
                         backgroundColor={color}
                         size={this.props.small ? 40 : 120}
                         onClick={this._onClick}
+                        style={{cursor: 'pointer'}}
                     >
                     {letter}
                     </MAvatar>

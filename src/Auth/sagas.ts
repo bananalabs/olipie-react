@@ -1,6 +1,7 @@
 import { put, call, takeEvery } from 'redux-saga/effects';
-import { ADD_ACCOUNT } from './constants';
-import { setCurrentAccount } from '../App/actions';
+import { ADD_ACCOUNT, LOGOUT } from './constants';
+import { Mode } from '../App/constants';
+import { setCurrentAccount, setMode } from '../App/actions';
 import { getUsers, addUser } from '../User/actions';
 import * as fetch from '../utils/fetch';
 
@@ -39,7 +40,16 @@ export function* addAccount(action: {type: string,
     }
   } catch (err) {
     console.log(err);
+    yield put({type: LOGOUT});
   }
+}
+
+export function* logout(action: {type: string}): any {
+  localStorage.setItem('olipie-account', null);
+  localStorage.setItem('olipie-token', null);
+  const auth2 = gapi.auth2.getAuthInstance();
+  yield auth2.signOut();
+  yield put(setMode({mode: Mode.LoggedOut}));
 }
 
 // watcher Saga: spawn a new addAccount task on each ADD_ACCOUNT
@@ -47,9 +57,15 @@ export function* watchAddAccount(): any {
   yield takeEvery(ADD_ACCOUNT, addAccount);
 }
 
+// watcher Saga: spawn a new logout task on each LOGOUT
+export function* watchLogout(): any {
+  yield takeEvery(LOGOUT, logout);
+}
+
 function* authSaga() {
   yield [
-    watchAddAccount()
+    watchAddAccount(),
+    watchLogout()
   ];
 }
 
