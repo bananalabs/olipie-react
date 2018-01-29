@@ -1,3 +1,5 @@
+/* global gapi */
+
 import * as React from 'react';
 import './Auth.css';
 import { connect } from 'react-redux';

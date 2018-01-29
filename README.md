@@ -1,3 +1,17 @@
+[Olipie](www.olipie.com) is a YouTube Player with parental controls.
+Olipie was originally written using AngularJS and Django.
+
+olipie-react is a rewrite of Olipie using Typescript, React, Redux, Node.
+
+## Features
+
+- Child User Profiles (automatically includes safe search)
+- Enhanced safe search (configure inappropriate words to be excluded from search results)
+- Per user history
+- Monitor (Flag videos in child's history. Flagged videos are removed from history and future search results)
+
+## Work in Progress....
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>

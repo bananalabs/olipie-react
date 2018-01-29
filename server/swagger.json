@@ -1,0 +1,1441 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "'Olipie', REST API v1",
+    "version": "1.0.0",
+    "description": "'Olipie', REST API v1",
+    "termsOfService": "",
+    "contact": {
+      "name": "tufan.io",
+      "url": "http://tufan.io",
+      "email": "contact@tufan.io"
+    },
+    "license": {
+      "name": "ISC",
+      "url": "http://tufan.io"
+    }
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "definitions": {
+    "account": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "accounts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/account"
+      }
+    },
+    "user": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "profileColor": {
+          "type": "string"
+        },
+        "kid": {
+          "type": "boolean"
+        },
+        "admin": {
+          "type": "boolean"
+        }
+      }
+    },
+    "users": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/user"
+      }
+    },
+    "video": {
+      "type": "object",
+      "properties": {
+        "flagged": {
+          "type": "boolean"
+        }
+      }
+    },
+    "videos": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/video"
+      }
+    },
+    "filter": {
+      "type": "object",
+      "properties": {
+        "keyword": {
+          "type": "string"
+        }
+      }
+    },
+    "filters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/filter"
+      }
+    }
+  },
+  "paths": {
+    "/account": {
+      "post": {
+        "summary": "Create a new account",
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "account.create",
+        "parameters": [
+          {
+            "in": "body",
+            "required": true,
+            "name": "account",
+            "schema": {
+              "$ref": "#/definitions/account"
+            }
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws",
+          "uri": "{{apiEndpointUri}}",
+          "httpMethod": "POST",
+          "requestTemplates": {
+            "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"body\": $input.json('$') }"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "$input.json('$.body')"
+              }
+            },
+            "BAD.*": {
+              "statusCode": "400"
+            },
+            "INT.*": {
+              "statusCode": "500"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/account"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "Detected a malformed request to account.create"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "You are not authorized to account.create"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "We had trouble with account.create. Please report the problem if this continues"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/{id}": {
+      "get": {
+        "summary": "Get an existing account",
+        "produces": [
+          "application/json"
+        ],
+        "operationId": "account.read",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "object id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws",
+          "uri": "{{apiEndpointUri}}",
+          "httpMethod": "POST",
+          "requestTemplates": {
+            "application/json": "{ \"id\": $input.params('id'), \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\" }"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "$input.json('$.body')"
+              }
+            },
+            "BAD.*": {
+              "statusCode": "400"
+            },
+            "INT.*": {
+              "statusCode": "500"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "account",
+            "schema": {
+              "$ref": "#/definitions/account"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "You are not authorized to account.read"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "We had trouble reading account.read. Please report the problem if this continues"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an existing account",
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "account.update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "object id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "required": true,
+            "name": "account",
+            "schema": {
+              "$ref": "#/definitions/account"
+            }
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws",
+          "uri": "{{apiEndpointUri}}",
+          "httpMethod": "POST",
+          "requestTemplates": {
+            "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"body\": $input.json('$'), \"id\": $input.params('id') }"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "$input.json('$.body')"
+              }
+            },
+            "BAD.*": {
+              "statusCode": "400"
+            },
+            "INT.*": {
+              "statusCode": "500"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "schema": {
+              "$ref": "#/definitions/account"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "Detected a malformed request to account.update"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "You are not authorized to access account.update"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "We had trouble retrieving account.update. Please report the problem if this continues"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an existing account",
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "account.delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "object id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws",
+          "uri": "{{apiEndpointUri}}",
+          "httpMethod": "POST",
+          "requestTemplates": {
+            "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"id\": $input.params('id') }"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "$input.json('$.body')"
+              }
+            },
+            "BAD.*": {
+              "statusCode": "400"
+            },
+            "INT.*": {
+              "statusCode": "500"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "delete successful, no content in response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "Detected a malformed attempt to account.delete"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "You are not authorized to perform account.delete"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "We had trouble performing account.delete. Please report the problem if this continues"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user": {
+      "post": {
+        "summary": "Create a new user",
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "user.create",
+        "parameters": [
+          {
+            "in": "body",
+            "required": true,
+            "name": "user",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws",
+          "uri": "{{apiEndpointUri}}",
+          "httpMethod": "POST",
+          "requestTemplates": {
+            "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"body\": $input.json('$') }"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "$input.json('$.body')"
+              }
+            },
+            "BAD.*": {
+              "statusCode": "400"
+            },
+            "INT.*": {
+              "statusCode": "500"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/user"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "Detected a malformed request to user.create"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "You are not authorized to user.create"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "We had trouble with user.create. Please report the problem if this continues"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "summary": "Get an existing user",
+        "produces": [
+          "application/json"
+        ],
+        "operationId": "user.read",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "object id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws",
+          "uri": "{{apiEndpointUri}}",
+          "httpMethod": "POST",
+          "requestTemplates": {
+            "application/json": "{ \"id\": $input.params('id'), \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\" }"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "$input.json('$.body')"
+              }
+            },
+            "BAD.*": {
+              "statusCode": "400"
+            },
+            "INT.*": {
+              "statusCode": "500"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "user",
+            "schema": {
+              "$ref": "#/definitions/user"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "You are not authorized to user.read"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "We had trouble reading user.read. Please report the problem if this continues"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an existing user",
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "user.update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "object id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "required": true,
+            "name": "user",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws",
+          "uri": "{{apiEndpointUri}}",
+          "httpMethod": "POST",
+          "requestTemplates": {
+            "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"body\": $input.json('$'), \"id\": $input.params('id') }"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "$input.json('$.body')"
+              }
+            },
+            "BAD.*": {
+              "statusCode": "400"
+            },
+            "INT.*": {
+              "statusCode": "500"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "schema": {
+              "$ref": "#/definitions/user"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "Detected a malformed request to user.update"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "You are not authorized to access user.update"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "We had trouble retrieving user.update. Please report the problem if this continues"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an existing user",
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "user.delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "object id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws",
+          "uri": "{{apiEndpointUri}}",
+          "httpMethod": "POST",
+          "requestTemplates": {
+            "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"id\": $input.params('id') }"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "$input.json('$.body')"
+              }
+            },
+            "BAD.*": {
+              "statusCode": "400"
+            },
+            "INT.*": {
+              "statusCode": "500"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "delete successful, no content in response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "Detected a malformed attempt to user.delete"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "You are not authorized to perform user.delete"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "We had trouble performing user.delete. Please report the problem if this continues"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/video": {
+      "post": {
+        "summary": "Create a new video",
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "video.create",
+        "parameters": [
+          {
+            "in": "body",
+            "required": true,
+            "name": "video",
+            "schema": {
+              "$ref": "#/definitions/video"
+            }
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws",
+          "uri": "{{apiEndpointUri}}",
+          "httpMethod": "POST",
+          "requestTemplates": {
+            "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"body\": $input.json('$') }"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "$input.json('$.body')"
+              }
+            },
+            "BAD.*": {
+              "statusCode": "400"
+            },
+            "INT.*": {
+              "statusCode": "500"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/video"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "Detected a malformed request to video.create"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "You are not authorized to video.create"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "We had trouble with video.create. Please report the problem if this continues"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/video/{id}": {
+      "get": {
+        "summary": "Get an existing video",
+        "produces": [
+          "application/json"
+        ],
+        "operationId": "video.read",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "object id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws",
+          "uri": "{{apiEndpointUri}}",
+          "httpMethod": "POST",
+          "requestTemplates": {
+            "application/json": "{ \"id\": $input.params('id'), \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\" }"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "$input.json('$.body')"
+              }
+            },
+            "BAD.*": {
+              "statusCode": "400"
+            },
+            "INT.*": {
+              "statusCode": "500"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "video",
+            "schema": {
+              "$ref": "#/definitions/video"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "You are not authorized to video.read"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "We had trouble reading video.read. Please report the problem if this continues"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an existing video",
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "video.update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "object id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "required": true,
+            "name": "video",
+            "schema": {
+              "$ref": "#/definitions/video"
+            }
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws",
+          "uri": "{{apiEndpointUri}}",
+          "httpMethod": "POST",
+          "requestTemplates": {
+            "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"body\": $input.json('$'), \"id\": $input.params('id') }"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "$input.json('$.body')"
+              }
+            },
+            "BAD.*": {
+              "statusCode": "400"
+            },
+            "INT.*": {
+              "statusCode": "500"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "schema": {
+              "$ref": "#/definitions/video"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "Detected a malformed request to video.update"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "You are not authorized to access video.update"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "We had trouble retrieving video.update. Please report the problem if this continues"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an existing video",
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "video.delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "object id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws",
+          "uri": "{{apiEndpointUri}}",
+          "httpMethod": "POST",
+          "requestTemplates": {
+            "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"id\": $input.params('id') }"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "$input.json('$.body')"
+              }
+            },
+            "BAD.*": {
+              "statusCode": "400"
+            },
+            "INT.*": {
+              "statusCode": "500"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "delete successful, no content in response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "Detected a malformed attempt to video.delete"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "You are not authorized to perform video.delete"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "We had trouble performing video.delete. Please report the problem if this continues"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/filter": {
+      "post": {
+        "summary": "Create a new filter",
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "filter.create",
+        "parameters": [
+          {
+            "in": "body",
+            "required": true,
+            "name": "filter",
+            "schema": {
+              "$ref": "#/definitions/filter"
+            }
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws",
+          "uri": "{{apiEndpointUri}}",
+          "httpMethod": "POST",
+          "requestTemplates": {
+            "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"body\": $input.json('$') }"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "$input.json('$.body')"
+              }
+            },
+            "BAD.*": {
+              "statusCode": "400"
+            },
+            "INT.*": {
+              "statusCode": "500"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/filter"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "Detected a malformed request to filter.create"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "You are not authorized to filter.create"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "We had trouble with filter.create. Please report the problem if this continues"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/filter/{id}": {
+      "get": {
+        "summary": "Get an existing filter",
+        "produces": [
+          "application/json"
+        ],
+        "operationId": "filter.read",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "object id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws",
+          "uri": "{{apiEndpointUri}}",
+          "httpMethod": "POST",
+          "requestTemplates": {
+            "application/json": "{ \"id\": $input.params('id'), \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\" }"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "$input.json('$.body')"
+              }
+            },
+            "BAD.*": {
+              "statusCode": "400"
+            },
+            "INT.*": {
+              "statusCode": "500"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "filter",
+            "schema": {
+              "$ref": "#/definitions/filter"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "You are not authorized to filter.read"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "We had trouble reading filter.read. Please report the problem if this continues"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an existing filter",
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "filter.update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "object id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "required": true,
+            "name": "filter",
+            "schema": {
+              "$ref": "#/definitions/filter"
+            }
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws",
+          "uri": "{{apiEndpointUri}}",
+          "httpMethod": "POST",
+          "requestTemplates": {
+            "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"body\": $input.json('$'), \"id\": $input.params('id') }"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "$input.json('$.body')"
+              }
+            },
+            "BAD.*": {
+              "statusCode": "400"
+            },
+            "INT.*": {
+              "statusCode": "500"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "schema": {
+              "$ref": "#/definitions/filter"
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "Detected a malformed request to filter.update"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "You are not authorized to access filter.update"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "We had trouble retrieving filter.update. Please report the problem if this continues"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an existing filter",
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "filter.delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "object id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "aws",
+          "uri": "{{apiEndpointUri}}",
+          "httpMethod": "POST",
+          "requestTemplates": {
+            "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"id\": $input.params('id') }"
+          },
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "$input.json('$.body')"
+              }
+            },
+            "BAD.*": {
+              "statusCode": "400"
+            },
+            "INT.*": {
+              "statusCode": "500"
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "delete successful, no content in response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "Detected a malformed attempt to filter.delete"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authorization exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "You are not authorized to perform filter.delete"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Validation exception",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "default": "We had trouble performing filter.delete. Please report the problem if this continues"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

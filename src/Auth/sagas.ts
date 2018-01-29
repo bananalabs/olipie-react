@@ -1,3 +1,5 @@
+/* global gapi */
+
 import { put, call, takeEvery } from 'redux-saga/effects';
 import { ADD_ACCOUNT, LOGOUT } from './constants';
 import { Mode } from '../App/constants';

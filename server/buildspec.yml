@@ -1,0 +1,16 @@
+# AWS code-build
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - export HOME='/tmp'
+      - rm -rf ./node_modules
+      - npm install --production
+  post_build:
+    commands:
+      - zip -r lambda.zip *
+artifacts:
+  files:
+    - lambda.zip
+    - swagger.json

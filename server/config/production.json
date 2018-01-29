@@ -1,0 +1,5 @@
+{
+  "host": "olipie-app.tufan.io",
+  "port": "PORT",
+  "activedb": "sqlite"
+}
