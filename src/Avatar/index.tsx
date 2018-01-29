@@ -51,6 +51,8 @@ export class Avatar extends React.Component<Props, State> {
         const color = this.props.user ?
                       this.props.user.profileColor :
                       'gray';
+        const name = this.props.user && this.props.user.name &&
+                     this.props.user.name.split(' ')[0];
         return (
             <div>
                 <div className="avatar" id={`${letter}-${color}`}>
@@ -63,7 +65,7 @@ export class Avatar extends React.Component<Props, State> {
                     {letter}
                     </MAvatar>
                     <p className="a-name">
-                        {this.props.showName && this.props.user && this.props.user.name}
+                        {this.props.showName && this.props.user && name}
                     </p>
                 </div>
                 <Dialog

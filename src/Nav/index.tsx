@@ -1,3 +1,5 @@
+/* global gapi */
+
 import * as React from 'react';
 import IconButton from 'material-ui/IconButton';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
@@ -13,6 +15,7 @@ import { User } from '../User/model';
 export interface Props {
     users: User[];
     onMonitor: () => void;
+    history: any;
 }
 
 export class Nav extends React.Component<Props, {}> {
@@ -27,6 +30,14 @@ export class Nav extends React.Component<Props, {}> {
         default:
             return;          
       }
+  }
+
+  _SignOut = () => {
+    localStorage.setItem('olipie-account', null);
+    const auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(() => {
+        this.props.history.push('/');
+    })
   }
 
   render() {
@@ -68,6 +79,9 @@ export class Nav extends React.Component<Props, {}> {
                 rightIcon={<ArrowDropRight />}
                 menuItems={profiles}
               />
+              <a href="/" onClick={this._SignOut} style={{textDecoration: 'none'}}>
+                <MenuItem value="Sign Out" primaryText="Sign Out"/>
+              </a>
             </IconMenu>
         </div>
     );

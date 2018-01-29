@@ -16,13 +16,16 @@ export function* getUsers(action: {type: string, payload: {accountId: string}}) 
 }
 
 export function* addUser(action: {type: string, 
-  payload: {accountId: string, user: User}}) {
+  payload: {accountId: string, user: any}}) {
   try {
     let newUser: any = {...action.payload.user};
     delete newUser.id;
     newUser.accountId = action.payload.accountId;
     const user = yield call(fetch.post, url, newUser);
-    yield put(addUserSuccess({user: user}));
+    if (user.new) {
+      delete user.new;
+      yield put(addUserSuccess({user: user}));
+    }
   } catch (err) {
     console.log(err);
   }

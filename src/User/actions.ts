@@ -39,8 +39,8 @@ export function getUsersSuccess(payload: {users: User[]}):
  *
  * @return {object}    An action object with a type of ADD_USER
  */
-export function addUser(payload: {accountId: string, user: User}):
-        {type: string, payload: {accountId: string, user: User}} {
+export function addUser(payload: {accountId: string, user: any}):
+        {type: string, payload: {accountId: string, user: any}} {
   return {
     type: ADD_USER,
     payload

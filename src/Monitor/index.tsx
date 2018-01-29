@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { User, selectUsers } from '../User/model';
 import { createStructuredSelector }  from 'reselect';
 import { AppState, selectAccount } from '../App/model';
-import { setMode, setUser } from '../App/actions';
+import { setMode, setCurrentUser } from '../App/actions';
 import Videos from '../Videos';
 import { getVideos, updateVideo, setVideos } from '../Videos/actions';
 import { Video, selectVideos } from '../Videos/model';
@@ -52,7 +52,7 @@ export class Monitor extends React.Component<Props, State> {
   }
 
   _monitor(user: User) {
-    this.props.dispatch(setUser({user: user}));
+    this.props.dispatch(setCurrentUser({user: user}));
     this.props.dispatch(setMode({mode: Mode.Monitor}));
     this.props.dispatch(getVideos({user: user}));
     this.setState({flagVideos: true});

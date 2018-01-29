@@ -7,6 +7,7 @@ import { Settings } from './model';
 export interface Props {
     settings?: Settings;
     done: (settings: Settings) => void;
+    doneLink: string;
 }
 
 export interface State {
@@ -53,11 +54,13 @@ export class AddEditForm extends React.Component<Props, State> {
                     />
                     <br/>
                     <br/>
-                    <RaisedButton
-                     label="Done"
-                     primary={true}
-                     onClick={this._onDone}
-                    />
+                    <a href={this.props.doneLink}>
+                        <RaisedButton
+                        label="Done"
+                        primary={true}
+                        onClick={this._onDone}
+                        />
+                    </a>
                 </Paper>
             </div>
         );

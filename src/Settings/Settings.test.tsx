@@ -10,7 +10,8 @@ import { Settings as SettingsModel } from './model';
 test('renders a text field to enter filter keywords', () => {
     const props: Props = {
         settings: {filter: ''},
-        done: ({}) => {}
+        done: ({}) => {},
+        doneLink: '#'
 
     };
     const wrapper = shallow(<AddEditForm {...props} />);

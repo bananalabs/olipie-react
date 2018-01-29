@@ -9,6 +9,7 @@ import { Settings } from './model';
 export interface Props {
   accountId: string;
   dispatch: (action: any) => void;
+  done: () => void;
 }
 
 export class AddSettings extends React.Component<Props, {}> {
@@ -23,11 +24,12 @@ export class AddSettings extends React.Component<Props, {}> {
       accountId: this.props.accountId,
       keywords: settings.filter
     }));
+    this.props.done();
   }
 
   render() {
     return (
-        <AddEditForm done={this._done}/>
+        <AddEditForm done={this._done} doneLink={'/'}/>
     );
   }
 }

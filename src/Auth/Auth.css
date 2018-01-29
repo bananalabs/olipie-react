@@ -1,0 +1,13 @@
+.auth-container {
+    text-align: center;
+    margin: auto;
+    margin-top: 10%;
+}
+
+.auth-title {
+    font-family: sans-serif;
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 22px;
+    line-height: 32px;
+    font-weight: 400;
+}

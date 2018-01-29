@@ -66,7 +66,12 @@ export class Header extends React.Component<Props, State> {
             title={<a href="/" className="title">Olipie</a>}
             onTitleTouchTap={this._onTitleClick}
             showMenuIconButton={false}
-            iconElementRight={<Nav users={this.props.users} onMonitor={this._onMonitorClick}/>}
+            iconElementRight={
+              <Nav users={this.props.users}
+                   onMonitor={this._onMonitorClick}
+                   history={this.props.history}
+              />
+            }
           />
         );
       case Mode.Watch:
@@ -99,7 +104,10 @@ export class Header extends React.Component<Props, State> {
             iconElementRight={
               <div style={{display: 'inline-block'}}>
                 <span style={{float: 'left', marginRight: '10px'}}>
-                  <Nav users={this.props.users} onMonitor={this._onMonitorClick}/>
+                <Nav users={this.props.users}
+                     onMonitor={this._onMonitorClick}
+                     history={this.props.history}
+                />
                 </span>
                 <span style={{float: 'left'}}>
                   <Avatar

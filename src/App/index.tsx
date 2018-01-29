@@ -3,22 +3,26 @@ import * as React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from '../Header';
 import { AppState, selectMode } from './model';
-import { setAccount } from './actions';
+import { setCurrentAccount } from './actions';
 import { Mode } from './constants';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
-import { getUsers } from '../User/actions';
+// import Setup from '../Setup';
 import Content from '../Content';
 import Profiles from '../Profiles';
 import EditProfile from '../User/EditUser';
+import { getUsers } from '../User/actions';
 import Settings from '../Settings/EditSettings';
+import Setup from '../Setup';
 import Watch from '../Watch';
 import { createStructuredSelector }  from 'reselect';
 import Monitor from '../Monitor/index';
+import Auth from '../Auth';
 
 export interface Props {
   mode: Mode;
   dispatch: (action: any) => void;
+  history: any;
 }
 
 export class App extends React.Component<Props, {}> {
@@ -27,14 +31,24 @@ export class App extends React.Component<Props, {}> {
     super(props);
   }
 
-  componentWillMount() {
+  checkAccount() {
     // Check if local storage has account id
-    // yes - get users by account id, set mode = default, set accountId
-    this.props.dispatch(setAccount({accountId: '6174dd1d-3689-47ec-a457-6ee79b5b4848'}));
-    this.props.dispatch(getUsers({accountId: '6174dd1d-3689-47ec-a457-6ee79b5b4848'}));
-    // no - go to login page
-    // once user signs in, create account, add admin user to account
-    // '08a61300-d083-49e6-9bb4-ac8438259dfc'
+    const accountId = localStorage.getItem('olipie-account');
+    if (!accountId ||
+         accountId === "null" ||
+         accountId === "undefined"
+       ) {
+      // Redirect user to login page
+      this.props.history.push('/login');
+    } else {
+      // Set current account, get users for this account
+      this.props.dispatch(setCurrentAccount({accountId: accountId}));
+      this.props.dispatch(getUsers({accountId: accountId}));
+    }
+  }
+
+  componentWillMount() {
+    this.checkAccount();
   }
 
   render(): JSX.Element {
@@ -43,8 +57,10 @@ export class App extends React.Component<Props, {}> {
         <Route
          exact={true}
          path="/"
-         component={this.props.mode === Mode.NewUser ? Settings : Profiles}
+         component={Profiles}
         />
+        <Route path="/login" component={Auth} />
+        <Route path="/setup" component={Setup} />
         <Route path="/profiles" component={Profiles} />
         <Route path="/watch" component={Watch} />
         <Route path="/monitor" component={Monitor} />
@@ -52,13 +68,10 @@ export class App extends React.Component<Props, {}> {
         <Route path="/user/:username" component={EditProfile} />
       </Switch>
     );
-    /* const videos = ['2g811Eo7K8U', '2g811Eo7K8U', '2g811Eo7K8U',
-                    '2g811Eo7K8U', '2g811Eo7K8U', '2g811Eo7K8U',
-                    '2g811Eo7K8U', '2g811Eo7K8U']; */
     return(
       <MuiThemeProvider>
         <div>
-          <Header mode={this.props.mode}/>
+          <Header mode={this.props.mode} history={this.props.history}/>
           <Content children={routes}/>
         </div>
       </MuiThemeProvider>

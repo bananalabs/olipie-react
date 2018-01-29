@@ -36,7 +36,9 @@ export class EditSettings extends React.Component<Props, {}> {
       filter: this.props.filter
     };
     return (
-        <AddEditForm settings={settings} done={this._done}/>
+        <div className="settings-container">
+          <AddEditForm settings={settings} done={this._done} doneLink={'/'}/>
+        </div>
     );
   }
 }

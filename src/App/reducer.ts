@@ -1,12 +1,12 @@
 import { AppState } from './model';
-import { Mode, SET_MODE, SET_ACCOUNT, SET_USER } from './constants';
+import { Mode, SET_MODE, SET_CURRENT_ACCOUNT, SET_CURRENT_USER } from './constants';
 import userReducer from '../User/reducer';
 import settingsReducer from '../Settings/reducer';
 import videosReducer from '../Videos/reducer';
 import { User } from '../User/model';
 
 export const initialState: AppState = {
-    mode: Mode.Default,
+    mode: Mode.NewUser,
     account: '',
     users: [],
     videos: [],
@@ -25,7 +25,7 @@ function mode(state: Mode, action: any): Mode {
 
 function account(state: string, action: any): string {
     switch (action.type) {
-      case SET_ACCOUNT:
+      case SET_CURRENT_ACCOUNT:
         return action.payload.accountId;
       default:
         return state;
@@ -34,7 +34,7 @@ function account(state: string, action: any): string {
 
 function currentUser(state: User, action: any): User {
     switch (action.type) {
-      case SET_USER:
+      case SET_CURRENT_USER:
         return action.payload.user;
       default:
         return state;

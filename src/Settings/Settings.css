@@ -1,12 +1,12 @@
 .settings-container {
     text-align: center;
+    margin-top: 50px;
 }
 
 .settings-paper {
     margin: auto;
-    width: 50%;
+    width: 40%;
     padding: 50px;
-    margin-top: 5%;
 }
 
 .settings-title {
