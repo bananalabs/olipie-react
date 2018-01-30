@@ -8,6 +8,7 @@ import { addAccount } from './actions';
 export interface Props {
     dispatch: (action: any) => void;
     history: any;
+    done?: () => void;
 }
 
 export class Auth extends React.Component<Props, {}> {
@@ -20,15 +21,19 @@ export class Auth extends React.Component<Props, {}> {
       }
 
     onSignIn = (googleUser: any) => {
-        const profile = googleUser.getBasicProfile();
-        const id_token = googleUser.getAuthResponse().id_token;
-        localStorage.setItem('olipie-token', id_token);
-        // Get/Create account
-        this.props.dispatch(addAccount({
-            name: profile.getName(),
-            email: profile.getEmail(),
-            history: this.props.history
-        }));
+        if (this.props.done) {
+            this.props.done();
+        } else {
+            const profile = googleUser.getBasicProfile();
+            const id_token = googleUser.getAuthResponse().id_token;
+            localStorage.setItem('olipie-token', id_token);
+            // Get/Create account
+            this.props.dispatch(addAccount({
+                name: profile.getName(),
+                email: profile.getEmail(),
+                history: this.props.history
+            }));
+        }
     }
     
     render() {

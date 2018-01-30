@@ -1,6 +1,6 @@
 // this is a container
-// props - user, user's video history
 // Render Videos with callback to monitor
+// This page is restricted to the admin user and requires login
 
 import * as React from 'react';
 import Avatar from '../Avatar';
@@ -15,6 +15,8 @@ import Videos from '../Videos';
 import { getVideos, updateVideo, setVideos } from '../Videos/actions';
 import { Video, selectVideos } from '../Videos/model';
 import { Mode } from '../App/constants';
+import Auth from '../Auth';
+import Dialog from 'material-ui/Dialog';
 
 export interface Props {
     accountId: string;
@@ -25,6 +27,7 @@ export interface Props {
 }
 
 export interface State {
+    showLogin: boolean;
     flagVideos: boolean;
 }
 
@@ -34,12 +37,15 @@ export class Monitor extends React.Component<Props, State> {
     super(props);
     this._monitor = this._monitor.bind(this);
     this._flag = this._flag.bind(this);
+    this._unlock = this._unlock.bind(this);
     this.state = {
+        showLogin: true,
         flagVideos: false
     };
   }
 
   componentDidMount() {
+    this.setState({showLogin: true});
     this.props.dispatch(setVideos({videos: []}));
   }
 
@@ -49,6 +55,11 @@ export class Monitor extends React.Component<Props, State> {
 
   _flag(video: Video, flagged: boolean) {
       this.props.dispatch(updateVideo({video: {...video, flagged: flagged}}));
+  }
+
+  _unlock() {
+    // Admin user validated, go ahead and show videos
+    this.setState({showLogin: false});
   }
 
   _monitor(user: User) {
@@ -73,20 +84,36 @@ export class Monitor extends React.Component<Props, State> {
   }
 
   render() {
+      const login: any = 
+        this.state.showLogin ?
+          (
+            <Dialog
+              modal={true}
+              open={this.state.showLogin}
+            >
+              <Auth done={this._unlock}/>
+            </Dialog>
+          ) :
+          <div/>;
       const display: any = 
-      this.state.flagVideos ?
-      <Videos videos={this.props.videos} onFlag={this._flag} /> :
-      (
-        <div>
-          <h2 className="m-caption">Who would you like to monitor?</h2>
-          <div className="p-container">
-              <div className="icons">
-                  {this.props.users && this.renderUsers(this.props.users)}
-              </div>
+        !this.state.showLogin && this.state.flagVideos ?
+        <Videos videos={this.props.videos} onFlag={this._flag} /> :
+        (
+          <div>
+            <h2 className="m-caption">Who would you like to monitor?</h2>
+            <div className="p-container">
+                <div className="icons">
+                    {this.props.users && this.renderUsers(this.props.users)}
+                </div>
+            </div>
           </div>
+        );
+      return (
+        <div>
+          {login}
+          {display}
         </div>
       );
-      return display;
   }
 }
 

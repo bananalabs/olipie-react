@@ -1,11 +1,13 @@
 import { put, call, takeEvery, select } from 'redux-saga/effects';
 import { GET_VIDEOS } from './constants';
+import { Video } from '../Videos/model';
 import { setVideos } from '../Videos/actions';
 import * as fetch from '../utils/fetch';
 import { selectCurrentUser } from '../App/model';
 import { selectFilter } from '../Settings/model';
 
 const url: string = 'https://www.googleapis.com/youtube/v3/search?';
+const videosUrl: string = 'http://localhost:3030/video';
 const params: string = 'maxResults=30&part=snippet&key=AIzaSyAuaxL8IrHIvVIdqpiLRaHCFBCIS8zWP8A';
 
 export function* getVideos(action: {type: string, keywords: string}) {
@@ -26,7 +28,13 @@ export function* getVideos(action: {type: string, keywords: string}) {
             flagged: false,
             title: video.snippet.title }; }
     );
-    yield put(setVideos({videos: videos}));
+    // Remove flagged videos from search results
+    const allVideos: Video[] = yield call(fetch.get, videosUrl);
+    const filteredVideos = videos.filter((video: Video) => {
+        const videoInHistory: Video = allVideos.find((v) => v.id === video.id);
+        return videoInHistory ? videoInHistory.flagged == false : true;
+    });
+    yield put(setVideos({videos: filteredVideos}));
   } catch (err) {
     console.log(err);
   }

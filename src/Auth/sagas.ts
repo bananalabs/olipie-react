@@ -50,7 +50,7 @@ export function* logout(action: {type: string}): any {
   localStorage.setItem('olipie-account', null);
   localStorage.setItem('olipie-token', null);
   const auth2 = gapi.auth2.getAuthInstance();
-  yield auth2.signOut();
+  yield auth2.disconnect();
   yield put(setMode({mode: Mode.LoggedOut}));
 }
 
