@@ -4,11 +4,12 @@ import * as React from 'react';
 import './Auth.css';
 import { connect } from 'react-redux';
 import { addAccount } from './actions';
+import { setMode } from '../App/actions';
+import { Mode } from '../App/constants';
 
 export interface Props {
     dispatch: (action: any) => void;
     history: any;
-    done?: () => void;
 }
 
 export class Auth extends React.Component<Props, {}> {
@@ -21,19 +22,16 @@ export class Auth extends React.Component<Props, {}> {
       }
 
     onSignIn = (googleUser: any) => {
-        if (this.props.done) {
-            this.props.done();
-        } else {
-            const profile = googleUser.getBasicProfile();
-            const id_token = googleUser.getAuthResponse().id_token;
-            localStorage.setItem('olipie-token', id_token);
-            // Get/Create account
-            this.props.dispatch(addAccount({
-                name: profile.getName(),
-                email: profile.getEmail(),
-                history: this.props.history
-            }));
-        }
+        const profile = googleUser.getBasicProfile();
+        const id_token = googleUser.getAuthResponse().id_token;
+        localStorage.setItem('olipie-token', id_token);
+        this.props.dispatch(setMode({mode: Mode.Default}));
+        // Get/Create account
+        this.props.dispatch(addAccount({
+            name: profile.getName(),
+            email: profile.getEmail(),
+            history: this.props.history
+        }));
     }
     
     render() {

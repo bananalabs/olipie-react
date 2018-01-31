@@ -3,6 +3,7 @@ import TextField from 'material-ui/TextField';
 import './Settings.css';
 import { RaisedButton, Paper } from 'material-ui';
 import { Settings } from './model';
+import { Link } from 'react-router-dom';
 
 export interface Props {
     settings?: Settings;
@@ -54,13 +55,13 @@ export class AddEditForm extends React.Component<Props, State> {
                     />
                     <br/>
                     <br/>
-                    <a href={this.props.doneLink}>
+                    <Link to={this.props.doneLink}>
                         <RaisedButton
                           label="Done"
                           primary={true}
                           onClick={this._onDone}
                         />
-                    </a>
+                    </Link>
                 </Paper>
             </div>
         );

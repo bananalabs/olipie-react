@@ -12,6 +12,7 @@ import { createStructuredSelector }  from 'reselect';
 import { getVideos } from '../Search/actions';
 import { getVideos as getHistory } from '../Videos/actions';
 import './Header.css';
+import { Link } from 'react-router-dom';
 
 export interface Props {
   mode: Mode;
@@ -68,7 +69,7 @@ export class Header extends React.Component<Props, State> {
       case Mode.Default:
         return(
           <AppBar
-            title={<a href="/" className="title">Olipie</a>}
+            title={<Link to={`/`} className="title">Olipie</Link>}
             onTitleTouchTap={this._onTitleClick}
             showMenuIconButton={false}
             iconElementRight={
@@ -83,7 +84,7 @@ export class Header extends React.Component<Props, State> {
       case Mode.Watch:
         return (
           <AppBar
-            title={<a href="/" className="title">Olipie</a>}
+            title={<Link to={`/`} className="title">Olipie</Link>}
             onTitleTouchTap={this._onTitleClick}
             showMenuIconButton={false}
             iconElementRight={
@@ -104,7 +105,7 @@ export class Header extends React.Component<Props, State> {
       case Mode.Monitor:
         return(
           <AppBar
-            title={<a href="/" className="title">Olipie</a>}
+            title={<Link to={`/`} className="title">Olipie</Link>}
             onTitleTouchTap={this._onTitleClick}
             showMenuIconButton={false}
             iconElementRight={

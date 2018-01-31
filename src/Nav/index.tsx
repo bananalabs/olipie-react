@@ -1,6 +1,7 @@
 /* global gapi */
 
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import IconButton from 'material-ui/IconButton';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import MonitorIcon from 'material-ui/svg-icons/action/visibility';
@@ -35,21 +36,21 @@ export class Nav extends React.Component<Props, {}> {
   render() {
     const profiles = this.props.users.map((user) => {
         return(
-          <a key={user.name} href={`/user/${user.name}`}>
+          <Link key={user.name} to={`/user/${user.name}`}>
             <MenuItem
                 key={user.name}
                 primaryText={user.name}
                 leftIcon={<EditIcon/>}
             />
-          </a>
+          </Link>
         );
     });
     return (
         <div>
             <IconButton tooltip="Monitor" onClick={this.props.onMonitor}>
-                <a href="/monitor">
+                <Link to={`/monitor`}>
                     <MonitorIcon color={white}/>
-                </a>
+                </Link>
             </IconButton>
             <IconMenu
                 autoWidth={true}
@@ -62,18 +63,18 @@ export class Nav extends React.Component<Props, {}> {
                 targetOrigin={{horizontal: 'left', vertical: 'top'}}
                 onChange={this._onMenuSelect}
             >
-              <a href="/settings" style={{textDecoration: 'none'}}>
+              <Link to={`/settings`} style={{textDecoration: 'none'}}>
                 <MenuItem value="General" primaryText="General"/>
-              </a>
+              </Link>
               <Divider/>
               <MenuItem
                 primaryText="Profiles"
                 rightIcon={<ArrowDropRight />}
                 menuItems={profiles}
               />
-              <a href="/" onClick={this.props.onSignOut} style={{textDecoration: 'none'}}>
+              <Link to={`/`} onClick={this.props.onSignOut} style={{textDecoration: 'none'}}>
                 <MenuItem value="Sign Out" primaryText="Sign Out"/>
-              </a>
+              </Link>
             </IconMenu>
         </div>
     );

@@ -7,6 +7,7 @@ import { TextField,
          Paper } from 'material-ui';
 import { User } from './model';
 import './User.css';
+import { Link } from 'react-router-dom';
 
 export interface Props {
     title: string;
@@ -88,14 +89,14 @@ export class AddEditForm extends React.Component<Props, State> {
                         onCheck={this._onKidChange}
                     />
                     <br/>
-                    <a href={this.props.doneLink}>
+                    <Link to={this.props.doneLink}>
                         <RaisedButton
                             label="Done"
                             primary={true}
                             className="button"
                             onClick={this._onDone}
                         />
-                    </a>
+                    </Link>
                 </Paper>
             </div>
         );
