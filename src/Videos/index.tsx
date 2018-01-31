@@ -44,8 +44,8 @@ class Videos extends React.Component<Props, any> {
                 onPlay={() => { this.props.onPlay({ id: video.id, flagged: false }); }}
             />
             {this.props.onFlag &&
-              <div className="monitor">
-                  <span className="flag" id={video.id}>
+              <div className="videos-monitor">
+                  <span className="videos-flag" id={video.id}>
                     <FlatButton
                         backgroundColor={buttonColor}
                         hoverColor={hover}
@@ -65,7 +65,7 @@ class Videos extends React.Component<Props, any> {
   render() {
     const videos = this.renderVideos();
     return (
-      <div className="container">
+      <div className="videos-container">
           {videos}
       </div>);
   }

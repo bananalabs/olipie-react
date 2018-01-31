@@ -1,15 +1,15 @@
-.edit {
+.user-edit {
     margin-top: 50px;
     text-align: center;
 }
 
-.edit-paper {
+.user-paper {
     margin: auto;
     width: 30%;
     padding: 50px;
 }
 
-.edit-title {
+.user-title {
     font-family: sans-serif;
     color: rgba(0, 0, 0, 0.87);
     font-size: 22px;
@@ -17,11 +17,11 @@
     font-weight: 400;
 }
 
-.button{
+.user-button{
     margin: 12px;
 }
 
-.check {
+.user-check {
     max-width: 60px;
     text-align: center;
     margin: auto;

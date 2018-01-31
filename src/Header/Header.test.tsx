@@ -13,7 +13,7 @@ test('renders the logo and nav items for mode = Default', () => {
     const wrapper: ShallowWrapper = shallow(<Header {...props} />);
     const appBar: ShallowWrapper = wrapper.find(AppBar);
     expect(appBar).toHaveLength(1);
-    expect(appBar.props()).toHaveProperty('title', <Link to={`/`} className="title">Olipie</Link>);
+    expect(appBar.props()).toHaveProperty('title', <Link to={`/`} className="header-title">Olipie</Link>);
     expect(appBar.props()).toHaveProperty('showMenuIconButton', false);
 });
 
@@ -24,7 +24,7 @@ test('renders the logo, search bar and profile icon for mode = Watch', () => {
     const children = appBar.children();
     console.log(children);
     expect(appBar).toHaveLength(1);
-    expect(appBar.props()).toHaveProperty('title', <Link to={`/`} className="title">Olipie</Link>);
+    expect(appBar.props()).toHaveProperty('title', <Link to={`/`} className="header-title">Olipie</Link>);
     expect(appBar.props()).toHaveProperty('showMenuIconButton', false);
     expect((appBar.props().iconElementRight as any).type).toEqual(Avatar);
     expect(children.find(Search)).toHaveLength(1);

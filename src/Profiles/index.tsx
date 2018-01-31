@@ -43,7 +43,7 @@ export class Profiles extends React.Component<Props, {}> {
         showName: true,
         onClick: this._watch
       };
-      return <div key={user.name} className="avatar"><Avatar {...props}/></div>;
+      return <div key={user.name} className="profiles-avatar"><Avatar {...props}/></div>;
     });
   }
 
@@ -53,13 +53,13 @@ export class Profiles extends React.Component<Props, {}> {
       showName: false,
       addUser: this._addUser
     };
-    return <div key={'plus'} className="avatar"><Avatar {...props}/></div>;
+    return <div key={'plus'} className="profiles-avatar"><Avatar {...props}/></div>;
   }
 
   render() {
     return (
-      <div className="p-container">
-        <div className="icons">
+      <div className="profiles-container">
+        <div className="profiles-icons">
             {this.props.users && this.renderUsers(this.props.users)}
             {this.renderPlus()}
         </div>

@@ -1,20 +1,20 @@
-.p-container {
+.monitor-container {
     margin-top: 10%;
     padding-left: 50px;
 }
 
-.icons {
+.monitor-icons {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-.avatar {
+.monitor-avatar {
     float: left;
     padding-right: 20px;
 }
 
-.m-caption {
+.monitor-caption {
     font-family: sans-serif;
     color: darkgray;
     text-align: center;

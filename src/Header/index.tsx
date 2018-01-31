@@ -69,7 +69,7 @@ export class Header extends React.Component<Props, State> {
       case Mode.Default:
         return(
           <AppBar
-            title={<Link to={`/`} className="title">Olipie</Link>}
+            title={<Link to={`/`} className="header-title">Olipie</Link>}
             onTitleTouchTap={this._onTitleClick}
             showMenuIconButton={false}
             iconElementRight={
@@ -84,7 +84,7 @@ export class Header extends React.Component<Props, State> {
       case Mode.Watch:
         return (
           <AppBar
-            title={<Link to={`/`} className="title">Olipie</Link>}
+            title={<Link to={`/`} className="header-title">Olipie</Link>}
             onTitleTouchTap={this._onTitleClick}
             showMenuIconButton={false}
             iconElementRight={
@@ -105,7 +105,7 @@ export class Header extends React.Component<Props, State> {
       case Mode.Monitor:
         return(
           <AppBar
-            title={<Link to={`/`} className="title">Olipie</Link>}
+            title={<Link to={`/`} className="header-title">Olipie</Link>}
             onTitleTouchTap={this._onTitleClick}
             showMenuIconButton={false}
             iconElementRight={

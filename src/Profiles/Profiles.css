@@ -1,19 +1,19 @@
-.p-container {
+.profiles-container {
     margin-top: 10%;
 }
 
-.icons {
+.profiles-icons {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-.avatar {
+.profiles-avatar {
     float: left;
     padding-right: 20px;
 }
 
-.title {
+.profiles-title {
     font-family: sans-serif;
     color: rgb(32, 26, 24);
 }

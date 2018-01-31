@@ -17,25 +17,10 @@
     font-weight: 400;
 }
 
-.caption {
+.settings-caption {
     font-family: sans-serif;
     color: rgba(0, 0, 0, 0.87);
     font-size: 18px;
     line-height: 32px;
     font-weight: 400;
-}
-
-.profile {
-    margin-top: 40px;
-    display: block;
-}
-
-.button{
-    margin: 12px;
-}
-
-.check {
-    max-width: 60px;
-    text-align: center;
-    margin: auto;
 }

@@ -45,7 +45,7 @@ test('renders name if showName=true', () => {
     wrapper = shallow(<Avatar {...props} />);  
     icon = wrapper.find(MAvatar);
     expect(wrapper.contains(
-        <p className="a-name">{props.user && props.user && props.user.name}</p>)).toEqual(true);
+        <p className="avatar-name">{props.user && props.user && props.user.name}</p>)).toEqual(true);
 });
 
 test('does not render name if showName=false', () => {

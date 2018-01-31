@@ -68,7 +68,7 @@ export class Monitor extends React.Component<Props, State> {
         showName: true,
         onClick: this._monitor
       };
-      return <div key={user.name} className="avatar"><Avatar {...props}/></div>;
+      return <div key={user.name} className="monitor-avatar"><Avatar {...props}/></div>;
     });
   }
 
@@ -78,9 +78,9 @@ export class Monitor extends React.Component<Props, State> {
       <Videos videos={this.props.videos} onFlag={this._flag} /> :
       (
         <div>
-          <h2 className="m-caption">Who would you like to monitor?</h2>
-          <div className="p-container">
-              <div className="icons">
+          <h2 className="monitor-caption">Who would you like to monitor?</h2>
+          <div className="monitor-container">
+              <div className="monitor-icons">
                   {this.props.users && this.renderUsers(this.props.users)}
               </div>
           </div>

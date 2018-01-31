@@ -65,7 +65,7 @@ export class Avatar extends React.Component<Props, State> {
                     >
                     {letter}
                     </MAvatar>
-                    <p className="a-name">
+                    <p className="avatar-name">
                         {this.props.showName && this.props.user && name}
                     </p>
                 </div>

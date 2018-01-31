@@ -45,7 +45,7 @@ export class AddEditForm extends React.Component<Props, State> {
             <div className="settings-container">
                 <Paper className="settings-paper" zDepth={2}>
                     <h2 className="settings-title">Settings</h2>
-                    <p className="caption">
+                    <p className="settings-caption">
                         Enter words to exclude from your child's search results
                     </p>
                     <TextField

@@ -56,9 +56,9 @@ export class AddEditForm extends React.Component<Props, State> {
 
     render() {
         return(
-            <div className="edit">
-                <Paper className="edit-paper" zDepth={2}>
-                    <h2 className="edit-title">{this.props.title}</h2>
+            <div className="user-edit">
+                <Paper className="user-paper" zDepth={2}>
+                    <h2 className="user-title">{this.props.title}</h2>
                     <TextField
                      value={this.state.name}
                      onChange={this._onNameChange}
@@ -84,7 +84,7 @@ export class AddEditForm extends React.Component<Props, State> {
                     <br/>
                     <Checkbox
                         label="Kid?"
-                        className="check"
+                        className="user-check"
                         checked={this.state.kid}
                         onCheck={this._onKidChange}
                     />
@@ -93,7 +93,7 @@ export class AddEditForm extends React.Component<Props, State> {
                         <RaisedButton
                             label="Done"
                             primary={true}
-                            className="button"
+                            className="user-button"
                             onClick={this._onDone}
                         />
                     </Link>

@@ -9,6 +9,12 @@ npm run start
 
 Starts FeathersJS server on localhost:3030. Starts React App on localhost:3000.
 
+## Testing
+
+npm run test
+
+(Unit tests using Jest + Enzyme)
+
 ## Features
 
 - Child User Profiles (automatically includes safe search)
