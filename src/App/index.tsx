@@ -1,4 +1,7 @@
 // tslint:disable-next-line
+
+/* global gapi */
+
 import * as React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from '../Header';
@@ -48,7 +51,13 @@ export class App extends React.Component<Props, {}> {
   }
 
   componentWillMount() {
-    this.checkAccount();
+    const self = this;
+    gapi.load('auth2', function() {
+      gapi.auth2.init({
+          client_id: '690222534289-ptpq63a1qah7fhde94uc36lmjrbtku41.apps.googleusercontent.com'
+      });
+      self.checkAccount();
+    });
   }
 
   render(): JSX.Element {
