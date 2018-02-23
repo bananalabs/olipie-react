@@ -6,6 +6,7 @@ import { Mode } from '../App/constants';
 import Avatar from '../Avatar';
 import Search from '../Search';
 import { AppState, selectMode, selectCurrentUser } from '../App/model';
+import { setMode } from '../App/actions';
 import { logout } from '../Auth/actions';
 import { connect } from 'react-redux';
 import { createStructuredSelector }  from 'reselect';
@@ -19,7 +20,6 @@ export interface Props {
   user: User;
   users: User[];
   dispatch: (action: any) => void;
-  history: any;
 }
 
 export interface State {
@@ -38,7 +38,6 @@ export class Header extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this._onSearch = this._onSearch.bind(this);
-    this._onTitleClick = this._onTitleClick.bind(this);
     this._onMonitorClick = this._onMonitorClick.bind(this);
     this._onAvatarClick = this._onAvatarClick.bind(this);
     this._onSignOut = this._onSignOut.bind(this);
@@ -48,8 +47,8 @@ export class Header extends React.Component<Props, State> {
     this.props.dispatch(getVideos(val));
   }
 
-  _onTitleClick(event: object): void {
-    this.props.history.push('/');
+  _onTitleClick(): void {
+    this.props.dispatch(setMode({mode: Mode.Default}));
   }
 
   _onMonitorClick(): void {
@@ -69,8 +68,7 @@ export class Header extends React.Component<Props, State> {
       case Mode.Default:
         return(
           <AppBar
-            title={<Link to={`/`} className="header-title">Olipie</Link>}
-            onTitleTouchTap={this._onTitleClick}
+            title={<Link to={`/`} className="header-title" onClick={this._onTitleClick}>Olipie</Link>}
             showMenuIconButton={false}
             iconElementRight={
               <Nav 
@@ -84,8 +82,7 @@ export class Header extends React.Component<Props, State> {
       case Mode.Watch:
         return (
           <AppBar
-            title={<Link to={`/`} className="header-title">Olipie</Link>}
-            onTitleTouchTap={this._onTitleClick}
+            title={<Link to={`/`} className="header-title" onClick={this._onTitleClick}>Olipie</Link>}
             showMenuIconButton={false}
             iconElementRight={
               <Avatar
@@ -105,8 +102,7 @@ export class Header extends React.Component<Props, State> {
       case Mode.Monitor:
         return(
           <AppBar
-            title={<Link to={`/`} className="header-title">Olipie</Link>}
-            onTitleTouchTap={this._onTitleClick}
+            title={<Link to={`/`} className="header-title" onClick={this._onTitleClick}>Olipie</Link>}
             showMenuIconButton={false}
             iconElementRight={
               <div style={{display: 'inline-block'}}>

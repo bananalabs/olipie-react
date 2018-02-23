@@ -21,6 +21,7 @@ import Watch from '../Watch';
 import { createStructuredSelector }  from 'reselect';
 import Monitor from '../Monitor/index';
 import Auth from '../Auth';
+import UserRole from '../User/UserRole';
 
 export interface Props {
   mode: Mode;
@@ -70,7 +71,7 @@ export class App extends React.Component<Props, {}> {
         />
         <Route path="/login" component={Auth} />
         <Route path="/setup" component={Setup} />
-        <Route path="/profiles" component={Profiles} />
+        <Route path="/profiles" component={UserRole} />
         <Route path="/watch" component={Watch} />
         <Route path="/monitor" component={Monitor} />
         <Route path="/settings" component={Settings} />
@@ -80,7 +81,7 @@ export class App extends React.Component<Props, {}> {
     return(
       <MuiThemeProvider>
         <div>
-          <Header mode={this.props.mode} history={this.props.history}/>
+          <Header mode={this.props.mode}/>
           <Content children={routes}/>
         </div>
       </MuiThemeProvider>

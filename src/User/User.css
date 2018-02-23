@@ -12,7 +12,7 @@
 .user-title {
     font-family: sans-serif;
     color: rgba(0, 0, 0, 0.87);
-    font-size: 22px;
+    font-size: 24px;
     line-height: 32px;
     font-weight: 400;
 }
@@ -25,4 +25,19 @@
     max-width: 60px;
     text-align: center;
     margin: auto;
+}
+
+.user-container {
+    margin-top: 10%;
+    margin-left: 40%;
+}
+
+.user-role__radiogroup {
+    text-align: left;
+    margin-left: 2em;
+    margin-top: 2em;
+}
+
+.user-role__radio {
+    margin-bottom: 16px;
 }
