@@ -36,9 +36,10 @@ export function* addAccount(action: {type: string,
     // Add account to local storage
     localStorage.setItem('olipie-account', account.id);
     if (account.new) {
+      yield put(setMode({mode: Mode.Adult}));
       action.payload.history.push('/setup');
     } else {
-      action.payload.history.push('/profiles');
+      action.payload.history.push('/mode');
     }
   } catch (err) {
     console.log(err);
@@ -51,7 +52,7 @@ export function* logout(action: {type: string}): any {
   localStorage.setItem('olipie-token', null);
   const auth2 = gapi.auth2.getAuthInstance();
   yield auth2.disconnect();
-  yield put(setMode({mode: Mode.LoggedOut}));
+  yield put(setMode({mode: Mode.Default}));
 }
 
 // watcher Saga: spawn a new addAccount task on each ADD_ACCOUNT

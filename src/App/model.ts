@@ -5,13 +5,6 @@ import { Settings } from '../Settings/model';
 import { Video } from '../Videos/model';
 
 export type AppState = {
-  // auth: AuthState,
-  // account: Account,
-  // users: Users,
-  // videos: Videos,
-  // filter: Filter,
-  // settings: Settings,
-  // search: Search
   mode: Mode,
   account: string,
   users: User[],

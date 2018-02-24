@@ -4,8 +4,6 @@ import * as React from 'react';
 import './Auth.css';
 import { connect } from 'react-redux';
 import { addAccount } from './actions';
-import { setMode } from '../App/actions';
-import { Mode } from '../App/constants';
 
 export interface Props {
     dispatch: (action: any) => void;
@@ -25,7 +23,6 @@ export class Auth extends React.Component<Props, {}> {
         const profile = googleUser.getBasicProfile();
         const id_token = googleUser.getAuthResponse().id_token;
         localStorage.setItem('olipie-token', id_token);
-        this.props.dispatch(setMode({mode: Mode.Default}));
         // Get/Create account
         this.props.dispatch(addAccount({
             name: profile.getName(),

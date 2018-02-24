@@ -2,6 +2,10 @@
     padding-top: 8px;
 }
 
+.avatar__anonymous {
+    padding-top: 12px;
+}
+
 .avatar-name {
     text-align: center;
     font-family: sans-serif;

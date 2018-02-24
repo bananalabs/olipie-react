@@ -10,7 +10,7 @@ export const initialState: AppState = {
     account: '',
     users: [],
     videos: [],
-    currentUser: {} as User,
+    currentUser: null as User,
     settings: { filter: '' }
 };
 

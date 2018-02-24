@@ -6,7 +6,6 @@ import { Mode } from '../App/constants';
 import Avatar from '../Avatar';
 import Search from '../Search';
 import { AppState, selectMode, selectCurrentUser } from '../App/model';
-import { setMode } from '../App/actions';
 import { logout } from '../Auth/actions';
 import { connect } from 'react-redux';
 import { createStructuredSelector }  from 'reselect';
@@ -14,6 +13,7 @@ import { getVideos } from '../Search/actions';
 import { getVideos as getHistory } from '../Videos/actions';
 import './Header.css';
 import { Link } from 'react-router-dom';
+import { setCurrentUser } from '../App/actions';
 
 export interface Props {
   mode: Mode;
@@ -38,6 +38,7 @@ export class Header extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this._onSearch = this._onSearch.bind(this);
+    this._onTitleClick = this._onTitleClick.bind(this);
     this._onMonitorClick = this._onMonitorClick.bind(this);
     this._onAvatarClick = this._onAvatarClick.bind(this);
     this._onSignOut = this._onSignOut.bind(this);
@@ -47,8 +48,8 @@ export class Header extends React.Component<Props, State> {
     this.props.dispatch(getVideos(val));
   }
 
-  _onTitleClick(): void {
-    this.props.dispatch(setMode({mode: Mode.Default}));
+  _onTitleClick(event: object): void {
+    this.props.dispatch(setCurrentUser({user: null}));
   }
 
   _onMonitorClick(): void {
@@ -65,21 +66,8 @@ export class Header extends React.Component<Props, State> {
 
   render() {
     switch (this.props.mode) {
-      case Mode.Default:
-        return(
-          <AppBar
-            title={<Link to={`/`} className="header-title" onClick={this._onTitleClick}>Olipie</Link>}
-            showMenuIconButton={false}
-            iconElementRight={
-              <Nav 
-                users={this.props.users}
-                onMonitor={this._onMonitorClick}
-                onSignOut={this._onSignOut}
-              />
-            }
-          />
-        );
-      case Mode.Watch:
+      case Mode.Child:
+        // search bar & profile icon
         return (
           <AppBar
             title={<Link to={`/`} className="header-title" onClick={this._onTitleClick}>Olipie</Link>}
@@ -93,13 +81,16 @@ export class Header extends React.Component<Props, State> {
               />
             }
           >
-            <Search
-             style={styles.search}
-             search={this._onSearch}
-            />
+            {this.props.user && 
+              <Search
+               style={styles.search}
+               search={this._onSearch}
+              />
+            }
           </AppBar>
         );
-      case Mode.Monitor:
+      case Mode.Adult:
+        // search bar, monitor, settings, profile
         return(
           <AppBar
             title={<Link to={`/`} className="header-title" onClick={this._onTitleClick}>Olipie</Link>}
@@ -121,12 +112,22 @@ export class Header extends React.Component<Props, State> {
                   />
                 </span>
               </div>}
-          />
+          >
+            {this.props.user && 
+              <Search
+                style={styles.search}
+                search={this._onSearch}
+              />
+            }
+          </AppBar>
         );
       default:
-        // console.debug('Invalid Mode passed to Header - ' + this.props.mode);
+        // just logo
         return (
-          <div/>
+          <AppBar
+            title={<Link to={`/`} className="header-title" onClick={this._onTitleClick}>Olipie</Link>}
+            showMenuIconButton={false}
+          />
         );
     }
   }

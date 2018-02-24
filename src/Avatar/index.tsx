@@ -3,6 +3,7 @@ import MAvatar  from 'material-ui/Avatar';
 import Dialog from 'material-ui/Dialog';
 import './Avatar.css';
 import { white } from 'material-ui/styles/colors';
+import Person from 'material-ui/svg-icons/social/person';
 import AddUser from '../User/AddUser';
 import { User } from '../User/model';
 
@@ -54,31 +55,35 @@ export class Avatar extends React.Component<Props, State> {
         const name = this.props.user && this.props.user.name &&
                      this.props.user.name.split(' ')[0];
         return (
-            <div>
-                <div className="avatar" id={`${letter}-${color}`}>
-                    <MAvatar
-                        color={white}
-                        backgroundColor={color}
-                        size={this.props.small ? 40 : 120}
-                        onClick={this._onClick}
-                        style={{cursor: 'pointer'}}
+            (this.props.small && !this.props.user) ? 
+              <Person color={white} className="avatar__anonymous"/> :
+              (
+                <div>
+                    <div className="avatar" id={`${letter}-${color}`}>
+                        <MAvatar
+                            color={white}
+                            backgroundColor={color}
+                            size={this.props.small ? 40 : 120}
+                            onClick={this._onClick}
+                            style={{cursor: 'pointer'}}
+                        >
+                        {letter}
+                        </MAvatar>
+                        <p className="avatar-name">
+                            {this.props.showName && this.props.user && name}
+                        </p>
+                    </div>
+                    <Dialog
+                        title="Add User"
+                        modal={false}
+                        open={this.state.showDialog}
+                        onRequestClose={this._closeDialog}
+                        style={{width: '30%', textAlign: 'center', marginLeft: '35%'}}
                     >
-                    {letter}
-                    </MAvatar>
-                    <p className="avatar-name">
-                        {this.props.showName && this.props.user && name}
-                    </p>
+                        <AddUser/>
+                    </Dialog>
                 </div>
-                <Dialog
-                  title="Add User"
-                  modal={false}
-                  open={this.state.showDialog}
-                  onRequestClose={this._closeDialog}
-                  style={{width: '30%', textAlign: 'center', marginLeft: '35%'}}
-                >
-                    <AddUser/>
-                </Dialog>
-            </div>
+            )
         );
     }
 }

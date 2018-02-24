@@ -67,11 +67,12 @@ export class App extends React.Component<Props, {}> {
         <Route
          exact={true}
          path="/"
-         component={this.props.mode === Mode.LoggedOut ? Auth : Profiles}
+         component={this.props.mode === Mode.Default ? Auth : Profiles}
         />
         <Route path="/login" component={Auth} />
         <Route path="/setup" component={Setup} />
-        <Route path="/profiles" component={UserRole} />
+        <Route path="/mode" component={UserRole} />
+        <Route path="/profiles" component={Profiles} />
         <Route path="/watch" component={Watch} />
         <Route path="/monitor" component={Monitor} />
         <Route path="/settings" component={Settings} />

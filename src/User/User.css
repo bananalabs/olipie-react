@@ -41,3 +41,7 @@
 .user-role__radio {
     margin-bottom: 16px;
 }
+
+.user-role__done {
+    margin-left: 5em;
+}

@@ -44,14 +44,14 @@ export class AddUser extends React.Component<Props, State> {
                 <RaisedButton
                   label="Add Another?"
                   primary={true}
-                  className="button"
+                  className="user-button"
                   onClick={(event) => {this.setState({ showForm: true }); }}
                 />
               </span>
                 <RaisedButton
                   label="Done"
                   secondary={true}
-                  className="button"
+                  className="user-button"
                   onClick={(event) => this.props.done()}
                 />
             </div>

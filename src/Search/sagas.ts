@@ -14,14 +14,17 @@ export function* getVideos(action: {type: string, keywords: string}) {
   try {
     const currentUser = yield select(selectCurrentUser());
     const filter = yield select(selectFilter());
+    console.log(filter);
     // Exclude filter keywords from search for kid user
-    const exclude = filter.replace(/,/g, ' ').split(' ').reduce(
-        (acc: string, word: string) => `${acc}-${word}`, '');
+    const exclude = filter.replace(/,/g, ' ').replace(/\s\s+/g, ' ').split(' ').reduce(
+        (acc: string, word: string) => `${acc} -${word}`, '');
+    console.log(exclude);
     const newParams = currentUser.kid ?
                       `${params}&safeSearch=strict` :
                       params;
-    const results = yield call(fetch.get,
-                               `${url}q=${action.keywords}${exclude}&${newParams}`);
+    console.log(`${url}q=${action.keywords}${exclude}&${newParams}`);
+    console.log(encodeURIComponent(`${url}q=${action.keywords}${exclude}&${newParams}`));
+    const results = yield call(fetch.get, `${url}q=${action.keywords}${exclude}&${newParams}`);
     const videos = results.map(
         (video: any) => { return {
             id: video.id.videoId,

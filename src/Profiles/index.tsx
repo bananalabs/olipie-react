@@ -7,8 +7,7 @@ import { User, selectUsers } from '../User/model';
 import { addUser } from '../User/actions';
 import { createStructuredSelector }  from 'reselect';
 import { AppState, selectAccount } from '../App/model';
-import { setMode, setCurrentUser } from '../App/actions';
-import { Mode } from '../App/constants';
+import { setCurrentUser } from '../App/actions';
 
 export interface Props {
     accountId: string;
@@ -30,7 +29,6 @@ export class Profiles extends React.Component<Props, {}> {
   }
 
   _watch(user: User) {
-    this.props.dispatch(setMode({mode: Mode.Watch}));
     this.props.dispatch(setCurrentUser({user: user}));
     this.props.history.push('/watch');
   }

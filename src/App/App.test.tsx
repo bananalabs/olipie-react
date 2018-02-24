@@ -17,9 +17,9 @@ test('<App />', () => {
 test('Action SET_MODE should return the correct type', () => {
   const expectedResult = {
       type: SET_MODE,
-      payload: {mode: Mode.Watch}
+      payload: {mode: Mode.Adult}
   };
-  expect(setMode({mode: Mode.Watch})).toEqual(expectedResult);
+  expect(setMode({mode: Mode.Adult})).toEqual(expectedResult);
 });
 
 test('Action SET_ACCOUNT should return the correct type', () => {
@@ -46,8 +46,8 @@ test('Action SET_CURRENT_USER should return the correct type', () => {
 });
 
 test('Reducer should handle the setMode action correctly', () => {
-  const expectedResult = {...initialState, mode: Mode.Monitor}; 
-  const actual = appReducer(initialState, setMode({mode: Mode.Monitor}));
+  const expectedResult = {...initialState, mode: Mode.Adult}; 
+  const actual = appReducer(initialState, setMode({mode: Mode.Adult}));
   expect(actual).toEqual(expectedResult);
 });
 

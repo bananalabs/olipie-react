@@ -1,8 +1,7 @@
 export enum Mode {
     Default,
-    Watch,
-    Monitor,
-    LoggedOut
+    Adult,
+    Child
 }
 
 export const SET_MODE = 'olipie/App/SET_MODE';
