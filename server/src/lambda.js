@@ -77,7 +77,7 @@ exports.handler = function _f(event, context) {
   if (!serverReady) {
     try {
       init();
-      app.get('sequelizeClient').sync()
+      app.get('sequelizeClient').sync({force: true})
       .then(function _then() {
         app.listen(3000, function() {
           console.log(`Feathers server listening on port 3000`);
