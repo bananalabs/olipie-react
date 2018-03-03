@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-
+const config = require('config');
 // ----------------------------------------------------------------------- //
 // NOTE: tufan.io modification                                             //
 // This is the only "enhancement" made by tufan.io to support ease of use. //
@@ -13,11 +13,20 @@ function getSequelize(app) {
   }, (app.get('active-db') || null));
   switch (activeDb) {
     case 'mysql':
+      console.log(config.dbname);
+      console.log(config.username);
+      console.log('password - ' + process.env.DB_PASSWORD);
+      console.log(config.host);
+      console.log(config.port);
       {
-        const connectionString = app.get('mysql');
         return new Sequelize(
-          connectionString, {
+          config.dbname,
+          config.username,
+          process.env.DB_PASSWORD,
+          {
             dialect: 'mysql',
+            host: config.host,
+            port: config.port,
             logging: false,
             operatorsAliases: false,
             define: {
@@ -65,7 +74,7 @@ module.exports = function (app) {
     });
 
     // Sync to the database
-    sequelize.sync();
+    // sequelize.sync();
 
     return result;
   };

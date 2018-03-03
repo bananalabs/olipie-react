@@ -34,6 +34,7 @@
     "@feathersjs/feathers": "^3.0.0",
     "aws-serverless-express": "^3.0.2",
     "compression": "^1.7.1",
+    "config": "^1.30.0",
     "cors": "^2.8.4",
     "feathers-errors": "^2.9.2",
     "feathers-sequelize": "^2.4.0",

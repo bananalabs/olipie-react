@@ -116,7 +116,7 @@
         ],
         "x-amazon-apigateway-integration": {
           "type": "aws",
-          "uri": "{{apiEndpointUri}}",
+          "uri": "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:540210332965:function:olipie-lambda/invocations",
           "httpMethod": "POST",
           "requestTemplates": {
             "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"body\": $input.json('$') }"
@@ -202,7 +202,7 @@
         ],
         "x-amazon-apigateway-integration": {
           "type": "aws",
-          "uri": "{{apiEndpointUri}}",
+          "uri": "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:540210332965:function:olipie-lambda/invocations",
           "httpMethod": "POST",
           "requestTemplates": {
             "application/json": "{ \"id\": $input.params('id'), \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\" }"
@@ -283,7 +283,7 @@
         ],
         "x-amazon-apigateway-integration": {
           "type": "aws",
-          "uri": "{{apiEndpointUri}}",
+          "uri": "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:540210332965:function:olipie-lambda/invocations",
           "httpMethod": "POST",
           "requestTemplates": {
             "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"body\": $input.json('$'), \"id\": $input.params('id') }"
@@ -367,7 +367,7 @@
         ],
         "x-amazon-apigateway-integration": {
           "type": "aws",
-          "uri": "{{apiEndpointUri}}",
+          "uri": "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:540210332965:function:olipie-lambda/invocations",
           "httpMethod": "POST",
           "requestTemplates": {
             "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"id\": $input.params('id') }"
@@ -451,7 +451,7 @@
         ],
         "x-amazon-apigateway-integration": {
           "type": "aws",
-          "uri": "{{apiEndpointUri}}",
+          "uri": "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:540210332965:function:olipie-lambda/invocations",
           "httpMethod": "POST",
           "requestTemplates": {
             "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"body\": $input.json('$') }"
@@ -537,7 +537,7 @@
         ],
         "x-amazon-apigateway-integration": {
           "type": "aws",
-          "uri": "{{apiEndpointUri}}",
+          "uri": "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:540210332965:function:olipie-lambda/invocations",
           "httpMethod": "POST",
           "requestTemplates": {
             "application/json": "{ \"id\": $input.params('id'), \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\" }"
@@ -618,7 +618,7 @@
         ],
         "x-amazon-apigateway-integration": {
           "type": "aws",
-          "uri": "{{apiEndpointUri}}",
+          "uri": "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:540210332965:function:olipie-lambda/invocations",
           "httpMethod": "POST",
           "requestTemplates": {
             "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"body\": $input.json('$'), \"id\": $input.params('id') }"
@@ -702,7 +702,7 @@
         ],
         "x-amazon-apigateway-integration": {
           "type": "aws",
-          "uri": "{{apiEndpointUri}}",
+          "uri": "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:540210332965:function:olipie-lambda/invocations",
           "httpMethod": "POST",
           "requestTemplates": {
             "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"id\": $input.params('id') }"
@@ -786,7 +786,7 @@
         ],
         "x-amazon-apigateway-integration": {
           "type": "aws",
-          "uri": "{{apiEndpointUri}}",
+          "uri": "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:540210332965:function:olipie-lambda/invocations",
           "httpMethod": "POST",
           "requestTemplates": {
             "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"body\": $input.json('$') }"
@@ -872,7 +872,7 @@
         ],
         "x-amazon-apigateway-integration": {
           "type": "aws",
-          "uri": "{{apiEndpointUri}}",
+          "uri": "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:540210332965:function:olipie-lambda/invocations",
           "httpMethod": "POST",
           "requestTemplates": {
             "application/json": "{ \"id\": $input.params('id'), \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\" }"
@@ -953,7 +953,7 @@
         ],
         "x-amazon-apigateway-integration": {
           "type": "aws",
-          "uri": "{{apiEndpointUri}}",
+          "uri": "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:540210332965:function:olipie-lambda/invocations",
           "httpMethod": "POST",
           "requestTemplates": {
             "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"body\": $input.json('$'), \"id\": $input.params('id') }"
@@ -1037,7 +1037,7 @@
         ],
         "x-amazon-apigateway-integration": {
           "type": "aws",
-          "uri": "{{apiEndpointUri}}",
+          "uri": "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:540210332965:function:olipie-lambda/invocations",
           "httpMethod": "POST",
           "requestTemplates": {
             "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"id\": $input.params('id') }"
@@ -1121,7 +1121,7 @@
         ],
         "x-amazon-apigateway-integration": {
           "type": "aws",
-          "uri": "{{apiEndpointUri}}",
+          "uri": "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:540210332965:function:olipie-lambda/invocations",
           "httpMethod": "POST",
           "requestTemplates": {
             "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"body\": $input.json('$') }"
@@ -1207,7 +1207,7 @@
         ],
         "x-amazon-apigateway-integration": {
           "type": "aws",
-          "uri": "{{apiEndpointUri}}",
+          "uri": "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:540210332965:function:olipie-lambda/invocations",
           "httpMethod": "POST",
           "requestTemplates": {
             "application/json": "{ \"id\": $input.params('id'), \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\" }"
@@ -1288,7 +1288,7 @@
         ],
         "x-amazon-apigateway-integration": {
           "type": "aws",
-          "uri": "{{apiEndpointUri}}",
+          "uri": "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:540210332965:function:olipie-lambda/invocations",
           "httpMethod": "POST",
           "requestTemplates": {
             "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"body\": $input.json('$'), \"id\": $input.params('id') }"
@@ -1372,7 +1372,7 @@
         ],
         "x-amazon-apigateway-integration": {
           "type": "aws",
-          "uri": "{{apiEndpointUri}}",
+          "uri": "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:540210332965:function:olipie-lambda/invocations",
           "httpMethod": "POST",
           "requestTemplates": {
             "application/json": "{ \"method\": \"$context.httpMethod\", \"resource\": \"$context.resourcePath\", \"id\": $input.params('id') }"

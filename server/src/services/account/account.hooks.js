@@ -3,25 +3,36 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [async function(context) {
+    create: [function(context) {
       // Get user if one exists for given email
-      const users = await context.app.service('user').find({
+      context.app.service('user').find({
         query: {
           email: context.data.email
         }
-      });
-      const user = users.data[0];
-      if (user) {
-        const account = await context.app.service('account').get(user.accountId);
-        // Return existing account
-        context.result = account;
-      } else {
+      }).
+      then((users) => {
+        const user = users.data[0];
+        if (user) {
+          context.app.service('account').get(user.accountId)
+          .then((account) => {
+            // Return existing account
+            context.result = account;
+          })
+        } else {
+          delete context.data.email;
+          context.params = {
+            new: true
+          };
+        }
+        return context;
+      })
+      .catch((err) => {
         delete context.data.email;
         context.params = {
           new: true
         };
-      }
-      return context;
+        return context;
+      })
     }],
     update: [],
     patch: [],

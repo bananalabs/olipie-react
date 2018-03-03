@@ -6,26 +6,33 @@ module.exports = {
     find: [],
     get: [],
     create: [
-      async function(context) {
+      function(context) {
         // Return user if one exists for given email
-        const users = await context.app.service('user').find({
+        context.app.service('user').find({
           query: {
             email: context.data.email
           }
-        });
-        const user = users.data[0];
-        if (user) {
-          context.result = user;
-        } else {
-          context.params = {
-            new: true
-          };
-        }
+        })
+        .then((users) => {
+          const user = users.data[0];
+          if (user) {
+            context.result = user;
+          } else {
+            context.params = {
+              new: true
+            };
+          }
+          return context;
+        })
+      }.catch((err) => {
+        context.params = {
+          new: true
+        };
         return context;
-      }
+      })
     ],
     update: [
-      async function(context) {
+      function(context) {
         context.id = context.data.id;
         return context;
       }

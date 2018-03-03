@@ -6,27 +6,30 @@ module.exports = {
   before: {
     all: [],
     find: [
-      async function(context) {
+     function(context) {
         const userId = context.params.query['user'];
         if (!userId) {
           return context;
         }
-        const uservideos = await context.app.service('uservideo').find({
+        context.app.service('uservideo').find({
           query: {
             userId: userId
           }
-        });
-        const videoIds= uservideos.data.map((uservideo) => uservideo.videoId);
-        delete context.params.query['user'];
-        context.params.query['id'] = {
-          [Op.in]: videoIds
-        };
-        return context;
-      }
+        })
+        .then((uservideos) => {
+          const videoIds= uservideos.data.map((uservideo) => uservideo.videoId);
+          delete context.params.query['user'];
+          context.params.query['id'] = {
+            [Op.in]: videoIds
+          };
+          return context;
+        })
+        .catch((err) => { return context; })
+      } 
     ],
     create: [],
     update: [
-      async function(context) {
+      function(context) {
         context.id = context.data.id;
         return context;
       }
@@ -40,15 +43,20 @@ module.exports = {
     find: [],
     get: [],
     create: [
-      async function(context) {
+      function(context) {
         // Add userId+videoId to uservideo
         const userId = context.data.userId;
         const videoId = context.result.id;
-        await context.app.service('uservideo').create({
+        context.app.service('uservideo').create({
             userId: userId,
             videoId: videoId
-        });
-        return context;
+        }).
+        then((result) => {
+          return context;
+        })
+        .catch((err) => {
+          return context;
+        })
       }
     ],
     update: [],

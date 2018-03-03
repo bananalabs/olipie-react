@@ -7,7 +7,7 @@ module.exports = {
     get: [],
     create: [],
     update: [
-      async function(context) {
+      function(context) {
         context.id = context.data.id;
         return context;
       }
