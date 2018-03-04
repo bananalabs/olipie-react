@@ -9,8 +9,8 @@ module.exports = {
         query: {
           email: context.data.email
         }
-      }).
-      then((users) => {
+      })
+      .then((users) => {
         const user = users.data[0];
         if (user) {
           context.app.service('account').get(user.accountId)

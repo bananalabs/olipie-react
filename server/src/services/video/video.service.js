@@ -15,7 +15,8 @@ module.exports = function (app) {
   };
 
   // Initialize our service with any options it requires
-  app.use('/video', verifyToken(), createService(options));
+  // app.use('/video', verifyToken(), createService(options));
+  app.use('/video', createService(options));
   
   // Get our initialized service so that we can register hooks and filters
   const service = app.service('video');

@@ -8,7 +8,7 @@
     "default": 10,
     "max": 50
   },
-  "active-db": "mysql",
+  "active-db": "sqlite",
   "sqlite": "sqlite://olipie.sqlite",
   "mysql": "aws-rds-mysql.cfwki3wo32yj.us-west-1.rds.amazonaws.com"
 }

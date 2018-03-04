@@ -23,13 +23,13 @@ module.exports = {
             };
           }
           return context;
+        }).catch((err) => {
+          context.params = {
+            new: true
+          };
+          return context;
         })
-      }.catch((err) => {
-        context.params = {
-          new: true
-        };
-        return context;
-      })
+      }
     ],
     update: [
       function(context) {

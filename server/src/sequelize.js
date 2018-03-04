@@ -13,11 +13,6 @@ function getSequelize(app) {
   }, (app.get('active-db') || null));
   switch (activeDb) {
     case 'mysql':
-      console.log(config.dbname);
-      console.log(config.username);
-      console.log('password - ' + process.env.DB_PASSWORD);
-      console.log(config.host);
-      console.log(config.port);
       {
         return new Sequelize(
           config.dbname,
@@ -74,7 +69,7 @@ module.exports = function (app) {
     });
 
     // Sync to the database
-    // sequelize.sync();
+    sequelize.sync();
 
     return result;
   };
