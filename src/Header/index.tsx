@@ -2,9 +2,8 @@ import * as React from 'react';
 import AppBar from 'material-ui/AppBar';
 import Nav from '../Nav';
 import { User, selectUsers } from '../User/model';
-import Avatar from '../Avatar';
 import Search from '../Search';
-import { AppState, selectCurrentUser } from '../App/model';
+import { AppState, selectCurrentUser, selectShowSearch } from '../App/model';
 import { logout } from '../Auth/actions';
 import { connect } from 'react-redux';
 import { createStructuredSelector }  from 'reselect';
@@ -12,11 +11,13 @@ import { getVideos } from '../Search/actions';
 import { getVideos as getHistory } from '../Videos/actions';
 import './Header.css';
 import { Link } from 'react-router-dom';
-import { setCurrentUser } from '../App/actions';
+import { setCurrentUser, showSearchBar } from '../App/actions';
+import Avatar from '../Avatar';
 
 export interface Props {
   user: User;
   users: User[];
+  showSearchBar: boolean;
   dispatch: (action: any) => void;
 }
 
@@ -37,7 +38,6 @@ export class Header extends React.Component<Props, State> {
     super(props);
     this._onSearch = this._onSearch.bind(this);
     this._onTitleClick = this._onTitleClick.bind(this);
-    this._onMonitorClick = this._onMonitorClick.bind(this);
     this._onAvatarClick = this._onAvatarClick.bind(this);
     this._onSignOut = this._onSignOut.bind(this);
   }
@@ -47,11 +47,8 @@ export class Header extends React.Component<Props, State> {
   }
 
   _onTitleClick(event: object): void {
+    this.props.dispatch(showSearchBar({show: false}));
     this.props.dispatch(setCurrentUser({user: null}));
-  }
-
-  _onMonitorClick(): void {
-    console.log('');
   }
 
   _onAvatarClick(user: User): void {
@@ -70,22 +67,21 @@ export class Header extends React.Component<Props, State> {
             iconElementRight={
               <div style={{display: 'inline-block'}}>
                 <span style={{float: 'left', marginRight: '10px'}}>
-                <Nav 
-                  users={this.props.users}
-                  onMonitor={this._onMonitorClick}
-                  onSignOut={this._onSignOut}
-                />
-                </span>
-                <span style={{float: 'left'}}>
-                  <Avatar
-                    user={this.props.user}
-                    small={true}
-                    showName={false}
-                  />
+                  {this.props.user ?
+                    <Avatar
+                      user={this.props.user}
+                      small={true}
+                      showName={false}
+                    /> :
+                    <Nav 
+                      users={this.props.users}
+                      onSignOut={this._onSignOut}
+                    />
+                  }
                 </span>
               </div>}
           >
-            {this.props.user && 
+            {this.props.showSearchBar && 
               <Search
                 style={styles.search}
                 search={this._onSearch}
@@ -98,7 +94,8 @@ export class Header extends React.Component<Props, State> {
 
 const mapStateToProps = (state: AppState): Props => createStructuredSelector({
   users: selectUsers(),
-  user: selectCurrentUser()
+  user: selectCurrentUser(),
+  showSearchBar: selectShowSearch()
 }) as any;
 
 export default connect(mapStateToProps)(Header);

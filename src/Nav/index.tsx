@@ -3,8 +3,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import IconButton from 'material-ui/IconButton';
-import SettingsIcon from 'material-ui/svg-icons/action/settings';
-import MonitorIcon from 'material-ui/svg-icons/action/visibility';
+import UserIcon from 'material-ui/svg-icons/social/person';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
@@ -15,7 +14,6 @@ import { User } from '../User/model';
 
 export interface Props {
     users: User[];
-    onMonitor: () => void;
     onSignOut: () => void;
 }
 
@@ -47,16 +45,11 @@ export class Nav extends React.Component<Props, {}> {
     });
     return (
         <div>
-            <IconButton tooltip="Monitor" onClick={this.props.onMonitor}>
-                <Link to={`/monitor`}>
-                    <MonitorIcon color={white}/>
-                </Link>
-            </IconButton>
             <IconMenu
                 autoWidth={true}
                 iconButtonElement={
-                    <IconButton tooltip="Settings">
-                        <SettingsIcon color={white}/>
+                    <IconButton tooltip="My Account">
+                        <UserIcon color={white}/>
                     </IconButton>
                 }
                 anchorOrigin={{horizontal: 'left', vertical: 'top'}}
@@ -64,7 +57,7 @@ export class Nav extends React.Component<Props, {}> {
                 onChange={this._onMenuSelect}
             >
               <Link to={`/settings`} style={{textDecoration: 'none'}}>
-                <MenuItem value="General" primaryText="General"/>
+                <MenuItem value="General" primaryText="General Settings"/>
               </Link>
               <Divider/>
               <MenuItem

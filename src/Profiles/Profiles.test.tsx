@@ -9,7 +9,7 @@ test('renders Avatars for user profiles', () => {
         { id: '2', name: 'U2', profileColor: 'green', kid: true, admin: false }
     ];
     const dispatch = (action: {}) => {};
-    const wrapper = shallow(<Profiles accountId={'1'} users={users} dispatch={dispatch} history={{a: 0}}/>); 
+    const wrapper = shallow(<Profiles accountId={'1'} users={users} dispatch={dispatch} history={{a: 0}} monitor={false}/>); 
     expect(wrapper.find(Avatar)).toHaveLength(3);
 });
 
@@ -18,7 +18,7 @@ test('renders Avatars with the right name, color', () => {
         { id: '1', name: 'U1', profileColor: 'purple', kid: true, admin:false }
     ];
     const dispatch = (action: {}) => {};
-    const wrapper = shallow(<Profiles accountId={'1'} users={users} dispatch={dispatch} history={{a: 0}}/>); 
+    const wrapper = shallow(<Profiles accountId={'1'} users={users} dispatch={dispatch} history={{a: 0}} monitor={false}/>); 
     const avatar = wrapper.find(Avatar).get(0);
     expect(avatar.props.user.name).toEqual('U1');
     expect(avatar.props.user.profileColor).toEqual('purple');

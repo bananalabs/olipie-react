@@ -1,17 +1,34 @@
 import * as React from 'react';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import Profiles from '../Profiles';
+import { showSearchBar, setCurrentUser } from '../App/actions';
+import { connect } from 'react-redux';
 
 export interface Props {
+    dispatch: any;
+    history: any;
 }
 
 export interface State {
+    monitor: boolean;
 }
 
 export class Home extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
+    this._selectMode = this._selectMode.bind(this);
+    this.state = {
+        monitor: false
+    };
+    this.props.dispatch(showSearchBar({show: false}));
+    this.props.dispatch(setCurrentUser({user: null}));
+  }
+
+  _selectMode(event: object, value: undefined): void {
+      this.setState({
+          monitor: value === 'monitor'
+      });
   }
 
   render() {
@@ -27,6 +44,7 @@ export class Home extends React.Component<Props, State> {
                     marginTop: '5%',
                     marginLeft: '32%'
                 }}
+                onChange={this._selectMode}
             >
                 <RadioButton
                     value="watch"
@@ -41,15 +59,10 @@ export class Home extends React.Component<Props, State> {
                     style={{display: 'inline-block'}}
                 />
             </RadioButtonGroup>
-            <Profiles/>
+            <Profiles monitor={this.state.monitor} history={this.props.history}/>
         </React.Fragment>
       );
   }
 }
 
-/* const mapStateToProps = (state: AppState): Props => createStructuredSelector({
-}) as any;
-
-export default connect(mapStateToProps)(Home); */
-
-export default Home;
+export default connect()(Home);

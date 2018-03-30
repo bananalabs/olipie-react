@@ -7,11 +7,13 @@ import { User, selectUsers } from '../User/model';
 import { addUser } from '../User/actions';
 import { createStructuredSelector }  from 'reselect';
 import { AppState, selectAccount } from '../App/model';
-import { setCurrentUser } from '../App/actions';
+import { setCurrentUser, showSearchBar } from '../App/actions';
+import { getVideos } from '../Videos/actions';
 
 export interface Props {
     accountId: string;
     users: User[];
+    monitor: boolean;
     dispatch: (action: any) => void;
     history: any;
 }
@@ -22,6 +24,7 @@ export class Profiles extends React.Component<Props, {}> {
     super(props);
     this._addUser = this._addUser.bind(this);
     this._watch = this._watch.bind(this);
+    this._monitor = this._monitor.bind(this);
   }
 
   _addUser(user: User) {
@@ -30,7 +33,15 @@ export class Profiles extends React.Component<Props, {}> {
 
   _watch(user: User) {
     this.props.dispatch(setCurrentUser({user: user}));
+    this.props.dispatch(showSearchBar({show: true}));
     this.props.history.push('/watch');
+  }
+
+  _monitor(user: User) {
+    this.props.dispatch(setCurrentUser({user: user}));
+    this.props.dispatch(showSearchBar({show: false}));
+    this.props.dispatch(getVideos({user: user}));
+    this.props.history.push('/monitor');
   }
 
   renderUsers(users: User[]) {
@@ -39,7 +50,7 @@ export class Profiles extends React.Component<Props, {}> {
         user: user,
         small: false,
         showName: true,
-        onClick: this._watch
+        onClick: this.props.monitor ? this._monitor : this._watch
       };
       return <div key={user.name} className="profiles-avatar"><Avatar {...props}/></div>;
     });

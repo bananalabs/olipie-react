@@ -1,4 +1,7 @@
-import { SET_CURRENT_ACCOUNT, SET_CURRENT_USER } from './constants';
+import { SET_CURRENT_ACCOUNT,
+         SET_CURRENT_USER,
+         SHOW_SEARCH_BAR
+       } from './constants';
 import { User } from '../User/model';
 
 /**
@@ -22,6 +25,19 @@ export function setCurrentUser(payload: {user: User}):
                {type: string, payload: {user: User}} {
   return {
     type: SET_CURRENT_USER,
+    payload
+  };
+}
+
+/*
+ * Toggle search bar display
+ *
+ * @return {object}    An action object with a type of SHOW_SEARCH_BAR
+ */
+export function showSearchBar(payload: {show: boolean}): 
+               {type: string, payload: {show: boolean}} {
+  return {
+    type: SHOW_SEARCH_BAR,
     payload
   };
 }

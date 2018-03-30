@@ -16,7 +16,7 @@ test('renders icons for Monitor and Settings', () => {
         <IconButton tooltip="Settings">
             <SettingsIcon color={white}/>
         </IconButton>;
-    const wrapper = shallow(<Nav users={users} onMonitor={() => {}} onSignOut={() => {}}/>); 
+    const wrapper = shallow(<Nav users={users} onSignOut={() => {}}/>); 
     expect(wrapper.find(MonitorIcon)).toHaveLength(1);
     expect(wrapper.find(IconMenu).props()).toHaveProperty(
         'iconButtonElement', settings);

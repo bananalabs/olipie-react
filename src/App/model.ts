@@ -8,6 +8,7 @@ export type AppState = {
   users: User[],
   videos: Video[],
   currentUser: User,
+  showSearchBar: boolean,
   settings: Settings
 };
 
@@ -21,4 +22,9 @@ export const selectAccount = () => createSelector(
 export const selectCurrentUser = () => createSelector(
   selectApp(),
   (app) => app.currentUser
+);
+
+export const selectShowSearch = () => createSelector(
+  selectApp(),
+  (app) => app.showSearchBar
 );
