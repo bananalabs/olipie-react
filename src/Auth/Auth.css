@@ -4,10 +4,17 @@
     margin-top: 10%;
 }
 
-.auth-title {
+.auth-msg {
     font-family: sans-serif;
     color: rgba(0, 0, 0, 0.87);
-    font-size: 22px;
-    line-height: 32px;
+    line-height: 1.5em;
     font-weight: 400;
+}
+
+.auth-msg__welcome {
+    font-size: 28px;
+}
+
+.auth-msg__signin {
+    font-size: 18px;
 }

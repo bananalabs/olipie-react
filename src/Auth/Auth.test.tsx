@@ -6,7 +6,7 @@ import { addAccount as addAccountSaga } from './sagas';
 import * as fetch from '../utils/fetch';
 import { put, call } from 'redux-saga/effects';
 
-const url: string = 'http://localhost:3030/account';
+const url: string = 'https://ifyuionwk9.execute-api.us-west-1.amazonaws.com/dev/account';
 
 test('Action ADD_ACCOUNT should return the correct type', () => {
     const expectedResult = {

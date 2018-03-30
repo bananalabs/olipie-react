@@ -8,7 +8,7 @@ module.exports = {
     create: [
       function(context) {
         // Return user if one exists for given email
-        context.app.service('user').find({
+        return context.app.service('user').find({
           query: {
             email: context.data.email
           }

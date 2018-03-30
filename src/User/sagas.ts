@@ -5,6 +5,7 @@ import * as fetch from '../utils/fetch';
 import { User } from './model';
 import { logout } from '../Auth/actions';
 
+// const url: string = 'https://ifyuionwk9.execute-api.us-west-1.amazonaws.com/dev/user';
 const url: string = 'http://localhost:3030/user';
 
 export function* getUsers(action: {type: string, payload: {accountId: string}}) {

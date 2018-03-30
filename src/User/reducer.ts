@@ -17,12 +17,12 @@ export function userReducer(state: User[], action: Action): User[] {
         case GET_USERS_SUCCESS:
             return action.payload.users as User[];
         case ADD_USER_SUCCESS:
-            return [...state, action.payload.user] as User[];
+            return state.concat(action.payload.user) as User[];
         case UPDATE_USER_SUCCESS:
             let index = state.findIndex(
                 (u: User): boolean => u.id === action.payload.user.id);
             let users: User[] = [...state];
-            users[index] = {...action.payload.user};
+            users[index] = action.payload.user;
             return users;
         default:
             return state;

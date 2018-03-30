@@ -5,12 +5,9 @@
 import * as React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from '../Header';
-import { AppState, selectMode } from './model';
 import { setCurrentAccount } from './actions';
-import { Mode } from './constants';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
-// import Setup from '../Setup';
 import Content from '../Content';
 import Profiles from '../Profiles';
 import EditProfile from '../User/EditUser';
@@ -18,13 +15,11 @@ import { getUsers } from '../User/actions';
 import Settings from '../Settings/EditSettings';
 import Setup from '../Setup';
 import Watch from '../Watch';
-import { createStructuredSelector }  from 'reselect';
 import Monitor from '../Monitor/index';
 import Auth from '../Auth';
-import UserRole from '../User/UserRole';
+import Home from '../Home';
 
 export interface Props {
-  mode: Mode;
   dispatch: (action: any) => void;
   history: any;
 }
@@ -67,11 +62,11 @@ export class App extends React.Component<Props, {}> {
         <Route
          exact={true}
          path="/"
-         component={this.props.mode === Mode.Default ? Auth : Profiles}
+         component={Home}
         />
         <Route path="/login" component={Auth} />
         <Route path="/setup" component={Setup} />
-        <Route path="/mode" component={UserRole} />
+        <Route path="/home" component={Home} />
         <Route path="/profiles" component={Profiles} />
         <Route path="/watch" component={Watch} />
         <Route path="/monitor" component={Monitor} />
@@ -82,7 +77,7 @@ export class App extends React.Component<Props, {}> {
     return(
       <MuiThemeProvider>
         <div>
-          <Header mode={this.props.mode}/>
+          <Header/>
           <Content children={routes}/>
         </div>
       </MuiThemeProvider>
@@ -90,8 +85,4 @@ export class App extends React.Component<Props, {}> {
   }
 }
 
-const mapStateToProps = (state: AppState): Props => createStructuredSelector({
-  mode: selectMode()
-}) as any;
-
-export default withRouter(connect(mapStateToProps)(App));
+export default withRouter(connect()(App));

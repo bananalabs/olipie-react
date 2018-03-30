@@ -1,4 +1,4 @@
-import { SET_MODE, SET_CURRENT_ACCOUNT, SET_CURRENT_USER, Mode } from './constants';
+import { SET_CURRENT_ACCOUNT, SET_CURRENT_USER } from './constants';
 import { User } from '../User/model';
 
 /**
@@ -9,19 +9,6 @@ export function setCurrentAccount(payload: {accountId: string}):
                   {type: string, payload: {accountId: string}} {
     return {
       type: SET_CURRENT_ACCOUNT,
-      payload
-    };
-}
-
-/*
- * Set App Mode
- *
- * @return {object}    An action object with a type of SET_MODE
- */
-export function setMode(payload: {mode: Mode}): 
-                {type: string, payload: {mode: Mode}} {
-    return {
-      type: SET_MODE,
       payload
     };
 }

@@ -2,11 +2,11 @@
 
 import { put, call, takeEvery } from 'redux-saga/effects';
 import { ADD_ACCOUNT, LOGOUT } from './constants';
-import { Mode } from '../App/constants';
-import { setCurrentAccount, setMode } from '../App/actions';
+import { setCurrentAccount } from '../App/actions';
 import { getUsers, addUser } from '../User/actions';
 import * as fetch from '../utils/fetch';
 
+// const url: string = 'https://ifyuionwk9.execute-api.us-west-1.amazonaws.com/dev/account';
 const url: string = 'http://localhost:3030/account';
 
 export function* addAccount(action: {type: string, 
@@ -25,7 +25,7 @@ export function* addAccount(action: {type: string,
         user: {
             name: action.payload.name,
             email: action.payload.email,
-            profileColor: 'gray',
+            profileColor: '#99CCCC',
             kid: false,
             admin: true
         }
@@ -36,10 +36,9 @@ export function* addAccount(action: {type: string,
     // Add account to local storage
     localStorage.setItem('olipie-account', account.id);
     if (account.new) {
-      yield put(setMode({mode: Mode.Adult}));
       action.payload.history.push('/setup');
     } else {
-      action.payload.history.push('/mode');
+      action.payload.history.push('/home');
     }
   } catch (err) {
     console.log(err);
@@ -52,7 +51,6 @@ export function* logout(action: {type: string}): any {
   localStorage.setItem('olipie-token', null);
   const auth2 = gapi.auth2.getAuthInstance();
   yield auth2.disconnect();
-  yield put(setMode({mode: Mode.Default}));
 }
 
 // watcher Saga: spawn a new addAccount task on each ADD_ACCOUNT

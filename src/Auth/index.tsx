@@ -34,10 +34,15 @@ export class Auth extends React.Component<Props, {}> {
     render() {
         return (
             <div className="auth-container">
-                <h2 className="auth-title">Sign in with Google</h2>
+                <h2 className=" auth-msg auth-msg__welcome">
+                  Welcome to Olipie
+                </h2>
+                <h2 className="auth-msg auth-msg__signin">
+                  Please sign in with your google credentials
+                </h2>
                 <div 
                     id="g-signin2"
-                    style={{marginLeft: '46%'}}
+                    style={{marginLeft: '45%', marginTop: '1.5em'}}
                     data-onsuccess={this.onSignIn}
                 />
             </div>

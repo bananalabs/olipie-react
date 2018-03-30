@@ -11,7 +11,7 @@ module.exports = {
         if (!userId) {
           return context;
         }
-        context.app.service('uservideo').find({
+        return context.app.service('uservideo').find({
           query: {
             userId: userId
           }
@@ -47,7 +47,7 @@ module.exports = {
         // Add userId+videoId to uservideo
         const userId = context.data.userId;
         const videoId = context.result.id;
-        context.app.service('uservideo').create({
+        return context.app.service('uservideo').create({
             userId: userId,
             videoId: videoId
         }).

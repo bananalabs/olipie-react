@@ -2,10 +2,9 @@ import * as React from 'react';
 import AppBar from 'material-ui/AppBar';
 import Nav from '../Nav';
 import { User, selectUsers } from '../User/model';
-import { Mode } from '../App/constants';
 import Avatar from '../Avatar';
 import Search from '../Search';
-import { AppState, selectMode, selectCurrentUser } from '../App/model';
+import { AppState, selectCurrentUser } from '../App/model';
 import { logout } from '../Auth/actions';
 import { connect } from 'react-redux';
 import { createStructuredSelector }  from 'reselect';
@@ -16,7 +15,6 @@ import { Link } from 'react-router-dom';
 import { setCurrentUser } from '../App/actions';
 
 export interface Props {
-  mode: Mode;
   user: User;
   users: User[];
   dispatch: (action: any) => void;
@@ -65,33 +63,7 @@ export class Header extends React.Component<Props, State> {
   }
 
   render() {
-    switch (this.props.mode) {
-      case Mode.Child:
-        // search bar & profile icon
-        return (
-          <AppBar
-            title={<Link to={`/`} className="header-title" onClick={this._onTitleClick}>Olipie</Link>}
-            showMenuIconButton={false}
-            iconElementRight={
-              <Avatar
-                user={this.props.user}
-                small={true}
-                showName={false}
-                onClick={this._onAvatarClick}
-              />
-            }
-          >
-            {this.props.user && 
-              <Search
-               style={styles.search}
-               search={this._onSearch}
-              />
-            }
-          </AppBar>
-        );
-      case Mode.Adult:
-        // search bar, monitor, settings, profile
-        return(
+    return(
           <AppBar
             title={<Link to={`/`} className="header-title" onClick={this._onTitleClick}>Olipie</Link>}
             showMenuIconButton={false}
@@ -121,20 +93,10 @@ export class Header extends React.Component<Props, State> {
             }
           </AppBar>
         );
-      default:
-        // just logo
-        return (
-          <AppBar
-            title={<Link to={`/`} className="header-title" onClick={this._onTitleClick}>Olipie</Link>}
-            showMenuIconButton={false}
-          />
-        );
-    }
   }
 }
 
 const mapStateToProps = (state: AppState): Props => createStructuredSelector({
-  mode: selectMode(),
   users: selectUsers(),
   user: selectCurrentUser()
 }) as any;

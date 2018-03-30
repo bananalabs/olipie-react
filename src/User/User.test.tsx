@@ -22,7 +22,7 @@ import {
 import * as fetch from '../utils/fetch';
 import { put, call } from 'redux-saga/effects';
 
-const url: string = 'http://localhost:3030/user';
+const url: string = 'https://ifyuionwk9.execute-api.us-west-1.amazonaws.com/dev/user';
 
 test('Action GET_USERS should return the correct type', () => {
     const expectedResult = {

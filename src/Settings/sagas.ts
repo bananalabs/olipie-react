@@ -4,6 +4,7 @@ import { setFilterSuccess } from './actions';
 import * as fetch from '../utils/fetch';
 import { logout } from '../Auth/actions';
 
+// const url: string = 'https://ifyuionwk9.execute-api.us-west-1.amazonaws.com/dev/filter';
 const url: string = 'http://localhost:3030/filter';
 
 function* getFilter(action: {type: string, payload: {accountId: string}}) {

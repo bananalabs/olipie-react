@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import configureStore from './store';
 import 'raf/polyfill';
+import './index.css';
 
 const injectTapEventPlugin = require('react-tap-event-plugin');
 injectTapEventPlugin();
