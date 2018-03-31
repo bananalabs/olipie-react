@@ -36,7 +36,10 @@ class Videos extends React.Component<Props, any> {
       let hover = video.flagged ? 'rgb(0, 188, 212)' : 'red';
       let buttonColor = video.flagged ? 'red' : 'rgb(0, 188, 212)';
       return (
-          <div key={video.id}>
+          <div 
+            key={video.id} 
+            className={this.props.onFlag ? 'video-monitor' : ''}
+          >
             <YouTube
                 videoId={video.id}
                 opts={opts}

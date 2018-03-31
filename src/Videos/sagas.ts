@@ -8,7 +8,8 @@ import { logout } from '../Auth/actions';
 
 // const url: string = 'https://ifyuionwk9.execute-api.us-west-1.amazonaws.com/dev/video';
 const url: string = 'http://localhost:3030/video';
-const relatedVideosUrl: string = 'https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyAuaxL8IrHIvVIdqpiLRaHCFBCIS8zWP8A';
+const relatedVideosUrl: string = 
+  'https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyAuaxL8IrHIvVIdqpiLRaHCFBCIS8zWP8A';
 
 export function* addVideo(action: {type: string, payload: {user: User, video: Video}}) {
   try {
@@ -37,9 +38,9 @@ export function* getVideos(action: {type: string,
 export function* getRelatedVideos(action: {type: string,
     payload: {videoId: string}}) {
     try {
-      const url = 
+      const getUrl = 
         `${relatedVideosUrl}&relatedToVideoId=${action.payload.videoId}&type=video&maxResults=25`;
-      const videos = yield call(fetch.get, url);
+      const videos = yield call(fetch.get, getUrl);
       yield put(setRelatedVideos({videos: videos}));
     } catch (err) {
       console.log(err);

@@ -28,7 +28,7 @@ const styles = {
   search: {
     position: 'absolute',
     marginLeft: '40%',
-    marginTop: '8px'
+    marginTop: '12px'
   }
 };
 
@@ -68,11 +68,13 @@ export class Header extends React.Component<Props, State> {
               <div style={{display: 'inline-block'}}>
                 <span style={{float: 'left', marginRight: '10px'}}>
                   {this.props.user ?
-                    <Avatar
-                      user={this.props.user}
-                      small={true}
-                      showName={false}
-                    /> :
+                    <Link to={`/watch`} style={{textDecoration: 'none'}}>
+                      <Avatar
+                        user={this.props.user}
+                        small={true}
+                        showName={false}
+                      />
+                    </Link> :
                     <Nav 
                       users={this.props.users}
                       onSignOut={this._onSignOut}
