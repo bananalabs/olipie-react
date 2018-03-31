@@ -9,7 +9,7 @@ import { GET_VIDEOS,
        } from './constants';
 import { getVideos, setVideos, addVideoToHistory, updateVideo } from './actions';
 import { addVideo, getVideos as getVideosSaga } from './sagas';
-import reducer from './reducer';
+import {videosReducer as reducer} from './reducer';
 import { Props } from '.';
 import YouTube from 'react-youtube';
 import FlatButton from 'material-ui/FlatButton';

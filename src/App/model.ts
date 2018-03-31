@@ -7,6 +7,7 @@ export type AppState = {
   account: string,
   users: User[],
   videos: Video[],
+  relatedVideos: Video[],
   currentUser: User,
   showSearchBar: boolean,
   settings: Settings

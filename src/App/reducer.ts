@@ -2,13 +2,14 @@ import { AppState } from './model';
 import { SET_CURRENT_ACCOUNT, SET_CURRENT_USER, SHOW_SEARCH_BAR } from './constants';
 import userReducer from '../User/reducer';
 import settingsReducer from '../Settings/reducer';
-import videosReducer from '../Videos/reducer';
+import { videosReducer, relatedVideosReducer } from '../Videos/reducer';
 import { User } from '../User/model';
 
 export const initialState: AppState = {
     account: '',
     users: [],
     videos: [],
+    relatedVideos: [],
     currentUser: null as User,
     showSearchBar: false,
     settings: { filter: '' }
@@ -46,6 +47,7 @@ export default function appReducer(state: AppState = initialState, action: any):
         account: account(state.account, action),
         users: userReducer(state.users, action),
         videos: videosReducer(state.videos, action),
+        relatedVideos: relatedVideosReducer(state.relatedVideos, action),
         currentUser: currentUser(state.currentUser, action),
         showSearchBar: searchBar(state.showSearchBar, action),
         settings: settingsReducer(state.settings, action)

@@ -15,6 +15,7 @@ import { getUsers } from '../User/actions';
 import Settings from '../Settings/EditSettings';
 import Setup from '../Setup';
 import Watch from '../Watch';
+import Play from '../Videos/Play';
 import Monitor from '../Monitor/index';
 import Auth from '../Auth';
 import Home from '../Home';
@@ -69,6 +70,7 @@ export class App extends React.Component<Props, {}> {
         <Route path="/home" component={Home} />
         <Route path="/profiles" component={Profiles} />
         <Route path="/watch" component={Watch} />
+        <Route path="/play/:id" component={Play} />
         <Route path="/monitor" component={Monitor} />
         <Route path="/settings" component={Settings} />
         <Route path="/user/:username" component={EditProfile} />

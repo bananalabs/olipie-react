@@ -18,3 +18,24 @@
     font-family: sans-serif;
     color: #808080;
 }
+
+.play-video {
+    margin-top: 1%;
+    width: 100%;
+    height: 60%;
+    text-align: center;
+}
+
+.play-recommended {
+    margin-top: 5%;
+    width: 100%;
+    height: 25%;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.play-recommended__video {
+    flex: 0 0 auto;
+    margin-right: 3px;
+}

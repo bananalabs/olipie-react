@@ -14,3 +14,10 @@ export const selectVideos = () => createSelector(
     return app.videos;
   }
 );
+
+export const selectRelatedVideos = () => createSelector(
+  selectApp(),
+  function(app: AppState) {
+    return app.relatedVideos;
+  }
+);

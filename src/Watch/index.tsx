@@ -12,6 +12,7 @@ export interface Props {
     videos: Video[];
     user: User;
     dispatch: (action: any) => void;
+    history: any;
 }
 
 export class Watch extends React.Component<Props, {}> {
@@ -24,6 +25,7 @@ export class Watch extends React.Component<Props, {}> {
 
   _onPlay(video: Video) {
       this.props.dispatch(addVideoToHistory({user: this.props.user, video: video}));
+      this.props.history.push('/play/' + video.id);
   }
 
   render() {

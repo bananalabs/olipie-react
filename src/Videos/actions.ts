@@ -1,6 +1,8 @@
 import {
     GET_VIDEOS,
+    GET_RELATED_VIDEOS,
     SET_VIDEOS,
+    SET_RELATED_VIDEOS,
     ADD_VIDEO_TO_HISTORY,
     UPDATE_VIDEO
 } from './constants';
@@ -8,7 +10,7 @@ import { Video } from './model';
 import { User } from '../User/model';
 
 /**
- * Get video's for specified user
+ * Get videos for specified user
  *
  * @return {object}    An action object with a type of GET_VIDEOS
  */
@@ -29,6 +31,32 @@ export function setVideos(payload: {videos: Video[]}):
           {type: string, payload: {videos: Video[]}} {
     return {
       type: SET_VIDEOS,
+      payload
+    };
+}
+
+/**
+ * Get videos related to selected video
+ *
+ * @return {object}    An action object with a type of GET_RELATED_VIDEOS
+ */
+export function getRelatedVideos(payload: {videoId: string}): 
+          {type: string, payload: {videoId: string}} {
+    return {
+      type: GET_RELATED_VIDEOS,
+      payload
+    };
+}
+  
+/**
+ * Set related videos for selected video
+ * 
+ * @return {object}    An action object with a type of SET_RELATED_VIDEOS
+ */
+export function setRelatedVideos(payload: {videos: any[]}): 
+          {type: string, payload: {videos: any[]}} {
+    return {
+      type: SET_RELATED_VIDEOS,
       payload
     };
 }

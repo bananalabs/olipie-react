@@ -1,5 +1,5 @@
 import { Video } from './model';
-import { SET_VIDEOS, UPDATE_VIDEO } from './constants';
+import { SET_VIDEOS, SET_RELATED_VIDEOS, UPDATE_VIDEO } from './constants';
 
 export interface Action { 
     type: string;
@@ -24,4 +24,11 @@ export function videosReducer(state: Video[], action: Action): Video[] {
     }
 }
 
-export default videosReducer;
+export function relatedVideosReducer(state: any[], action: Action): Video[] {
+    switch (action.type) {
+        case SET_RELATED_VIDEOS:
+            return [...action.payload.videos] as any[];
+        default:
+            return state;
+    }
+}
