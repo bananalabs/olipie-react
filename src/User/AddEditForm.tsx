@@ -32,10 +32,10 @@ export class AddEditForm extends React.Component<Props, State> {
             kid: (this.props.user && this.props.user.kid) || true,
             error: ''
         };
-        this._onDone = this._onDone.bind(this);
         this._onNameChange = this._onNameChange.bind(this);
         this._onProfileColorChange = this._onProfileColorChange.bind(this);
         this._onKidChange = this._onKidChange.bind(this);
+        this._onDone = this._onDone.bind(this);
     }
 
     componentWillReceiveProps(newProps: Props) {
@@ -78,6 +78,7 @@ export class AddEditForm extends React.Component<Props, State> {
                     value={this.state.name}
                     onChange={this._onNameChange}
                     hintText="Name"
+                    name="name"
                     errorText={this.state.error}
                 />
                 <br/>
@@ -85,6 +86,7 @@ export class AddEditForm extends React.Component<Props, State> {
                     style={{textAlign: 'left'}}
                     floatingLabelText="Profile Color"
                     onChange={this._onProfileColorChange}
+                    name="profileColor"
                     value={this.state.profileColor}
                 >
                     <MenuItem value={'red'} primaryText={'red'}/>
@@ -102,6 +104,7 @@ export class AddEditForm extends React.Component<Props, State> {
                     label="Kid?"
                     className="user-check"
                     checked={this.state.kid}
+                    name="kid"
                     onCheck={this._onKidChange}
                 />
                 <br/>

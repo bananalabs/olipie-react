@@ -26,6 +26,7 @@ export class Nav extends React.Component<Props, State> {
   constructor(props: Props) {
       super(props);
       this._onMenuSelect = this._onMenuSelect.bind(this);
+      this._onSignout = this._onSignout.bind(this);
       this.state = {
           open: false
       };
@@ -35,8 +36,9 @@ export class Nav extends React.Component<Props, State> {
       this.setState({open: open});
   }
 
-  _onItemClick(event: object) {
-      this.setState({open: false});
+  _onSignout(event: object) {
+    this.setState({open: false});
+    this.props.onSignOut();
   }
 
   render() {
@@ -47,6 +49,7 @@ export class Nav extends React.Component<Props, State> {
                 key={user.name}
                 primaryText={user.name}
                 leftIcon={<EditIcon/>}
+                onClick={() => this.setState({open: false})}
             />
           </Link>
         );
@@ -66,7 +69,11 @@ export class Nav extends React.Component<Props, State> {
                 onRequestChange={this._onMenuSelect}
             >
               <Link to={`/settings`} style={{textDecoration: 'none'}}>
-                <MenuItem value="General" primaryText="General Settings"/>
+                <MenuItem
+                  value="General"
+                  primaryText="General Settings"
+                  onClick={() => this.setState({open: false})}
+                />
               </Link>
               <Divider/>
               <MenuItem
@@ -74,7 +81,7 @@ export class Nav extends React.Component<Props, State> {
                 rightIcon={<ArrowDropRight />}
                 menuItems={profiles}
               />
-              <Link to={`/`} onClick={this.props.onSignOut} style={{textDecoration: 'none'}}>
+              <Link to={`/login`} onClick={this._onSignout} style={{textDecoration: 'none'}}>
                 <MenuItem value="Sign Out" primaryText="Sign Out"/>
               </Link>
             </IconMenu>
