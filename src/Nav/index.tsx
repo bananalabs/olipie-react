@@ -17,18 +17,26 @@ export interface Props {
     onSignOut: () => void;
 }
 
-export class Nav extends React.Component<Props, {}> {
+export interface State {
+    open: boolean;
+}
+
+export class Nav extends React.Component<Props, State> {
 
   constructor(props: Props) {
       super(props);
       this._onMenuSelect = this._onMenuSelect.bind(this);
+      this.state = {
+          open: false
+      };
   }
 
-  _onMenuSelect(event: any, value: string) {
-      switch (value) {
-        default:
-            return;          
-      }
+  _onMenuSelect(open: boolean) {
+      this.setState({open: open});
+  }
+
+  _onItemClick(event: object) {
+      this.setState({open: false});
   }
 
   render() {
@@ -46,6 +54,7 @@ export class Nav extends React.Component<Props, {}> {
     return (
         <div>
             <IconMenu
+                open={this.state.open}
                 autoWidth={true}
                 iconButtonElement={
                     <IconButton tooltip="My Account">
@@ -54,7 +63,7 @@ export class Nav extends React.Component<Props, {}> {
                 }
                 anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                 targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                onChange={this._onMenuSelect}
+                onRequestChange={this._onMenuSelect}
             >
               <Link to={`/settings`} style={{textDecoration: 'none'}}>
                 <MenuItem value="General" primaryText="General Settings"/>

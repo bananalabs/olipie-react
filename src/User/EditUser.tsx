@@ -5,6 +5,7 @@ import { User, selectUsers, findUser } from '../User/model';
 import AddEditForm from './AddEditForm';
 import { connect } from 'react-redux';
 import { createStructuredSelector }  from 'reselect';
+import Paper from 'material-ui/Paper';
 
 export interface Props {
   accountId: string;
@@ -29,7 +30,13 @@ export class EditUser extends React.Component<Props, {}> {
     const userName: string = this.props.match.params.username;
     const user: User = findUser(this.props.users, userName);
     return (
-        <AddEditForm title="Edit User" onDone={this._editUser} user={user} doneLink="/"/>
+      <div className="user-edit">
+        <Paper className="user-paper" zDepth={2}>
+          <h2 className="user-title">Edit User</h2>
+          <AddEditForm title="Edit User" onDone={this._editUser} user={user} doneLink="/"/>
+        </Paper>
+      </div>
+          
     );
   }
 }

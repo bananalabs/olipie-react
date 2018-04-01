@@ -5,8 +5,10 @@ import {
   StepLabel,
 } from 'material-ui';
 import './Setup.css';
+import '../User/User.css';
 import AddUser from '../User/AddUser';
 import AddSettings from '../Settings/AddSettings';
+import Paper from 'material-ui/Paper';
 
 export interface Props {
 }
@@ -41,7 +43,14 @@ export class Setup extends React.Component<Props, State> {
   getStepContent(stepIndex: number) {
     switch (stepIndex) {
       case 0:
-        return <AddUser done={this.handleNext}/>;
+        return (
+          <div className="user-edit">
+            <Paper className="user-paper" zDepth={2}>
+              <h2 className="user-title">Add User</h2>
+              <AddUser done={this.handleNext}/>
+            </Paper>
+          </div>
+        );
       case 1:
         return <AddSettings done={this.handleNext}/>;
       default:

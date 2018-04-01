@@ -74,9 +74,9 @@ export class Avatar extends React.Component<Props, State> {
                     modal={false}
                     open={this.state.showDialog}
                     onRequestClose={this._closeDialog}
-                    style={{width: '30%', textAlign: 'center', marginLeft: '35%'}}
+                    style={{width: '50%', textAlign: 'center', marginLeft: '25%'}}
                 >
-                    <AddUser/>
+                    <AddUser done={this._closeDialog}/>
                 </Dialog>
             </div>
         );
