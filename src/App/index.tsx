@@ -6,6 +6,7 @@ import * as React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from '../Header';
 import { setCurrentAccount } from './actions';
+import { AppState, selectAccount } from './model';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import Content from '../Content';
@@ -19,8 +20,10 @@ import Play from '../Videos/Play';
 import Monitor from '../Monitor/index';
 import Auth from '../Auth';
 import Home from '../Home';
+import { createStructuredSelector }  from 'reselect';
 
 export interface Props {
+  currentAccount: string;
   dispatch: (action: any) => void;
   history: any;
 }
@@ -57,6 +60,12 @@ export class App extends React.Component<Props, {}> {
     });
   }
 
+  componentWillReceiveProps(nextProps: Props) {
+    if (this.props.currentAccount && !nextProps.currentAccount) {
+      this.checkAccount();
+    }
+  }
+
   render(): JSX.Element {
     const routes = (
       <Switch>
@@ -87,4 +96,8 @@ export class App extends React.Component<Props, {}> {
   }
 }
 
-export default withRouter(connect()(App));
+const mapStateToProps = (state: AppState): Props => createStructuredSelector({
+  currentAccount: selectAccount()
+}) as any;
+
+export default withRouter(connect(mapStateToProps)(App));

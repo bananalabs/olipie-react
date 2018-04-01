@@ -8,7 +8,7 @@ import appReducer, { initialState } from './reducer';
 
 test('<App />', () => {
     it('should render a Header', () => {
-      const props = {dispatch: () => {}, history: {}};
+      const props = {dispatch: () => {}, history: {}, currentAccount: ''};
       const wrapper = shallow(<App {...props} />);
       expect(wrapper.find(Header)).toHaveLength(1);
     });

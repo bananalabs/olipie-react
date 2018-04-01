@@ -81,7 +81,7 @@ export class Nav extends React.Component<Props, State> {
                 rightIcon={<ArrowDropRight />}
                 menuItems={profiles}
               />
-              <Link to={`/login`} onClick={this._onSignout} style={{textDecoration: 'none'}}>
+              <Link to={`/`} onClick={this._onSignout} style={{textDecoration: 'none'}}>
                 <MenuItem value="Sign Out" primaryText="Sign Out"/>
               </Link>
             </IconMenu>

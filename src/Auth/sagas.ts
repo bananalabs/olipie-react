@@ -51,6 +51,7 @@ export function* logout(action: {type: string}): any {
   localStorage.setItem('olipie-token', null);
   const auth2 = gapi.auth2.getAuthInstance();
   yield auth2.disconnect();
+  yield put(setCurrentAccount({accountId: null}));
 }
 
 // watcher Saga: spawn a new addAccount task on each ADD_ACCOUNT

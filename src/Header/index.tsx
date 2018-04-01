@@ -19,6 +19,7 @@ export interface Props {
   users: User[];
   showSearchBar: boolean;
   dispatch: (action: any) => void;
+  history: any;
 }
 
 export interface State {
