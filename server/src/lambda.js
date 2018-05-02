@@ -61,6 +61,7 @@ function sendReq(reqOpts, context) {
 };
 
 exports.handler = function _f(event, context) {
+  console.log(event);
   const reqopts = {
     method: event.method,
     uri: 'http://127.0.0.1:3000' + event.resource,
@@ -68,16 +69,22 @@ exports.handler = function _f(event, context) {
       'x-auth': event.headers['x-auth']
     },
     body: event.body,
+    qs: event.queryString || null,
     json: true
   };
   reqopts.uri = reqopts.uri.replace('{id}', event.id);
-  console.log(event);
   console.log(reqopts);
   console.log('serverReady = ' + serverReady);
   if (!serverReady) {
     try {
       init();
-      app.get('sequelizeClient').sync({force: true})
+      const models = app.get('sequelizeClient').models;
+      Object.keys(models).forEach(name => {
+        if ('associate' in models[name]) {
+          models[name].associate(models);
+        }
+      });
+      app.get('sequelizeClient').sync()
       .then(function _then() {
         app.listen(3000, function() {
           console.log(`Feathers server listening on port 3000`);
@@ -87,8 +94,12 @@ exports.handler = function _f(event, context) {
           }
         });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log('sync failed');
+        console.log(err);
+      });
     } catch (err) {
+      console.log('init failed');
       console.log(err);
     }
   } else {

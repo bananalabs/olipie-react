@@ -5,12 +5,14 @@ import { setVideos } from '../Videos/actions';
 import * as fetch from '../utils/fetch';
 import { selectCurrentUser } from '../App/model';
 import { selectFilter } from '../Settings/model';
+import { setIsSearching } from '../App/actions';
 
 const url: string = 'https://www.googleapis.com/youtube/v3/search?';
 const videosUrl: string = 'https://ifyuionwk9.execute-api.us-west-1.amazonaws.com/dev/video';
 const params: string = 'maxResults=30&part=snippet&key=AIzaSyAuaxL8IrHIvVIdqpiLRaHCFBCIS8zWP8A';
 
-export function* getVideos(action: {type: string, keywords: string}) {
+export function* getVideos(action: {type: string, payload: {
+    keywords: string, url?: string, history?: any }}) {
   try {
     const currentUser = yield select(selectCurrentUser());
     const filter = yield select(selectFilter());
@@ -22,9 +24,9 @@ export function* getVideos(action: {type: string, keywords: string}) {
     const newParams = currentUser.kid ?
                       `${params}&safeSearch=strict` :
                       params;
-    console.log(`${url}q=${action.keywords}${exclude}&${newParams}`);
-    console.log(encodeURIComponent(`${url}q=${action.keywords}${exclude}&${newParams}`));
-    const results = yield call(fetch.get, `${url}q=${action.keywords}${exclude}&${newParams}`);
+    console.log(`${url}q=${action.payload.keywords}${exclude}&${newParams}`);
+    console.log(encodeURIComponent(`${url}q=${action.payload.keywords}${exclude}&${newParams}`));
+    const results = yield call(fetch.get, `${url}q=${action.payload.keywords}${exclude}&${newParams}`);
     const videos = results.map(
         (video: any) => { return {
             id: video.id.videoId,
@@ -38,6 +40,8 @@ export function* getVideos(action: {type: string, keywords: string}) {
         return videoInHistory ? videoInHistory.flagged == false : true;
     });
     yield put(setVideos({videos: filteredVideos}));
+    yield put(setIsSearching({searching: false}));
+    action.payload.history.push(action.payload.url);
   } catch (err) {
     console.log(err);
   }

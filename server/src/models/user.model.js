@@ -5,6 +5,8 @@ const DataTypes = Sequelize.DataTypes;
 
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
+  console.log('sequelizeClient');
+  console.log(sequelizeClient);
   const model = sequelizeClient.define('user', {
     id: {
       primaryKey: true,

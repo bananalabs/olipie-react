@@ -10,7 +10,18 @@ export interface Props {
     history: any;
 }
 
-export class Auth extends React.Component<Props, {}> {
+export interface State {
+    signedIn: boolean;
+}
+
+export class Auth extends React.Component<Props, State> {
+
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            signedIn: false
+        };
+    }
 
     componentDidMount() {
         gapi.signin2.render('g-signin2', {
@@ -22,6 +33,7 @@ export class Auth extends React.Component<Props, {}> {
     onSignIn = (googleUser: any) => {
         const profile = googleUser.getBasicProfile();
         const id_token = googleUser.getAuthResponse().id_token;
+        this.setState({signedIn: true});
         localStorage.setItem('olipie-token', id_token);
         // Get/Create account
         this.props.dispatch(addAccount({
@@ -45,6 +57,11 @@ export class Auth extends React.Component<Props, {}> {
                     style={{marginLeft: '45%', marginTop: '1.5em'}}
                     data-onsuccess={this.onSignIn}
                 />
+                {this.state.signedIn &&
+                 <h2 className="auth-msg auth-msg__signin">
+                   We'll get you started in just a moment....
+                 </h2>
+                }
             </div>
         );
     }

@@ -6,8 +6,8 @@ import { setCurrentAccount } from '../App/actions';
 import { getUsers, addUser } from '../User/actions';
 import * as fetch from '../utils/fetch';
 
-// const url: string = 'https://ifyuionwk9.execute-api.us-west-1.amazonaws.com/dev/account';
-const url: string = 'http://localhost:3030/account';
+const url: string = 'https://ifyuionwk9.execute-api.us-west-1.amazonaws.com/dev/account';
+// const url: string = 'http://localhost:3030/account';
 
 export function* addAccount(action: {type: string, 
   payload: {name: string, email: string, history: any}}) {

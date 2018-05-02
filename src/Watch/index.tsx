@@ -7,12 +7,14 @@ import { selectVideos, Video } from '../Videos/model';
 import { selectCurrentUser } from '../App/model';
 import { addVideoToHistory, getVideos } from '../Videos/actions';
 import { User } from '../User/model';
+import * as queryString from 'query-string';
 
 export interface Props {
     videos: Video[];
     user: User;
     dispatch: (action: any) => void;
     history: any;
+    location: any;
 }
 
 export class Watch extends React.Component<Props, {}> {
@@ -20,7 +22,10 @@ export class Watch extends React.Component<Props, {}> {
   constructor(props: Props) {
     super(props);
     this._onPlay = this._onPlay.bind(this);
-    this.props.dispatch(getVideos({user: this.props.user, flagged: false}));
+    // Load user's video history if this page is not triggered by search
+    if (queryString.parse(this.props.location.search).history === 'true') {
+        this.props.dispatch(getVideos({user: this.props.user, flagged: false}));
+    }
   }
 
   _onPlay(video: Video) {

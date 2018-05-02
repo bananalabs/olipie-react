@@ -39,6 +39,16 @@ app.configure(rest());
 app.configure(sequelize);
 // Set up our services (see `services/index.js`)
 app.configure(services);
+
+const models = app.get('sequelizeClient').models;
+  Object.keys(models).forEach(name => {
+    if ('associate' in models[name]) {
+      models[name].associate(models);
+    }
+  });
+
+  app.get('sequelizeClient').sync();
+
 // Configure a middleware for 404s and the error handler
 app.use(notFound());
 app.use(handler());

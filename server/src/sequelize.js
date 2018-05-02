@@ -8,12 +8,19 @@ const config = require('config');
 // hack around this to suit your specific need.                            //
 // ----------------------------------------------------------------------- //
 function getSequelize(app) {
-  const activeDb = ['sqlite', 'mysql'].reduce((_, db) => {
+  /* const activeDb = ['sqlite', 'mysql'].reduce((_, db) => {
+    console.log(db);
+    console.log(app.get(db));
     return _ || (app.get(db) ? db : null);
   }, (app.get('active-db') || null));
+  console.log('activeDb');
+  console.log(activeDb); */
+  const activeDb = 'mysql';
   switch (activeDb) {
     case 'mysql':
       {
+        console.log('case mysql');
+        console.log(config);
         return new Sequelize(
           config.dbname,
           config.username,
@@ -31,6 +38,7 @@ function getSequelize(app) {
       }
     case 'sqlite':
       {
+        console.log('case sqlite');
         const connectionString = app.get('sqlite');
         return new Sequelize(
           connectionString, {
@@ -53,11 +61,16 @@ function getSequelize(app) {
 
 module.exports = function (app) {
   const sequelize = getSequelize(app);
-  const oldSetup = app.setup;
+  // const oldSetup = app.setup;
+
+  console.log('in sequelize');
 
   app.set('sequelizeClient', sequelize);
+  
+}
 
-  app.setup = function (...args) {
+  /* app.setup = function (...args) {
+    console.log('in app.setup');
     const result = oldSetup.apply(this, args);
 
     // Set up data relationships
@@ -69,8 +82,8 @@ module.exports = function (app) {
     });
 
     // Sync to the database
-    sequelize.sync();
+    // sequelize.sync();
 
     return result;
-  };
-};
+  }; */
+// };

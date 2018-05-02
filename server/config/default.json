@@ -1,13 +1,14 @@
 {
   "dbname": "olipie_db",
   "username": "root",
-  "host": "localhost",
-  "port": 3030,
+  "host": "aws-rds-mysql.cfwki3wo32yj.us-west-1.rds.amazonaws.com",
+  "port": 3306,
   "dialect":"mysql",
   "paginate": {
     "default": 10,
     "max": 50
   },
-  "active-db": "sqlite",
-  "sqlite": "sqlite://olipie.sqlite"
+  "active-db": "mysql",
+  "sqlite": "sqlite://olipie.sqlite",
+  "mysql": "aws-rds-mysql.cfwki3wo32yj.us-west-1.rds.amazonaws.com"
 }

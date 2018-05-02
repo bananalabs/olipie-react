@@ -5,10 +5,10 @@ import { GET_VIDEOS } from './constants';
  *
  * @return {object}    An action object with a type of SEARCH_VIDEOS
  */
-export function getVideos(keywords: string): 
-          {type: string, keywords: string} {
+export function getVideos(payload: {keywords: string, url?: string, history?: any}): 
+          {type: string, payload: {keywords: string, url?: string, history?: any}} {
     return {
       type: GET_VIDEOS,
-      keywords
+      payload
     };
 }

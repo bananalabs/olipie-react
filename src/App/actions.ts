@@ -1,6 +1,7 @@
 import { SET_CURRENT_ACCOUNT,
          SET_CURRENT_USER,
-         SHOW_SEARCH_BAR
+         SHOW_SEARCH_BAR,
+         SET_IS_SEARCHING
        } from './constants';
 import { User } from '../User/model';
 
@@ -38,6 +39,19 @@ export function showSearchBar(payload: {show: boolean}):
                {type: string, payload: {show: boolean}} {
   return {
     type: SHOW_SEARCH_BAR,
+    payload
+  };
+}
+
+/*
+ * Toggle isSearching
+ *
+ * @return {object}    An action object with a type of SET_IS_SEARCHING
+ */
+export function setIsSearching(payload: {searching: boolean}): 
+               {type: string, payload: {searching: boolean}} {
+  return {
+    type: SET_IS_SEARCHING,
     payload
   };
 }

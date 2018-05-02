@@ -10,6 +10,7 @@ export type AppState = {
   relatedVideos: Video[],
   currentUser: User,
   showSearchBar: boolean,
+  isSearching: boolean,
   settings: Settings
 };
 
@@ -28,4 +29,9 @@ export const selectCurrentUser = () => createSelector(
 export const selectShowSearch = () => createSelector(
   selectApp(),
   (app) => app.showSearchBar
+);
+
+export const selectIsSearching = () => createSelector(
+  selectApp(),
+  (app) => app.isSearching
 );

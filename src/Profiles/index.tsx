@@ -34,7 +34,7 @@ export class Profiles extends React.Component<Props, {}> {
   _watch(user: User) {
     this.props.dispatch(setCurrentUser({user: user}));
     this.props.dispatch(showSearchBar({show: true}));
-    this.props.history.push('/watch');
+    this.props.history.push('/watch?history=true');
   }
 
   _monitor(user: User) {

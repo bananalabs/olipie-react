@@ -6,8 +6,8 @@ import { User } from '../User/model';
 import { Video } from './model';
 import { logout } from '../Auth/actions';
 
-// const url: string = 'https://ifyuionwk9.execute-api.us-west-1.amazonaws.com/dev/video';
-const url: string = 'http://localhost:3030/video';
+const url: string = 'https://ifyuionwk9.execute-api.us-west-1.amazonaws.com/dev/video';
+// const url: string = 'http://localhost:3030/video';
 const relatedVideosUrl: string = 
   'https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyAuaxL8IrHIvVIdqpiLRaHCFBCIS8zWP8A';
 

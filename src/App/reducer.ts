@@ -1,5 +1,5 @@
 import { AppState } from './model';
-import { SET_CURRENT_ACCOUNT, SET_CURRENT_USER, SHOW_SEARCH_BAR } from './constants';
+import { SET_CURRENT_ACCOUNT, SET_CURRENT_USER, SHOW_SEARCH_BAR, SET_IS_SEARCHING } from './constants';
 import userReducer from '../User/reducer';
 import settingsReducer from '../Settings/reducer';
 import { videosReducer, relatedVideosReducer } from '../Videos/reducer';
@@ -12,6 +12,7 @@ export const initialState: AppState = {
     relatedVideos: [],
     currentUser: null as User,
     showSearchBar: false,
+    isSearching: false,
     settings: { filter: '' }
 };
 
@@ -42,6 +43,15 @@ function searchBar(state: boolean, action: any): boolean {
     }
 }
 
+function isSearching(state: boolean, action: any): boolean {
+    switch (action.type) {
+      case SET_IS_SEARCHING:
+        return action.payload.searching;
+      default:
+        return state;
+    }
+}
+
 export default function appReducer(state: AppState = initialState, action: any): AppState {
     const appState = {
         account: account(state.account, action),
@@ -50,6 +60,7 @@ export default function appReducer(state: AppState = initialState, action: any):
         relatedVideos: relatedVideosReducer(state.relatedVideos, action),
         currentUser: currentUser(state.currentUser, action),
         showSearchBar: searchBar(state.showSearchBar, action),
+        isSearching: isSearching(state.isSearching, action),
         settings: settingsReducer(state.settings, action)
     };
     return appState;

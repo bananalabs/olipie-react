@@ -1,5 +1,6 @@
 import * as React from 'react';
 import SearchBar from 'material-ui-search-bar';
+import LinearProgress from 'material-ui/LinearProgress';
 
 export interface State {
     searchText: string;
@@ -7,6 +8,7 @@ export interface State {
   
 export interface Props {
     search: (val: string) => void;
+    isSearching: boolean;
     style: {};
 }
 
@@ -31,11 +33,13 @@ export class Search extends React.Component<Props, State> {
 
     render() {
         return (
-            <SearchBar
-                style={this.props.style}
-                onChange={this.onSearchChange}
-                onRequestSearch={this.onRequestSearch}
-            />
+            <div style={this.props.style}>
+                <SearchBar
+                    onChange={this.onSearchChange}
+                    onRequestSearch={this.onRequestSearch}
+                />
+                {this.props.isSearching && <LinearProgress color="red"/>}
+            </div>
         );
     }
 }

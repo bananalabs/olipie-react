@@ -88,7 +88,7 @@ export class App extends React.Component<Props, {}> {
     return(
       <MuiThemeProvider>
         <div>
-          <Header/>
+          <Header history={this.props.history}/>
           <Content children={routes}/>
         </div>
       </MuiThemeProvider>
